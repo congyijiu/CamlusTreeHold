@@ -6,6 +6,19 @@ import { DynamicCard } from '../components/DynamicCard'
 struct Index {
   @State message: string = 'Hello World'
 
+  @State DynamicCardData: Array<{ imageId: string, titleId: string }> = [
+    { imageId: 'imageId1', titleId: 'titleId1' },
+    { imageId: 'imageId2', titleId: 'titleId2' },
+    { imageId: 'imageId3', titleId: 'titleId3' },
+    { imageId: 'imageId4', titleId: 'titleId4' },
+    { imageId: 'imageId5', titleId: 'titleId5' },
+    { imageId: 'imageId6', titleId: 'titleId6' },
+    { imageId: 'imageId7', titleId: 'titleId7' },
+    { imageId: 'imageId8', titleId: 'titleId8' },
+    { imageId: 'imageId9', titleId: 'titleId9' },
+    { imageId: 'imageId10', titleId: 'titleId10'}
+  ]
+
   build() {
     Column() {
       Blank()
@@ -15,111 +28,23 @@ struct Index {
       Flex({ justifyContent: FlexAlign.SpaceAround }) {
 
         WaterFlow(){
-          FlowItem(){
-            DynamicCard({ imageId: 'imageId1', titleId: '1' })
-              .onClick(() => {
-                // 点击小图时路由跳转至下一页面
-                router.pushUrl(
-                  {
-                    url: 'pages/testPage',
-                    params: {
-                      titleId: '1',
-                      imageId: 'imageId1'
+          ForEach(this.DynamicCardData, (item, index) => {
+            FlowItem() {
+              DynamicCard({ imageId: item.imageId, titleId: item.titleId })
+                .onClick(() => {
+                  // 点击小图时路由跳转至下一页面
+                  router.pushUrl(
+                    {
+                      url: 'pages/testPage',
+                      params: {
+                        titleId: item.titleId,
+                        imageId: item.imageId
+                      }
                     }
-                  }
-                );
-              })
-          }
-          FlowItem(){
-            DynamicCard({ imageId: 'imageId2', titleId: '2' })
-              .onClick(() => {
-                // 点击小图时路由跳转至下一页面
-                router.pushUrl(
-                  {
-                    url: 'pages/testPage',
-                    params: {
-                      titleId: '2',
-                      imageId: 'imageId2'
-                    }
-                  }
-                );
-              })
-          }
-          FlowItem(){
-            DynamicCard({ imageId: 'imageId3', titleId: '3' })
-              .onClick(() => {
-                // 点击小图时路由跳转至下一页面
-                router.pushUrl(
-                  {
-                    url: 'pages/testPage',
-                    params: {
-                      titleId: '3',
-                      imageId: 'imageId3'
-                    }
-                  }
-                );
-              })
-          }
-          FlowItem(){
-            DynamicCard({ imageId: 'imageId4', titleId: '4' })
-              .onClick(() => {
-                // 点击小图时路由跳转至下一页面
-                router.pushUrl(
-                  {
-                    url: 'pages/testPage',
-                    params: {
-                      titleId: '4',
-                      imageId: 'imageId4'
-                    }
-                  }
-                );
-              })
-          }
-          FlowItem(){
-            DynamicCard({ imageId: 'imageId4', titleId: '4' })
-              .onClick(() => {
-                // 点击小图时路由跳转至下一页面
-                router.pushUrl(
-                  {
-                    url: 'pages/testPage',
-                    params: {
-                      titleId: '4',
-                      imageId: 'imageId4'
-                    }
-                  }
-                );
-              })
-          }
-          FlowItem(){
-            DynamicCard({ imageId: 'imageId5', titleId: '5' })
-              .onClick(() => {
-                // 点击小图时路由跳转至下一页面
-                router.pushUrl(
-                  {
-                    url: 'pages/testPage',
-                    params: {
-                      titleId: '5',
-                      imageId: 'imageId5'
-                    }
-                  }
-                );
-              })
-          }
-          FlowItem(){
-            DynamicCard({ imageId: 'imageId6', titleId: '6' })
-              .onClick(() => {
-                // 点击小图时路由跳转至下一页面
-                router.pushUrl(
-                  {
-                    url: 'pages/testPage',
-                    params: {
-                      titleId: '6',
-                      imageId: 'imageId6'
-                    }
-                  }
-                );
-              })
-          }
+                  );
+                })
+            }
+          })
         }
         .columnsTemplate('1fr 1fr')
       }
