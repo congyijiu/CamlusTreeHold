@@ -10,11 +10,11 @@ struct TestPage {
 
   onPageShow(){
     const params = router.getParams(); // 获取传递过来的参数对象
-    this.Id = params['Id']; // 获取传递过来的参数id
+    this.Id = params['id']; // 获取传递过来的参数id
     this.title = params['title']; // 获取传递过来的参数title
     this.imageUri = params['imageUri']; // 获取传递过来的参数imageUri
 
-    console.log('onPageShow', this.Id, this.title, this.imageUri);
+    console.log('onPageShow', this.Id);
 
   }
 

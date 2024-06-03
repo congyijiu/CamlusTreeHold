@@ -1,6 +1,7 @@
 {
   "src": [
     "pages/Index",
-    "pages/testPage"
+    "pages/testPage",
+    "pages/DynamicDetailPage"
   ]
 }

@@ -22,15 +22,18 @@ export class WaterFlowDataSource implements IDataSource {
   private dataArray: DynamicItem[] = [];
   private listeners: DataChangeListener[] = [];
 
-  /**
-   * Set water flow data array.
-   *
-   * @param {ProductItem[]} productDataArray Displaying water flow Data.
-   */
-  public setDataArray(productDataArray: DynamicItem[]): void {
-    this.dataArray = productDataArray;
+
+  public setDataArray(dynamicItemArray: DynamicItem[]): void {
+    this.dataArray = dynamicItemArray;
   }
 
+  public addDataArray(dynamicItemArray: DynamicItem[]): void {
+    this.dataArray = this.dataArray.concat(dynamicItemArray);
+    // console.log('addDataArray', this.dataArray);
+    this.listeners.forEach(listener => {
+      listener.onDataAdd(this.dataArray.length-dynamicItemArray.length);
+    })
+  }
   /**
    * Get the total number of data records.
    */
@@ -70,4 +73,6 @@ export class WaterFlowDataSource implements IDataSource {
       this.listeners.splice(pos, 1);
     }
   }
+
+
 }

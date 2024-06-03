@@ -1,5 +1,6 @@
 import  { IDynamicItem } from './DynamicItem';
-
+import  DynamicDetailComment  from './DynamicDetailComment';
+import  User  from './User';
 
 
 
@@ -74,6 +75,37 @@ const waterFlowData: IDynamicItem[] = [
     "author": "John Doe",
     "avatar": "https://sns-img-hw.xhscdn.com/1040g00830rk9ebvtig005ndbrh5097b4pk92rp0?imageView2/2/w/1080/format/webp"
   }
+
 ];
 
-export {waterFlowData};
+const dynamicDetailData = {
+  "id": '1',
+  "image_url": ["https://sns-img-hw.xhscdn.com/1040g00830rdc32381e0048jp4ulje2aiubnri20?imageView2/2/w/1080/format/webp","https://sns-img-hw.xhscdn.com/1040g2sg30rmcij992e0048jp4ulje2aiq2a941g?imageView2/2/w/1080/format/webp","https://sns-img-hw.xhscdn.com/1040g2sg30rl5ko5vik0048jp4ulje2airahe8fo?imageView2/2/w/1080/format/webp"],
+  "title": "这是一个标题这是一个标题这是一个标题这",
+  "author": "John Doe",
+  "avatar": "https://sns-img-hw.xhscdn.com/1040g00830rdc32381e0048jp4ulje2aiubnri20?imageView2/2/w/1080/format/webp",
+  "content": "这是一段话这是一段话这是一段话这是一段话这是一段话这是一段话这是一段话这是一段话这是一段话这是一段话这是一段话这是一段话这是一段话这是一段话这是一段话",
+  "createTime": "2020-12-12 12:12:12"
+}
+
+const dynamicDetailCommentData : DynamicDetailComment = {
+  id: '1',
+  dynamicId: "1",
+  content: "这是一条评论",
+  createTime: "2020-12-12 12:12:12",
+  updateTime: "2020-12-12 12:12:12",
+  likeCount: 10,
+  replyCount: 10,
+  user: {
+    id: '1',
+    username: "John Doe",
+    avatarUrl: "https://sns-img-hw.xhscdn.com/1040g00830rdc32381e0048jp4ulje2aiubnri20?imageView2/2/w/1080/format/webp",
+    age:1,
+    email:"",
+    phoneNumber:''
+  }
+}
+
+
+
+export {waterFlowData,dynamicDetailData,dynamicDetailCommentData};

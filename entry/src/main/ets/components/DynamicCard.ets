@@ -55,5 +55,16 @@ export struct DynamicCard {
     }
     .width(172)
     .justifyContent(FlexAlign.Center)
+    .margin({ top: 5, bottom: 5})
+    .onClick(() => {
+      router.pushUrl(
+        { url: 'pages/testPage',
+          params: {
+            id: this.dynamicItem.id,
+            title: this.dynamicItem.title,
+            imageUri: this.dynamicItem.image_url,
+          }}
+      );
+    })
   }
 }
