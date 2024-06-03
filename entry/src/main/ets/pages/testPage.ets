@@ -3,15 +3,19 @@ import router from '@ohos.router'
 @Component
 struct TestPage {
 
-  @State imageId: string = 'image'
-  @State titleId: string = 'title'
+
+  @State private Id: string = '1';
+  @State private title: string = 'Hello World';
+  @State private imageUri: string = 'https://sns-img-hw.xhscdn.com/1040g2sg30rmnv3r22g005ndbrh5097b4hqfklao?imageView2/2/w/1080/format/webp,https://sns-img-hw.xhscdn.com/1040g2sg30rmnv3r22g005ndbrh5097b4hqfklao?imageView2/2/w/1080/format/webp';
 
   onPageShow(){
     const params = router.getParams(); // 获取传递过来的参数对象
-    this.imageId = params['imageId']; // 获取id属性的值
-    this.titleId = params['titleId']; // 获取age属性的值
-    console.log('imageId:', this.imageId);
-    console.log('titleId:', this.titleId);
+    this.Id = params['Id']; // 获取传递过来的参数id
+    this.title = params['title']; // 获取传递过来的参数title
+    this.imageUri = params['imageUri']; // 获取传递过来的参数imageUri
+
+    console.log('onPageShow', this.Id, this.title, this.imageUri);
+
   }
 
   build() {
@@ -20,17 +24,17 @@ struct TestPage {
         .height(20)
 
       // 配置Exchange类型的共享元素转场，共享元素id为"sharedImage1"
-      Image($r('app.media.img'))
+      Image(this.imageUri)
         .width(360)
-        .sharedTransition(this.imageId, { duration: 250, curve: Curve.Linear })
+        .sharedTransition(`image${this.Id}`, { duration: 250, curve: Curve.Linear })
         .onClick(() => {
           // 点击图片时路由返回至上一页面
           router.back();
         })
       Row(){
-        Text(`${this.titleId}`)
+        Text(this.title)
           .fontSize(30)
-          .sharedTransition(this.titleId, { duration: 250, curve: Curve.Linear })
+          .sharedTransition(`title${this.Id}`, { duration: 250, curve: Curve.Linear })
           .margin({ top: 10 })
           .width("100%")
           .border({ width: 1, color: '#000000' })

@@ -1,55 +1,43 @@
 import router from '@ohos.router'
 import { DynamicCard } from '../components/DynamicCard'
+import { WaterFlowDataSource } from '../viewmodel/WaterFlowDataSource'
+import { waterFlowData } from '../viewmodel/TestViewModel';
+import DynamicItem from '../viewmodel/DynamicItem'
 
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World'
+  @State minSize: number = 50
+  @State maxSize: number = 100
 
-  @State DynamicCardData: Array<{ imageId: string, titleId: string }> = [
-    { imageId: 'imageId1', titleId: 'titleId1' },
-    { imageId: 'imageId2', titleId: 'titleId2' },
-    { imageId: 'imageId3', titleId: 'titleId3' },
-    { imageId: 'imageId4', titleId: 'titleId4' },
-    { imageId: 'imageId5', titleId: 'titleId5' },
-    { imageId: 'imageId6', titleId: 'titleId6' },
-    { imageId: 'imageId7', titleId: 'titleId7' },
-    { imageId: 'imageId8', titleId: 'titleId8' },
-    { imageId: 'imageId9', titleId: 'titleId9' },
-    { imageId: 'imageId10', titleId: 'titleId10'}
-  ]
+  @State datasource: WaterFlowDataSource = new WaterFlowDataSource()
+
+  aboutToAppear() {
+    this.datasource.setDataArray(waterFlowData);
+  }
 
   build() {
-    Column() {
-      Blank()
-        .height(100)
-        .width('100%')
-        .backgroundColor('#FFFFFF')
-      Flex({ justifyContent: FlexAlign.SpaceAround }) {
+    WaterFlow() {
+      LazyForEach(this.datasource, (item: DynamicItem) => {
+        FlowItem() {
+          DynamicCard({ dynamicItem: item })
+            .onClick(() => {
+              router.pushUrl(
+                { url: 'pages/testPage',
+                  params: {
+                    id: item.id,
+                    title: item.title,
+                    imageUri: item.image_url,
+                  }}
+              );
+            })
 
-        WaterFlow(){
-          ForEach(this.DynamicCardData, (item, index) => {
-            FlowItem() {
-              DynamicCard({ imageId: item.imageId, titleId: item.titleId })
-                .onClick(() => {
-                  // 点击小图时路由跳转至下一页面
-                  router.pushUrl(
-                    {
-                      url: 'pages/testPage',
-                      params: {
-                        titleId: item.titleId,
-                        imageId: item.imageId
-                      }
-                    }
-                  );
-                })
-            }
-          })
         }
-        .columnsTemplate('1fr 1fr')
-      }
-
+      }, (item: DynamicItem) => JSON.stringify(item))
     }
+    .layoutWeight(1)
+    .layoutDirection(FlexDirection.Column)
+    .columnsTemplate('1fr 1fr')
 
   }
 
@@ -68,4 +56,5 @@ struct Index {
     );
     console.log('mounted')
   }
+
 }
