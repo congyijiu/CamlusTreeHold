@@ -91,7 +91,7 @@ const dynamicDetailData = {
 const dynamicDetailCommentData : DynamicDetailComment = {
   id: '1',
   dynamicId: "1",
-  content: "这是一条评论",
+  content: "这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论",
   createTime: "2020-12-12 12:12:12",
   updateTime: "2020-12-12 12:12:12",
   likeCount: 10,

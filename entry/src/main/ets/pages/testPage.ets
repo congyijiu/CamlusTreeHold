@@ -13,9 +13,7 @@ struct TestPage {
     this.Id = params['id']; // 获取传递过来的参数id
     this.title = params['title']; // 获取传递过来的参数title
     this.imageUri = params['imageUri']; // 获取传递过来的参数imageUri
-
     console.log('onPageShow', this.Id);
-
   }
 
   build() {

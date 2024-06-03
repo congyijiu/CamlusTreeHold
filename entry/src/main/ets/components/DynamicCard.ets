@@ -14,8 +14,7 @@ export struct DynamicCard {
 
 
   onPageShow(){
-    console.log(this.dynamicItem.id);
-
+    console.log('DynamicCard onPageShow');
   }
 
   build(){
@@ -58,7 +57,7 @@ export struct DynamicCard {
     .margin({ top: 5, bottom: 5})
     .onClick(() => {
       router.pushUrl(
-        { url: 'pages/testPage',
+        { url: 'pages/DynamicDetailPage',
           params: {
             id: this.dynamicItem.id,
             title: this.dynamicItem.title,
