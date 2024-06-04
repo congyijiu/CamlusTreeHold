@@ -13,55 +13,63 @@
  * limitations under the License.
  */
 
-import User from './User';
+import DynamicDetailCommentPageVo from './DynamicDetailCommentPageVo';
 
 export interface IDynamicDetailComment {
-
-  id: string;
-
-  dynamicId: string;
-
+  commentId: number;
+  dynamicId: number;
+  userId: number;
+  topCommentId: number | null;
+  toCommentId: number | null;
   content: string;
-
-  createTime: string;
-
-  updateTime: string;
-
-  likeCount: number;
-
+  commentDate: string;
   replyCount: number;
-
-  user: User;
-
-
+  likeCount: number;
+  replyUserId: number | null;
+  replyUsername: string | null;
+  isDeleted: number;
+  username: string;
+  avatarUrl: string;
+  isLike: number | null;
+  dynamicDetailCommentPageVo: DynamicDetailCommentPageVo;
 }
+
 
 export default class DynamicDetailComment implements IDynamicDetailComment {
 
-  id: string;
-
-  dynamicId: string;
-
+  commentId: number;
+  dynamicId: number;
+  userId: number;
+  topCommentId: number | null;
+  toCommentId: number | null;
   content: string;
-
-  createTime: string;
-
-  updateTime: string;
-
-  likeCount: number;
-
+  commentDate: string;
   replyCount: number;
-
-  user: User;
+  likeCount: number;
+  replyUserId: number | null;
+  replyUsername: string | null;
+  isDeleted: number;
+  username: string;
+  avatarUrl: string;
+  isLike: number | null;
+  dynamicDetailCommentPageVo: DynamicDetailCommentPageVo;
   constructor(props: DynamicDetailComment) {
-    this.id = props.id;
+    this.commentId = props.commentId;
     this.dynamicId = props.dynamicId;
+    this.userId = props.userId;
+    this.topCommentId = props.topCommentId;
+    this.toCommentId = props.toCommentId;
     this.content = props.content;
-    this.createTime = props.createTime;
-    this.updateTime = props.updateTime;
-    this.likeCount = props.likeCount;
+    this.commentDate = props.commentDate;
     this.replyCount = props.replyCount;
-    this.user = props.user;
+    this.likeCount = props.likeCount;
+    this.replyUserId = props.replyUserId;
+    this.replyUsername = props.replyUsername;
+    this.isDeleted = props.isDeleted;
+    this.username = props.username;
+    this.avatarUrl = props.avatarUrl;
+    this.isLike = props.isLike;
+    this.dynamicDetailCommentPageVo = props.dynamicDetailCommentPageVo;
   };
 
 }
