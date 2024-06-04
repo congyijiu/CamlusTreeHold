@@ -2,6 +2,8 @@
   "src": [
     "pages/Index",
     "pages/testPage",
-    "pages/DynamicDetailPage"
+    "pages/DynamicDetailPage",
+    "pages/PublishPage",
+    "pages/MyPage"
   ]
 }
