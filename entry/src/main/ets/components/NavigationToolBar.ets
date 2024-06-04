@@ -23,11 +23,12 @@ export struct NavigationToolBar {
           Column() {
             Text(item.text)
               .fontColor(this.currentIndex == item.num ? '#007DFF' : '#182431')
-              .fontSize(10)
+              .fontSize(16)
               .lineHeight(14)
               .fontWeight(500)
               .margin({ top: 3 })
-          }.width(104).height(60)
+              .padding({ top: 13 })
+          }.width(104).height(60).alignItems(HorizontalAlign.Center)
           .onClick(() => {
             this.currentIndex = item.num
             if (item.num == 0) {
@@ -67,7 +68,7 @@ export struct NavigationToolBar {
             }
           })
         })
-      }.margin({ left: 24 })
+      }.margin({ left: 24 }).alignItems(VerticalAlign.Center)
   }
 
 }

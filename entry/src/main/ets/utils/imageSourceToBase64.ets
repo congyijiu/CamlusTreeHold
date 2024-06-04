@@ -1,6 +1,5 @@
 import image from '@ohos.multimedia.image'
 import util from '@ohos.util'
-import { BusinessError } from '@ohos.base'
 /**
  * 图片转base64格式
  *

@@ -7,15 +7,15 @@ struct PublishPage {
   currentIndex: number = 1
 
   build() {
-    Row() {
-      Column(){
+    Column() {
+      Row() {
+        Column() {
           photopicker()
-        NavigationToolBar({ currentIndex: this.currentIndex })
-      }
-      .alignItems(HorizontalAlign.Start)
-
+          NavigationToolBar({ currentIndex: this.currentIndex })
+        }
+        .alignItems(HorizontalAlign.Start)
 
       }
     }
   }
-
+}
