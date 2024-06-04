@@ -1,5 +1,6 @@
 import  { IDynamicItem } from './DynamicItem';
 import  DynamicDetailComment  from './DynamicDetailComment';
+import LoginItem from './LoginItem'
 import  User  from './User';
 
 
@@ -131,7 +132,15 @@ const dynamicDetailCommentData : DynamicDetailComment = {
     email:"",
     phoneNumber:''
   }
+};
+
+
+const loginItem : LoginItem = {
+  username:'123',
+  password:'123'
 }
+
+
 
 
 

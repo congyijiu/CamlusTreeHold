@@ -16,7 +16,7 @@ export class DynamicRequest {
         pageSize: dynamicdto.pageSize,
         type: dynamicdto.type,
         keyWord: dynamicdto.keyWord,
-        userId: dynamicdto.userId
+        userId: dynamicdto.userId,
       },
       {
         headers: {
