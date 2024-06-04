@@ -37,7 +37,7 @@ struct Index {
 
   pageTransition() {
     PageTransitionEnter({ type: RouteType.None, duration: 0 })
-    PageTransitionExit({ type: RouteType.None, duration: 0 })
+    PageTransitionExit({ type: RouteType.None, duration: 0})
   }
 
   test() {

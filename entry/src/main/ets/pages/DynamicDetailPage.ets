@@ -7,6 +7,9 @@ import DynamicDetailCommentPageVo from '../viewmodel/DynamicDetailCommentPageVo'
 import DynamicDetailComment from '../viewmodel/DynamicDetailComment'
 import  {DynamicDetailCommentsPage} from '../components/DynamicDetailCommentsPage'
 import router from '@ohos.router'
+import { DynamicDetailReplyButtom } from '../components/DynamicDetailReplyButtom'
+import { Driver, ON } from '@ohos.UiTest'
+import { DynamicDetailCommentInput } from '../components/DynamicDetailCommentInput'
 
 
 
@@ -22,6 +25,7 @@ struct DynamicDetailPage {
   onPageShow() {
     this.dynamicId = router.getParams()['id'];
     console.info('dynamicId:', this.dynamicId);
+
   }
 
   build() {
@@ -39,14 +43,20 @@ struct DynamicDetailPage {
           }
         }
         .edgeEffect(EdgeEffect.Spring)
+        // DynamicDetailReplyButtom()
+        //   .position({x: 0, y: '93%'})
+        DynamicDetailCommentInput()
+          .position({x: 0, y: '93%'})
+
       }
       .width('100%')
     }
+    .backgroundColor('#FFFFFF')
     // .height('100%')
   }
 
   pageTransition() {
     PageTransitionEnter({ type: RouteType.None, duration: 0 })
-    PageTransitionExit({ type: RouteType.None, duration: 0 })
+    PageTransitionExit({ type: RouteType.None, duration: 0})
   }
 }
