@@ -5,6 +5,7 @@
     "pages/DynamicDetailPage",
     "pages/Login",
     "pages/Register",
-    "pages/PersonalPageCard"
+    "pages/PersonalPageCard",
+    "pages/DynamicDetailPage"
   ]
 }

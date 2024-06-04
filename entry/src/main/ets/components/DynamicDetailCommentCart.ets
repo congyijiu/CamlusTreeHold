@@ -1,4 +1,5 @@
 import audio from '@ohos.multimedia.audio';
+import { DynamicRequest } from '../api/DynamicRequest';
 import {DynamicDetailCart} from '../components/DynamicDetailCart'
 import DynamicDetailComment from '../viewmodel/DynamicDetailComment'
 import {dynamicDetailCommentData} from '../viewmodel/TestViewModel'
@@ -10,25 +11,65 @@ import {dynamicDetailCommentData} from '../viewmodel/TestViewModel'
 @Component
 export struct DynamicDetailCommentCart {
 
+  dynamicId: string = '148';
+
   @State DynamicDetailComponentData: DynamicDetailComment = dynamicDetailCommentData;
-  @State test: number = 1;
+  @State isReply: boolean = false;
+
+  @State replys: DynamicDetailComment[] = [];
+
+  @State replysTotal: number = 0;
+
+  pageIndex: number = 1;
+
 
   getLikeCount(likeCount:Number){
     return likeCount as unknown as string
   }
-  onPageShow(){
-    console.info('onPageShow',this.test)
+
+  aboutToAppear() {
+    console.info('pageIndex in DynamicDetailCommentCart ',this.pageIndex)
+    let dynamicCommentsDto:any = {
+      "pageIndex": this.pageIndex,
+      "pageSize": 3,
+      "dynamicId": this.dynamicId,
+      "topCommentId": this.DynamicDetailComponentData.commentId,
+      "type": 2
+    }
+
+    DynamicRequest.getDynamicDetailComments(dynamicCommentsDto).then((res) => {
+      this.DynamicDetailComponentData.dynamicDetailCommentPageVo = res
+      this.replys = res.records
+      this.replysTotal = res.total
+      this.isReply = true
+      console.info('aboutToAppear in DynamicDetailCommentCart ',JSON.stringify(res))
+    })
+  }
+
+  getMoreComment(){
+    this.pageIndex += 1
+    console.info('pageIndex in DynamicDetailCommentCart ',this.pageIndex)
+    let dynamicCommentsDto:any = {
+      "pageIndex": this.pageIndex,
+      "pageSize": 3,
+      "dynamicId": this.dynamicId,
+      "topCommentId": this.DynamicDetailComponentData.commentId,
+      "type": 2
+    }
+    DynamicRequest.getDynamicDetailComments(dynamicCommentsDto).then((res) => {
+      this.DynamicDetailComponentData.dynamicDetailCommentPageVo.records = this.DynamicDetailComponentData.dynamicDetailCommentPageVo.records.concat(res.records)
+      this.replys = this.replys.concat(res.records)
+      console.info('aboutToAppear in DynamicDetailCommentCart ',JSON.stringify(res))
+    })
   }
 
   build() {
     Row(){
       Column(){
-
-          Image(this.DynamicDetailComponentData.user.avatarUrl)
+          Image(this.DynamicDetailComponentData.avatarUrl)
             .borderRadius(50)
             .width(25)
             .height(25)
-          // Blank()
             // .border({color:'red',width:1})
       }
       .width('7%')
@@ -38,7 +79,7 @@ export struct DynamicDetailCommentCart {
         Row(){
           Column(){
             Column(){
-              Text(this.DynamicDetailComponentData.user.username)
+              Text(this.DynamicDetailComponentData.username)
                 .fontColor('#3C3F41')
                 .width('100%')
                 .fontSize(10)
@@ -46,7 +87,7 @@ export struct DynamicDetailCommentCart {
                 .fontSize(12)
                 .width('100%')
                 .margin({top:5})
-              Text(this.DynamicDetailComponentData.createTime)
+              Text(this.DynamicDetailComponentData.commentDate)
                 .fontSize(10)
                 .fontColor('#45494A')
                 .width('100%')
@@ -54,7 +95,7 @@ export struct DynamicDetailCommentCart {
             }
             .width('95%')
           }
-          .width('86%')
+          .width('93%')
           // .border({color: 'red', width: 1})
           Column(){
             Image($r('app.media.ic_public_favor'))
@@ -67,17 +108,29 @@ export struct DynamicDetailCommentCart {
           // .border({color: 'red', width: 1})
         }
         .alignItems(VerticalAlign.Top)
-        if (this.test == 1) {
-          DynamicDetailCommentCart({test:0})
-          DynamicDetailCommentCart({test:0})
-          DynamicDetailCommentCart({test:0})
-          DynamicDetailCommentCart({test:0})
+        if (this.isReply) {
+          ForEach(this.replys, (item: DynamicDetailComment, index) => {
+            DynamicDetailCommentCart({DynamicDetailComponentData: item})
+          })
+          if (this.replys.length < this.replysTotal) {
+            Text('查看更多评论')
+              .fontSize(12)
+              .fontColor('#3781C8')
+              .width('100%')
+              .margin({top:10,left:50})
+              .onClick(()=>{
+                this.getMoreComment()
+              })
+          }
         }
+
       }
+      // .border({color: 'red', width: 1})
+      .width('93%')
     }
-    .margin({top:5})
+    .margin({top:8})
     // .border({color:'blue',width:1})
-    .width('90%')
+    // .width('90%')
     .alignItems(VerticalAlign.Top)
   }
 }
