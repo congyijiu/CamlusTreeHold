@@ -15,10 +15,14 @@ import {DynamicRequest} from '../api/DynamicRequest'
 @Component
 export struct DynamicDetailCart {
   @State private Id: string = '1';
+  @State imageUrl: string = '';
+  @State title: string = '';
   @State dynamicDtail: DynamicDetail = dynamicDetailData;
 
   aboutToAppear() {
     this.Id = router.getParams()['id'];
+    this.imageUrl = router.getParams()['imageUrl'];
+    this.title = router.getParams()['title'];
     DynamicRequest.getDynamicDetail(this.Id).then((res) => {
       this.dynamicDtail = res;
       console.info('getDynamicDetail', res);
@@ -31,16 +35,16 @@ export struct DynamicDetailCart {
       Swiper() {
         ForEach(this.dynamicDtail.imageUrlList, (item: string, index) => {
           if (index == 0) {
-            Image(item)
+            Image(this.imageUrl)
               .syncLoad(true)
-              .objectFit(ImageFit.ScaleDown)
+              .objectFit(ImageFit.Cover)
               .sharedTransition(`image${this.Id}`, { duration: 250, curve: Curve.Linear })
           } else {
             Image(item)
               .width("100%")
               .height(300)
               .syncLoad(true)
-              .objectFit(ImageFit.ScaleDown)
+              .objectFit(ImageFit.Cover)
           }
         })
       }
@@ -48,9 +52,9 @@ export struct DynamicDetailCart {
       .indicatorStyle({ color: '#FF0000', selectedColor: '#00FF00' , bottom: 0})
 
       Column(){
-        Text(this.dynamicDtail.title)
+        Text(this.title)
           .fontSize(24)
-          .sharedTransition(`title${this.Id}`, { duration: 250, curve: Curve.Linear })
+          .sharedTransition(`title${this.Id}`, { duration: 250, curve: Curve.Linear, type: SharedTransitionEffectType.Static })
           .margin({ top: 10 })
           .width("100%")
         Text(this.dynamicDtail.content)
