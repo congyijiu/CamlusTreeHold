@@ -1,18 +1,27 @@
 import {DynamicDetailCart} from '../components/DynamicDetailCart'
 import {DynamicDetailCommentCart} from '../components/DynamicDetailCommentCart'
 import DynamicDetail from '../viewmodel/DynamicDetail'
-import {dynamicDetailData} from '../viewmodel/TestViewModel'
+import {dynamicDetailData,dynamicDetailCommentPageData} from '../viewmodel/TestViewModel'
 import {DynamicDetailTop} from '../components/DynamicDetailTop'
+import DynamicDetailCommentPageVo from '../viewmodel/DynamicDetailCommentPageVo'
+import DynamicDetailComment from '../viewmodel/DynamicDetailComment'
+import  {DynamicDetailCommentsPage} from '../components/DynamicDetailCommentsPage'
+import router from '@ohos.router'
 
 
 
 @Entry
 @Component
 struct DynamicDetailPage {
+
+  @State dynamicId: string = '1';
+
   @State dynamicDtail: DynamicDetail = dynamicDetailData;
+  @State dynamicDetailCommentPageVo: DynamicDetailCommentPageVo = dynamicDetailCommentPageData;
 
   onPageShow() {
-
+    this.dynamicId = router.getParams()['id'];
+    console.info('dynamicId:', this.dynamicId);
   }
 
   build() {
@@ -26,7 +35,7 @@ struct DynamicDetailPage {
               .height(1)
               .border({color: '#f0f0f0', width: 1})
               .margin({top: 10, bottom: 10})
-            DynamicDetailCommentCart()
+            DynamicDetailCommentsPage()
           }
         }
         .edgeEffect(EdgeEffect.Spring)

@@ -3,6 +3,7 @@ import axios, { AxiosError, AxiosResponse } from '@ohos/axios'
 import { baseUrl,testtoken } from '../common/common'
 import  DynamicItem  from '../viewmodel/DynamicItem'
 import  DynamicDetail  from '../viewmodel/DynamicDetail'
+import  DynamicDetailCommentPageVo  from '../viewmodel/DynamicDetailCommentPageVo'
 
 
 
@@ -65,5 +66,38 @@ export class DynamicRequest {
     })
 
     return dynamicDetail
+  }
+
+  static async getDynamicDetailComments(dynamicCommentsDto: any): Promise<DynamicDetailCommentPageVo> {
+    let dynamicCommentPage:DynamicDetailCommentPageVo
+    await axios.post(
+      `${baseUrl}/dynamic-comments/page`,
+      {
+        "pageIndex": dynamicCommentsDto.pageIndex,
+        "pageSize": dynamicCommentsDto.pageSize,
+        "dynamicId": dynamicCommentsDto.dynamicId,
+        "topCommentId": dynamicCommentsDto.topCommentId,
+        "type": dynamicCommentsDto.type
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'token': testtoken
+        }
+      }
+
+    ).then((res: AxiosResponse) => {
+      if (res.status === 200) {
+        dynamicCommentPage = res.data.data
+        // console.log('getDynamicDetailComments', JSON.stringify(dynamicCommentPage))
+      }else {
+        console.log('getDynamicDetailComments', res.data.errorMessage)
+      }
+    }).catch((err: AxiosError) => {
+      console.log('getDynamicDetailComments', err.message)
+    })
+
+    return dynamicCommentPage
   }
 }
