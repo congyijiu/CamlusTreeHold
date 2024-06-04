@@ -107,6 +107,9 @@ export struct DynamicDetailCommentCart {
           .width('7%')
           // .border({color: 'red', width: 1})
         }
+        .onClick(()=>{
+          sendEventByKey('123',10,'')
+        })
         .alignItems(VerticalAlign.Top)
         if (this.isReply) {
           ForEach(this.replys, (item: DynamicDetailComment, index) => {

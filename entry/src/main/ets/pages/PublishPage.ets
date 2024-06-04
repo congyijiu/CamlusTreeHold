@@ -1,6 +1,7 @@
 import {NavigationToolBar}  from '../components/NavigationToolBar'
 import router from '@ohos.router'
 import {photopicker}from'../components/photoPicker'
+import {PageTitle} from '../components/PageTitle'
 @Entry
 @Component
 struct PublishPage {
@@ -10,6 +11,7 @@ struct PublishPage {
     Column() {
       Row() {
         Column() {
+           PageTitle()
           photopicker()
           NavigationToolBar({ currentIndex: this.currentIndex })
         }
@@ -17,5 +19,11 @@ struct PublishPage {
 
       }
     }
+
   }
+  pageTransition() {
+    PageTransitionEnter({ type: RouteType.None, duration: 0 })
+    PageTransitionExit({ type: RouteType.None, duration: 0 })
+  }
+
 }

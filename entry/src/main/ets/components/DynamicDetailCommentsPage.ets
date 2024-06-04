@@ -38,6 +38,10 @@ export struct DynamicDetailCommentsPage {
 
   build() {
     Column(){
+      Text('共23条评论')
+        .fontColor('#333333')
+        .fontSize(12)
+        .width('100%')
       ForEach(this.dynamicDetailCommentPageVo.records, (item: DynamicDetailComment, index) => {
         DynamicDetailCommentCart({DynamicDetailComponentData: item,dynamicId: this.dynamicId})
       })

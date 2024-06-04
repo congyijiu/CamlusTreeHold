@@ -15,6 +15,10 @@ export struct NavigationToolBar {
     {
       text: '我的',
       num: 2
+    },
+    {
+      text: '消息',
+      num: 3
     }
   ]
   build(){
@@ -28,7 +32,7 @@ export struct NavigationToolBar {
               .fontWeight(500)
               .margin({ top: 3 })
               .padding({ top: 13 })
-          }.width(104).height(60).alignItems(HorizontalAlign.Center)
+          }.width(104).height(40)
           .onClick(() => {
             this.currentIndex = item.num
             if (item.num == 0) {
@@ -66,9 +70,21 @@ export struct NavigationToolBar {
                 }
               );
             }
+            else if (item.num == 3){
+              router.pushUrl(
+                { url: 'pages/MessagePage',
+                  params: {
+                    num:item.num
+                  } },
+                router.RouterMode.Single,
+                err => {
+                  console.log('pushUrl err', err)
+                }
+              );
+            }
           })
         })
-      }.margin({ left: 24 }).alignItems(VerticalAlign.Center)
+      }.alignItems(VerticalAlign.Center).width('100%')
   }
 
 }
