@@ -3,6 +3,7 @@ import { DynamicCard } from '../components/DynamicCard'
 import { WaterFlowDataSource } from '../viewmodel/WaterFlowDataSource'
 import { waterFlowData } from '../viewmodel/TestViewModel';
 import DynamicItem from '../viewmodel/DynamicItem'
+import {DynamicRequest} from '../api/DynamicRequest'
 
 
 @Preview
@@ -10,9 +11,24 @@ import DynamicItem from '../viewmodel/DynamicItem'
 export struct DynamicWaterFlow {
   @State datasource: WaterFlowDataSource = new WaterFlowDataSource()
   scroller: Scroller = new Scroller()
+  dynamicDto:any = {
+    "pageIndex": 1,
+    "pageSize": 10,
+    "type": 0,
+    "keyWord": "",
+    "userId": null
+  }
 
   aboutToAppear() {
-    this.datasource.setDataArray(waterFlowData);
+    let dynamicIiems:DynamicItem[] = []
+
+    DynamicRequest.getDynamicItem(this.dynamicDto).then((value) => {
+      dynamicIiems = value
+      console.log(JSON.stringify(value));
+      this.datasource.setDataArray(dynamicIiems);
+    })
+
+
   }
 
   build() {
@@ -26,7 +42,14 @@ export struct DynamicWaterFlow {
     }
     .onReachEnd(() => {
       console.info('onReachEnd1')
-      this.datasource.addDataArray(waterFlowData)
+      this.dynamicDto['pageIndex'] += 1
+      console.log('pageIndex',this.dynamicDto['pageIndex']);
+
+      DynamicRequest.getDynamicItem(this.dynamicDto).then((value) => {
+        let dynamicIiems:DynamicItem[]  = value
+        console.log(JSON.stringify(value));
+        this.datasource.addDataArray(dynamicIiems)
+      })
       console.info('onReachEnd2')
     })
     .layoutWeight(1)

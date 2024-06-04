@@ -3,6 +3,12 @@ import router from '@ohos.router'
 import { dynamicDetailData } from '../viewmodel/TestViewModel'
 
 import DynamicDetail from '../viewmodel/DynamicDetail'
+import {DynamicRequest} from '../api/DynamicRequest'
+
+
+
+
+
 
 
 @Preview
@@ -12,17 +18,18 @@ export struct DynamicDetailCart {
   @State dynamicDtail: DynamicDetail = dynamicDetailData;
 
   aboutToAppear() {
-    // console.log(`TestPage onPageShow `)
-
     this.Id = router.getParams()['id'];
-    // console.log(`TestPage onPageShow ${this.Id}`)
+    DynamicRequest.getDynamicDetail(this.Id).then((res) => {
+      this.dynamicDtail = res;
+      console.info('getDynamicDetail', res);
+    })
   }
 
   build() {
     Column() {
       // 配置Exchange类型的共享元素转场，共享元素id为"sharedImage1"
       Swiper() {
-        ForEach(this.dynamicDtail.image_url, (item: string, index) => {
+        ForEach(this.dynamicDtail.imageUrlList, (item: string, index) => {
           if (index == 0) {
             Image(item)
               .syncLoad(true)
@@ -50,7 +57,7 @@ export struct DynamicDetailCart {
           .fontSize(16)
           .margin({ top: 10 })
           .width("100%")
-        Text(this.dynamicDtail.createTime)
+        Text(this.dynamicDtail.postDate)
           .fontSize(12)
           .margin({ top: 10 })
           .fontColor("#999999")

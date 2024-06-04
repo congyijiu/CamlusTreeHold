@@ -11,6 +11,10 @@ import {DynamicDetailTop} from '../components/DynamicDetailTop'
 struct DynamicDetailPage {
   @State dynamicDtail: DynamicDetail = dynamicDetailData;
 
+  onPageShow() {
+
+  }
+
   build() {
     Row() {
       Column() {

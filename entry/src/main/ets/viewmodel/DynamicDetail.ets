@@ -17,7 +17,7 @@ export interface IDynamicDetail {
 
   id: string;
 
-  image_url: Array<string>;
+  imageUrlList: Array<string>;
 
   title: string;
 
@@ -27,9 +27,21 @@ export interface IDynamicDetail {
 
   content: string;
 
-  createTime: string;
+  postDate: string;
 
+  commentCount: number;
 
+  likeCount: number;
+
+  favoriteCount: number;
+
+  typeId: string;
+
+  isLike: number;
+
+  isFavorite: number;
+
+  isFollow: number;
 }
 
 /**
@@ -38,20 +50,35 @@ export interface IDynamicDetail {
 export default class DynamicDetail implements IDynamicDetail {
 
   id: string;
-  image_url: Array<string>;
+  imageUrlList: Array<string>;
   title: string;
   author: string;
   avatar: string;
   content: string;
-  createTime: string;
+  postDate: string;
+  commentCount: number;
+  likeCount: number;
+  favoriteCount: number;
+  typeId: string;
+  isLike: number;
 
+  isFavorite: number;
+
+  isFollow: number;
   constructor(props: DynamicDetail) {
     this.id = props.id;
-    this.image_url = props.image_url;
+    this.imageUrlList = props.imageUrlList;
     this.title = props.title;
     this.author = props.author;
     this.avatar = props.avatar;
     this.content = props.content;
-    this.createTime = props.createTime;
+    this.postDate = props.postDate;
+    this.commentCount = props.commentCount;
+    this.likeCount = props.likeCount;
+    this.favoriteCount = props.favoriteCount;
+    this.typeId = props.typeId;
+    this.isLike = props.isLike;
+    this.isFavorite = props.isFavorite;
+    this.isFollow = props.isFollow;
   }
 }

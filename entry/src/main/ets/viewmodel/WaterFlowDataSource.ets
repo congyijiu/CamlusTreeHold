@@ -24,12 +24,15 @@ export class WaterFlowDataSource implements IDataSource {
 
 
   public setDataArray(dynamicItemArray: DynamicItem[]): void {
+    console.log('setDataArray',JSON.stringify(dynamicItemArray))
     this.dataArray = dynamicItemArray;
+    this.listeners.forEach(listener => {
+      listener.onDataReloaded();
+    })
   }
 
   public addDataArray(dynamicItemArray: DynamicItem[]): void {
     this.dataArray = this.dataArray.concat(dynamicItemArray);
-    // console.log('addDataArray', this.dataArray);
     this.listeners.forEach(listener => {
       listener.onDataAdd(this.dataArray.length-dynamicItemArray.length);
     })

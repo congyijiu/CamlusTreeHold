@@ -4,7 +4,7 @@ import {DynamicWaterFlow } from '../components/DynamicWaterFlow'
 import { WaterFlowDataSource } from '../viewmodel/WaterFlowDataSource'
 import { waterFlowData } from '../viewmodel/TestViewModel';
 import DynamicItem from '../viewmodel/DynamicItem'
-import {getUserInfo} from '../api/UserRequest'
+import {DynamicRequest} from '../api/DynamicRequest'
 
 
 @Entry
@@ -23,9 +23,7 @@ struct Index {
       Blank()
         .width('100%')
         .height(50)
-    }.onClick(() => {
-      let user:any = getUserInfo(1)
-    })
+    }
   }
 
   pageTransition() {

@@ -17,13 +17,17 @@ export interface IDynamicItem {
 
   id: string;
 
-  image_url: string;
+  imageUrl: string;
 
   title: string;
 
-  author: string;
+  username: string;
 
-  avatar: string;
+  avatarUrl: string;
+
+  likeCount: number;
+
+  isLiked: number;
 
 }
 
@@ -33,16 +37,20 @@ export interface IDynamicItem {
 export default class DynamicItem implements IDynamicItem {
 
   id: string;
-  image_url: string;
+  imageUrl: string;
   title: string;
-  author: string;
-  avatar: string;
+  username: string;
+  avatarUrl: string;
+  likeCount: number;
+  isLiked: number;
 
   constructor(props: DynamicItem) {
     this.id = props.id;
-    this.image_url = props.image_url;
+    this.imageUrl = props.imageUrl;
     this.title = props.title;
-    this.author = props.author;
-    this.avatar = props.avatar;
+    this.username = props.username;
+    this.avatarUrl = props.avatarUrl;
+    this.likeCount = props.likeCount;
+    this.isLiked = props.isLiked;
   }
 }

@@ -1,30 +1,69 @@
 import axios, { AxiosError, AxiosResponse } from '@ohos/axios'
 
-import { baseUrl } from '../common/common'
+import { baseUrl,testtoken } from '../common/common'
 import  DynamicItem  from '../viewmodel/DynamicItem'
+import  DynamicDetail  from '../viewmodel/DynamicDetail'
 
 
 
-export const getDynamicItem = async (id: number): Promise<DynamicItem> => {
-  let user:any = ''
-  axios.post(
-    `${baseUrl}/user/info/${id}`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'token': 'eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAA_yXLWwrEIAyF4b3kuYKXqGN3k2KGcaAgxMIMpXtvpG_n4_Cf8B0NVnBMGS2SeYWaDVqupiCXyRTDOwWfNlig0YDVZZfRpYhhATk2reUvg_f5iyg_3HZS0VFV1Ltu_vWnjNaXWTb9_HUDswUnwoAAAAA.A12sa3Xv2jAZfl3HgTUv_nybP-Aojb2pgHb5rps57sshlCGb8F-llkGx_bBm1eSgV3hDTDbBqrbI7tBzS1ynbw'
+export class DynamicRequest {
+  static async getDynamicItem(dynamicdto: any): Promise<DynamicItem[]> {
+    let dynamicItem:DynamicItem[] = []
+    await axios.post(
+      `${baseUrl}/dynamic/page`,
+      {
+        pageIndex: dynamicdto.pageIndex,
+        pageSize: dynamicdto.pageSize,
+        type: dynamicdto.type,
+        keyWord: dynamicdto.keyWord,
+        userId: dynamicdto.userId
       },
-      data: {
-        id: id
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'token': testtoken
+        }
       }
-    }
 
-  ).then((res: AxiosResponse) => {
-    user = res.data
-    console.log('getUserInfo', JSON.stringify(res.data))
-  }).catch((err: AxiosError) => {
-    console.log('getUserInfo', err.message)
-  })
-  return user
+    ).then((res: AxiosResponse) => {
+      if (res.status === 200) {
+        dynamicItem = res.data.data.records
+        console.log('getDynamicItem', JSON.stringify(dynamicItem))
+      }else {
+        console.log('getDynamicItem', res.data.errorMessage)
+      }
+    }).catch((err: AxiosError) => {
+      console.log('getDynamicItem', err.message)
+    })
+    return dynamicItem
+  }
+
+  static async getDynamicDetail(dynamicId: string): Promise<DynamicDetail> {
+    let dynamicDetail:DynamicDetail
+    await axios.post(
+      `${baseUrl}/dynamic/detail/${dynamicId}`,
+      {
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'token': testtoken
+        }
+      }
+
+    ).then((res: AxiosResponse) => {
+      if (res.status === 200) {
+        dynamicDetail = res.data.data
+        console.log('getDynamicItem', JSON.stringify(dynamicDetail))
+      }else {
+        console.log('getDynamicItem', res.data.errorMessage)
+      }
+    }).catch((err: AxiosError) => {
+      console.log('getDynamicItem', err.message)
+    })
+
+    return dynamicDetail
+  }
 }

@@ -11,7 +11,17 @@ import {dynamicDetailData} from '../viewmodel/TestViewModel'
 @Component
 export struct DynamicDetailTop {
 
-  @State dynamicDtail: DynamicDetail = dynamicDetailData;
+  dynamicDtail: DynamicDetail = dynamicDetailData;
+
+  @State username: string = '';
+  @State avatarUrl: string = '';
+
+  aboutToAppear() {
+    console.info('DynamicDetailTop aboutToAppear')
+
+    this.username = router.getParams()['username'];
+    this.avatarUrl = router.getParams()['avatarUrl'];
+  }
 
   build(){
     Row(){
@@ -21,11 +31,11 @@ export struct DynamicDetailTop {
         .onClick(() => {
           router.back()
         })
-      Image(this.dynamicDtail.avatar)
+      Image(this.avatarUrl)
         .width(35)
         .height(35)
         .borderRadius(50)
-      Text(this.dynamicDtail.author)
+      Text(this.username)
         .margin({left:10})
         // .border({color:'red',width:1})
         .width(190)
