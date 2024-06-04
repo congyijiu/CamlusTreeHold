@@ -35,7 +35,6 @@ export struct tabs {
       .barMode(BarMode.Fixed)
         .barWidth(360)
         .barHeight(56)
-        .animationDuration(400)
         .onChange((index: number) => {
           this.currentIndex = index
         })
