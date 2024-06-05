@@ -12,7 +12,8 @@ import { CommentInputCustomDialog } from '../components/CommentInputCustomDialog
 import { Driver, ON } from '@ohos.UiTest'
 import { DynamicDetailCommentInput } from '../components/DynamicDetailCommentInput'
 import { DynamicRequest } from '../api/DynamicRequest'
-import { baseUrl , testtoken , likeimage} from '../common/common'
+import { baseUrl , testtoken , likeimage, favoriteimage, like1image, favorite1image} from '../common/common'
+import PreferencesUtil from '../common/PreferencesUtil'
 
 
 
@@ -61,9 +62,11 @@ struct DynamicDetailPage {
 
   }
 
-  onSendReply(){
+  async onSendReply(){
     console.info('点击了发送按钮',JSON.stringify(this.dynamicDtail));
     let comment = JSON.parse(this.teststring);
+    let username = await PreferencesUtil.getPreferenceValue('MyPreferences','username','') as unknown as string
+    let avatarUrl = await PreferencesUtil.getPreferenceValue('MyPreferences','avatarUrl','') as unknown as string
     let commenttemp = {
       "commentId": comment.commentId,
       "dynamicId": comment.dynamicId,
@@ -77,8 +80,8 @@ struct DynamicDetailPage {
       "replyUserId": null,
       "replyUsername": null,
       "isDeleted": 0,
-      "username": "test",
-      "avatarUrl": "test",
+      "username": username,
+      "avatarUrl": avatarUrl,
       "isLike": null,
       dynamicDetailCommentPageVo: null
     }
@@ -90,7 +93,7 @@ struct DynamicDetailPage {
     console.info('test records',JSON.stringify(test.records));
     this.dynamicDetailCommentPageVo = test
 
-    console.info('点击了发送按钮',JSON.stringify(this.dynamicDetailCommentPageVo.records[0]));
+    await console.info('点击了发送按钮',JSON.stringify(this.dynamicDetailCommentPageVo.records[0]));
   }
 
   dialogController: CustomDialogController = new CustomDialogController({
@@ -129,6 +132,8 @@ struct DynamicDetailPage {
               ForEach(this.dynamicDetailCommentPageVo.records, (item: DynamicDetailComment, index) => {
                 DynamicDetailCommentCart({DynamicDetailComponentData: item,dynamicId: this.dynamicId,teststring:$teststring,onReplyComment:$onReplyComment})
               })
+              Blank()
+                .height(150)
             }
             .width('90%')
           }
@@ -154,30 +159,50 @@ struct DynamicDetailPage {
             .backgroundColor('#F5F5F5')
             Blank()
             Row(){
-              Image(likeimage)
-                .width(30)
-              Text('60')
+              if (this.dynamicDtail.isLike == 1){
+                Image(like1image)
+                  .width(25)
+                  .onClick(()=>{
+                    this.dynamicDtail.isLike = 0
+                    this.dynamicDtail.likeCount = this.dynamicDtail.likeCount - 1
+                  })
+              }else{
+                Image(likeimage)
+                  .width(25)
+                  .onClick(()=>{
+                    this.dynamicDtail.isLike = 1
+                    this.dynamicDtail.likeCount = this.dynamicDtail.likeCount + 1
+                  })
+              }
+              Text(this.dynamicDtail.likeCount.toString())
                 .fontSize(16)
             }
             .margin({right:10})
             Row(){
-              Image(likeimage)
-                .width(30)
-              Text('60')
-                .fontSize(16)
-            }
-            .margin({right:10})
-            Row(){
-              Image(likeimage)
-                .width(30)
-              Text('60')
+              if (this.dynamicDtail.isFavorite == 1) {
+                Image(favorite1image)
+                  .width(25)
+                  .onClick(() => {
+                    this.dynamicDtail.isFavorite = 0
+                    this.dynamicDtail.favoriteCount = this.dynamicDtail.favoriteCount - 1
+                  })
+              }else {
+                Image(favoriteimage)
+                  .width(25)
+                  .onClick(() => {
+                    this.dynamicDtail.isFavorite = 1
+                    this.dynamicDtail.favoriteCount = this.dynamicDtail.favoriteCount + 1
+                  })
+              }
+              Text(this.dynamicDtail.favoriteCount.toString())
                 .fontSize(16)
             }
             .margin({right:10})
           }
           .margin({top:5})
-          .width('100%')
+          .width('90%')
         }
+        .justifyContent(FlexAlign.Center)
         .backgroundColor('#FFFFFF')
         .width('100%')
         .margin({top:10,bottom:10})

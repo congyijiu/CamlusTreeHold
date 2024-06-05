@@ -27,7 +27,7 @@ export interface IDynamicItem {
 
   likeCount: number;
 
-  isLiked: number;
+  isLike: number;
 
 }
 
@@ -42,7 +42,7 @@ export default class DynamicItem implements IDynamicItem {
   username: string;
   avatarUrl: string;
   likeCount: number;
-  isLiked: number;
+  isLike: number;
 
   constructor(props: DynamicItem) {
     this.id = props.id;
@@ -51,6 +51,6 @@ export default class DynamicItem implements IDynamicItem {
     this.username = props.username;
     this.avatarUrl = props.avatarUrl;
     this.likeCount = props.likeCount;
-    this.isLiked = props.isLiked;
+    this.isLike = props.isLike;
   }
 }

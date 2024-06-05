@@ -1,5 +1,7 @@
 import audio from '@ohos.multimedia.audio';
 import { DynamicRequest } from '../api/DynamicRequest';
+import { like1image, likeimage } from '../common/common';
+import PreferencesUtil from '../common/PreferencesUtil';
 import {DynamicDetailCart} from '../components/DynamicDetailCart'
 import DynamicDetailComment from '../viewmodel/DynamicDetailComment'
 import {dynamicDetailCommentData} from '../viewmodel/TestViewModel'
@@ -98,10 +100,12 @@ export struct DynamicDetailCommentCart {
 
   }
 
-  onSendReply(){
+  async onSendReply(){
     console.info('点击了发送按钮');
     let comment = JSON.parse(this.teststring);
     console.info('comment in commentcart',JSON.stringify(comment))
+    let username = await PreferencesUtil.getPreferenceValue('MyPreferences','username','') as unknown as string
+    let avatarUrl = await PreferencesUtil.getPreferenceValue('MyPreferences','avatarUrl','') as unknown as string
     let commenttemp = {
       "commentId": comment.commentId,
       "dynamicId": comment.dynamicId,
@@ -115,8 +119,8 @@ export struct DynamicDetailCommentCart {
       "replyUserId": null,
       "replyUsername": comment.replyUsername,
       "isDeleted": 0,
-      "username": "test",
-      "avatarUrl": "test",
+      "username": username,
+      "avatarUrl": avatarUrl,
       "isLike": null,
       dynamicDetailCommentPageVo: null
     }
@@ -124,12 +128,12 @@ export struct DynamicDetailCommentCart {
     console.info('commenttemp in commentcart',JSON.stringify(commenttemp))
     if (this.onReplyComment != null) {
       let test1 = []
-      test1 = test1.concat(commenttemp,this.onReplyComment)
+      test1 = await test1.concat(commenttemp,this.onReplyComment)
       this.onReplyComment = test1
       console.info('this.onReplyComment tocomment',JSON.stringify(this.onReplyComment))
     }else {
       let test1 = []
-      test1 = test1.concat(commenttemp,this.replys)
+      test1 = await test1.concat(commenttemp,this.replys)
       this.replys = test1
       console.info('test1 topcomment',JSON.stringify(test1))
       console.info('this.replys topcomment',JSON.stringify(this.replys))
@@ -186,12 +190,33 @@ export struct DynamicDetailCommentCart {
             }
             .width('95%')
           }
+          .onClick(()=>{
+            console.info('点击了回复按钮',this.teststring);
+            this.cartreply()
+          })
           .width('93%')
           // .border({color: 'red', width: 1})
           Column(){
-            Image($r('app.media.ic_public_favor'))
-              .width(16)
-              .margin({top:5})
+            if (this.DynamicDetailComponentData.isLike == 1) {
+              Image(like1image)
+                .width(16)
+                .margin({ top: 5 })
+                .onClick(() => {
+                  console.info('点击了取消点赞按钮');
+                  this.DynamicDetailComponentData.isLike = 0
+                  this.DynamicDetailComponentData.likeCount -= 1
+                })
+            }
+            else {
+              Image(likeimage)
+                .width(16)
+                .margin({ top: 5 })
+                .onClick(() => {
+                  console.info('点击了点赞按钮');
+                  this.DynamicDetailComponentData.isLike = 1
+                  this.DynamicDetailComponentData.likeCount += 1
+                })
+            }
             Text(this.DynamicDetailComponentData.likeCount.toString())
               .fontSize(10)
           }
@@ -199,11 +224,7 @@ export struct DynamicDetailCommentCart {
           // .border({color: 'red', width: 1})
         }
         // .backgroundColor('#A6A6A7')
-        .onClick(()=>{
-          console.info('点击了回复按钮',this.teststring);
-          this.cartreply()
 
-        })
         .alignItems(VerticalAlign.Top)
         if (this.isReply) {
           ForEach(this.replys, (item: DynamicDetailComment, index) => {
