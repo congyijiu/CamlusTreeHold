@@ -15,16 +15,30 @@ export struct PersonPageCard{
   @State private fans: number = 1
   @State private bgcImg: string = 'https://img.zcool.cn/community/01b2945b0663dda801218cf4617993.jpg@3000w_1l_0o_100sh.jpg'
   @State private testToken : string = '12'
+  @State private userID : number = 0
 
   async aboutToAppear() {
-    // this.datasource.setDataArray(waterFlowData);
     this.testToken = await PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
     console.log('---ling' + this.testToken)
-    UserRequest.getUserInfoByToken(this.testToken).then((res) => {
+    await UserRequest.getUserInfoByToken(this.testToken).then(async (res) => {
       //res转为Json
-      // let resJson = formToJSON(res)
-      console.log('---ling' + JSON.stringify(res))
+
+      PreferencesUtil.putPreferenceValue('MyPreferences', 'id' , res.id)
+      this.userID = await PreferencesUtil.getPreferenceValue('MyPreferences','id','') as unknown as number
+      console.log('---lingjia' + JSON.stringify(this.userID))
+
+      UserRequest.getUserInfo(this.userID).then((res) => {
+        this.userImg = res.data.avatar
+        this.userName = res.data.username
+        this.signature = res.data.signature
+        this.follow = res.data.follow
+        this.fans = res.data.fans
+        console.log('---lingjia' + JSON.stringify(res.data))
+      })
+
+      // console.log('---lingjia' + JSON.stringify(res.data.id))
     })
+
   }
 
 

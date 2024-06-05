@@ -20,16 +20,32 @@ struct Index {
   @State str : string = ''
 
 
+  @State testId: number = 0
   @State datasource: WaterFlowDataSource = new WaterFlowDataSource()
 
   async aboutToAppear() {
     this.datasource.setDataArray(waterFlowData);
     this.testToken = await PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
     console.log('---ling' + this.testToken)
-    UserRequest.getUserInfoByToken(this.testToken).then((res) => {
+    await UserRequest.getUserInfoByToken(this.testToken).then(async (res) => {
       //res转为Json
-      let resJson = formToJSON(res)
-      console.log('---ling' + JSON.stringify(res))
+
+      PreferencesUtil.putPreferenceValue('MyPreferences', 'id' , res.id)
+      PreferencesUtil.putPreferenceValue('MyPreferences', 'avatarUrl' , res.avatarUrl)
+      PreferencesUtil.putPreferenceValue('MyPreferences', 'hobbies' , res.hobbies)
+      PreferencesUtil.putPreferenceValue('MyPreferences', 'gender' , res.gender)
+      PreferencesUtil.putPreferenceValue('MyPreferences', 'signature' , res.signature)
+      PreferencesUtil.putPreferenceValue('MyPreferences', 'phoneNumber' , res.phoneNumber)
+      PreferencesUtil.putPreferenceValue('MyPreferences', 'registrationDate' , res.registrationDate)
+      PreferencesUtil.putPreferenceValue('MyPreferences', 'email' , res.email)
+      PreferencesUtil.putPreferenceValue('MyPreferences', 'username' , res.username)
+      PreferencesUtil.putPreferenceValue('MyPreferences', 'follows' , res.follows)
+      PreferencesUtil.putPreferenceValue('MyPreferences', 'fans' , res.fans)
+
+      this.testId = await PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as number
+
+      console.log('---lingjia' + JSON.stringify(this.testId))
+      // console.log('---lingjia' + JSON.stringify(res.data.id))
     })
   }
 
