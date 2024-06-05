@@ -15,7 +15,6 @@ import { Driver, ON } from '@ohos.UiTest';
 export struct DynamicDetailReplyButtom {
 
   build(){
-
     Row(){
       Row(){
         Row(){

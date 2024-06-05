@@ -16,20 +16,20 @@ import { DynamicDetailReplyButtom } from './DynamicDetailReplyButtom'
 export struct DynamicDetailCommentInput {
 
   @State isvisible:Visibility = Visibility.None
+  @Link teststring: string;
 
   build(){
 
     Row(){
       Row(){
-        TextArea({placeholder:'说点什么吧...'})
+        TextArea({placeholder:`${this.teststring}`})
           .width('60%')
           .height(40)
           .fontSize(16)
           .margin({right:10})
           .id('123')
-          .onClick(()=>{
-            console.info('点击了输入框')
-            this.isvisible = Visibility.Visible
+          .onBlur(()=>{
+            console.info('TextArea onBlur')
           })
           Row(){
             Image(likeimage)

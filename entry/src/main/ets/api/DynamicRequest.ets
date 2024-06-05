@@ -100,4 +100,37 @@ export class DynamicRequest {
 
     return dynamicCommentPage
   }
+
+
+  static async addDynamicComment(dynamicCommentsAddDto: any): Promise<any> {
+    let comment:any
+    await axios.post(
+      `${baseUrl}/dynamic-comments/add`,
+      {
+        "dynamicId": dynamicCommentsAddDto.dynamicId,
+        "content": dynamicCommentsAddDto.content,
+        "topCommentId": dynamicCommentsAddDto.topCommentId,
+        "toCommentId": dynamicCommentsAddDto.toCommentId
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'token': testtoken
+        }
+      }
+
+    ).then((res: AxiosResponse) => {
+      if (res.status === 200) {
+        comment = res.data.data
+        console.log('addDynamicComment', JSON.stringify(comment))
+      }else {
+        console.log('addDynamicComment', res.data.errorMessage)
+      }
+    }).catch((err: AxiosError) => {
+      console.log('addDynamicComment', err.message)
+    })
+
+    return comment
+  }
 }
