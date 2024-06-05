@@ -12,7 +12,7 @@ struct SendMessagePage {
         Column(){
           ReceiverMessage()
           ForEach(this.senderMessage,(message:string)=>{
-            SenderMessage({senderMessage:$message})
+            SenderMessage({senderMessage:message})
           })
         }.width('100%')
         .height('90%')

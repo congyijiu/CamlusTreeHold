@@ -12,7 +12,7 @@ import {dynamicDetailData} from '../viewmodel/TestViewModel'
 @Component
 export struct DynamicDetailTop {
 
-  dynamicDtail: DynamicDetail = dynamicDetailData;
+  @State dynamicDtail: DynamicDetail = dynamicDetailData;
 
   @State username: string = '';
   @State avatarUrl: string = '';
@@ -55,13 +55,13 @@ export struct DynamicDetailTop {
           console.info('DynamicDetailTop isFollow', this.dynamicDtail.isFollow)
         })
       } else {
-      Button('关注')
-        .height(28)
-        .backgroundColor('#1BF928')
-        .onClick(() => {
-          this.dynamicDtail.isFollow = 1;
-          console.info('DynamicDetailTop isFollow', this.dynamicDtail.isFollow)
-        })
+        Button('关注')
+          .height(28)
+          .backgroundColor('#1BF928')
+          .onClick(() => {
+            this.dynamicDtail.isFollow = 1;
+            console.info('DynamicDetailTop isFollow', this.dynamicDtail.isFollow)
+          })
       }
     }
     .width('100%')

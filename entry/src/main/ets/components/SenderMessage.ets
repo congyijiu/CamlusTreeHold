@@ -3,7 +3,7 @@
 @Component
  export struct SenderMessage{
   @State SenderImage:string = 'null';
-@Link senderMessage:string;
+  @State senderMessage:string = 'null';
   build(){
     Row(){
       Text(this.senderMessage.toString())
