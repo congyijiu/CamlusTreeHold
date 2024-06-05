@@ -6,10 +6,10 @@
     "pages/testPage",
     "pages/DynamicDetailPage",
     "pages/Register",
-    "pages/editUserInfoCardPage"
-
+    "pages/editUserInfoCardPage",
     "pages/PublishPage",
     "pages/MyPage",
-    "pages/MessagePage"
+    "pages/MessagePage",
+    "pages/SendMessagePage"
   ]
 }

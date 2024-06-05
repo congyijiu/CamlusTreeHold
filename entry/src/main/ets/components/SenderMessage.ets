@@ -2,8 +2,8 @@
 @Preview
 @Component
  export struct SenderMessage{
-  @State SenderImage:String = null;
-  @State senderMessage:String = "Hello, how are you?"
+  @State SenderImage:string = 'null';
+@Link senderMessage:string;
   build(){
     Row(){
       Text(this.senderMessage.toString())
