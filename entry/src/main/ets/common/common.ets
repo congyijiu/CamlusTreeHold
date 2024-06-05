@@ -5,4 +5,4 @@ const testtoken = "eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAA_yWLSwrDMA
 
 const likeimage = $r('app.media.ic_public_favor')
 
-export { baseUrl , testtoken , likeimage}
+export { baseUrl , testtoken,likeimage}

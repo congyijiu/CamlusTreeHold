@@ -3,6 +3,7 @@ import picker from '@ohos.file.picker';
 import {imageSourceToBase64} from '../utils/imageSourceToBase64';
 import fs from '@ohos.file.fs';
 import image from '@ohos.multimedia.image';
+import {ImageShow} from '../components/ImageShow';
 @Preview
 @Component
 export  struct photopicker {
@@ -19,9 +20,7 @@ export  struct photopicker {
       Column() {
         Row() {
           ForEach(this.Url, (url) => {
-            Image(url)
-              .width(100)
-              .height(100)
+            ImageShow({ImageUrl:url})
           })
           Text('+')
             .onClick(() => {
@@ -106,8 +105,7 @@ export  struct photopicker {
           })
           .width(200)
           .margin({top:20})
-
-      }
+      }.height('89%')
 
     }
 

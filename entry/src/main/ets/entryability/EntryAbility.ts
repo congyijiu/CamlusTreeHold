@@ -1,13 +1,19 @@
 import UIAbility from '@ohos.app.ability.UIAbility';
 import hilog from '@ohos.hilog';
 import window from '@ohos.window';
+import PreferencesUtil from '../common/PreferencesUtil'
+import preferences from '@ohos.data.preferences';
+
 
 export default class EntryAbility extends UIAbility {
-  onCreate(want, launchParam) {
+   async onCreate(want, launchParam) {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
+    //加载PreferencesUtil
+     await PreferencesUtil.loadPreference(this.context , 'MyPreferences')
   }
 
-  onDestroy() {
+  onDestroy() {//加载Preferences
+
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
   }
 
@@ -15,7 +21,7 @@ export default class EntryAbility extends UIAbility {
     // Main window is created, set main page for this ability
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
-    windowStage.loadContent('pages/Index', (err, data) => {
+    windowStage.loadContent('pages/Login', (err, data) => {
       if (err.code) {
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;

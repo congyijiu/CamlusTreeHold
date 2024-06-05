@@ -1,9 +1,15 @@
 {
   "src": [
+    "pages/Login",
+    "pages/PersonalPageCard",
     "pages/Index",
     "pages/testPage",
     "pages/DynamicDetailPage",
+    "pages/Register",
+    "pages/editUserInfoCardPage"
+
     "pages/PublishPage",
-    "pages/MyPage"
+    "pages/MyPage",
+    "pages/MessagePage"
   ]
 }

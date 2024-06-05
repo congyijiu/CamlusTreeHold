@@ -13,38 +13,65 @@
  * limitations under the License.
  */
 
-export interface IUser {
+export interface IUserInfo {
 
   id: string;
 
-  username: string
+  avatarUrl: string
 
-  age: number
+  hobbies: string
+
+  gender:number
+
+  signature: string
+
+  phoneNumber: string
+
+  registrationDate : string
+
+  username : string
 
   email: string
 
-  avatarUrl: string
+  follows : number
 
-  phoneNumber: string
-  
+  fans : number
+
+
+
+
 }
 
 /**
  * Water flow item.
  */
-export default class User implements IUser {
-  id: string;
-  username: string
-  age: number
-  email: string
-  avatarUrl: string
-  phoneNumber: string
-  constructor(props: User) {
+export default class UserInfo implements IUserInfo {fans: number;
+    follows: number;
+    email: string;
+    username: string;
+    registrationDate: string;
+    phoneNumber: string;
+    signature: string;
+    gender: number;
+    hobbies: string;
+    avatarUrl: string;
+    id: string;
+
+  constructor(props: UserInfo) {
     this.id = props.id;
-    this.username = props.username;
-    this.age = props.age;
-    this.email = props.email;
     this.avatarUrl = props.avatarUrl;
+    this.hobbies = props.hobbies;
+    this.fans = props.fans;
+    this.follows = props.follows;
+    this.email = props.email;
+    this.username = props.username;
+    this.registrationDate = props.registrationDate;
     this.phoneNumber = props.phoneNumber;
+    this.signature = props.signature;
+
   }
+
+
+
+
 }
