@@ -1,8 +1,13 @@
 
 import router from '@ohos.router';
+import { UserRequest } from '../api/UserRequest';
 @Preview
 @Component
 export struct registerCard{
+
+  @State username: string = '';
+  @State password: string = ''
+  @State passwordAgain: string = '';
 
   build(){
     Column({space: 15}){
@@ -22,19 +27,38 @@ export struct registerCard{
       //登录注册文字
       Row(){
         Text('登录').fontSize(20)
-
+          .onClick(()=>{
+            //处理点击事件
+            router.pushUrl(
+              { url: 'pages/Login',
+                params: {
+                }}
+            );
+          })
         // .border({ width: 2 })
 
 
         Text('注册').fontSize(20)
+          .onClick(()=>{
+            //处理点击事件
+            router.pushUrl(
+              { url: 'pages/Register',
+                params: {
+                }}
+            );
+          })
           .decoration({
           type: TextDecorationType.Underline,
           color: Color.Blue
         })
+
+
       }
       .width("100%")
       // .border({width:1,color:'#333840'})
       .justifyContent(FlexAlign.SpaceEvenly)
+
+
 
       //组合
       Row(){
@@ -44,10 +68,30 @@ export struct registerCard{
             .backgroundColor('#F2F2F2')
             .textAlign(TextAlign.Center)
             .height(44)
+            .onChange((value:string)=>{
+              this.username = value
+              console.log(this.username)
+            })
 
-          TextInput({placeholder:'请输入密码'}).width('90%').backgroundColor('#F2F2F2').textAlign(TextAlign.Center).height(44)
-          TextInput({placeholder:'请再次输入密码'}).width('90%').backgroundColor('#F2F2F2').textAlign(TextAlign.Center).height(44)
+          TextInput({placeholder:'请输入密码'}).width('90%').backgroundColor('#F2F2F2').textAlign(TextAlign.Center).height(44).onChange((value:string)=>{
+            this.password = value
+            console.log(this.password)
+          })
+          TextInput({placeholder:'请再次输入密码'}).width('90%').backgroundColor('#F2F2F2').textAlign(TextAlign.Center).height(44).onChange((value:string)=>{
+            this.passwordAgain = value
+            console.log(this.passwordAgain)
+          })
           Button('登录').width('90%').backgroundColor('#02A7F0').height(44)
+            .onClick(()=>{
+              //处理点击事件
+              UserRequest.register(this.username,this.password,this.passwordAgain)
+              console.log('1')
+              router.pushUrl(
+                { url: 'pages/Login',
+                  params: {
+                  }}
+              );
+            })
         }
         .height(300)
         // .border({width:1,color:'#333840'})
