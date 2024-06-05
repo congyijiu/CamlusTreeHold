@@ -2,6 +2,9 @@
 import router from '@ohos.router';
 import DynamicWaterFlower from '../viewmodel/DynamicItem'
 import { DynamicWaterFlow } from '../components/DynamicWaterFlow'
+import PreferencesUtil from '../common/PreferencesUtil'
+import { UserRequest } from '../api/UserRequest';
+import { formToJSON } from '@ohos/axios';
 @Preview
 @Component
 export struct PersonPageCard{
@@ -11,6 +14,20 @@ export struct PersonPageCard{
   @State private follow: number = 1
   @State private fans: number = 1
   @State private bgcImg: string = 'https://img.zcool.cn/community/01b2945b0663dda801218cf4617993.jpg@3000w_1l_0o_100sh.jpg'
+  @State private testToken : string = '12'
+
+  async aboutToAppear() {
+    // this.datasource.setDataArray(waterFlowData);
+    this.testToken = await PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
+    console.log('---ling' + this.testToken)
+    UserRequest.getUserInfoByToken(this.testToken).then((res) => {
+      //res转为Json
+      // let resJson = formToJSON(res)
+      console.log('---ling' + JSON.stringify(res))
+    })
+  }
+
+
 
   build(){
     Column(){
@@ -24,6 +41,13 @@ export struct PersonPageCard{
          Image($r('app.media.quit')).width(26).height(26)
            .onClick(()=>{
              //处理点击事件
+             //1.token清''
+             PreferencesUtil.putPreferenceValue('MyPreferences', 'token' , '')
+
+             //测试一下token请0
+             this.testToken =  PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
+             console.log('---' + this.testToken)
+
              router.pushUrl(
                { url: 'pages/Login',
                  params: {
@@ -56,7 +80,14 @@ export struct PersonPageCard{
             Text(this.fans + '粉丝').fontSize(15)
             Button({type:ButtonType.Capsule}){
               Text('编辑资料').fontColor('#F3F4F6').fontSize(10)
-            }.width(60).height(24)
+            }.width(60).height(24).onClick(()=>{
+              //处理点击事件
+              router.pushUrl(
+                { url: 'pages/editUserInfoCardPage',
+                  params: {
+                  }}
+              );
+            })
 
           }.width('54%').justifyContent(FlexAlign.SpaceBetween)
 

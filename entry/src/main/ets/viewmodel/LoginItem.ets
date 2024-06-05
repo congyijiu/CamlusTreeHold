@@ -16,5 +16,4 @@ export default class LoginItem implements LoginItem1{
     this.password = props.password
   }
 
-
 }

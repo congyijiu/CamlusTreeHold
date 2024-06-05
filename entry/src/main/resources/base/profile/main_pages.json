@@ -1,11 +1,13 @@
 {
   "src": [
+    "pages/Login",
+    "pages/PersonalPageCard",
     "pages/Index",
     "pages/testPage",
     "pages/DynamicDetailPage",
-    "pages/Login",
     "pages/Register",
-    "pages/PersonalPageCard",
-    "pages/DynamicDetailPage"
+    "pages/DynamicDetailPage",
+    "pages/editUserInfoCardPage"
+
   ]
 }

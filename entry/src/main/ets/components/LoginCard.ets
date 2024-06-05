@@ -5,11 +5,14 @@ import { UserRequest } from '../api/UserRequest';
 @Component
 export struct loginCard{
   // @State private imageUri: string =''
+  @State handlePopup: boolean = false
   @State username: string = '';
   @State password: string = ''
+  @State token : string = ''
   // @State dynamicDtail: DynamicDetail = dynamicDetailData;
 
   build(){
+
     Column({space: 15}){
       //图片
     Row(){
@@ -65,28 +68,34 @@ export struct loginCard{
             .height(44)
             .onChange((value:string)=>{
               this.username = value
-              console.log(this.username)
+              // console.log(this.username)
             })
 
           //密码
           TextInput({placeholder:'请输入密码'}).width('90%').backgroundColor('#F2F2F2').textAlign(TextAlign.Center).height(44).onChange((value:string)=>{
             this.password = value
-            console.log(this.password)
+            // console.log(this.password)
           })
           //登录按钮
           Button('登录').width('90%').backgroundColor('#02A7F0').height(44)
             .onClick(()=>{
               //处理点击事件
-              UserRequest.postUserInfo(this.username , this.password)
-              console.log('1')
-              router.pushUrl(
-                { url: 'pages/Index',
-                  params: {
-                  }}
-              );
+              UserRequest.postUserInfo(this.username , this.password).then((data)=>{
+                this.token = data.data.token
+                console.log("---" + this.token)
+              })
+              // console.log('1')
+              // router.pushUrl(
+              //   { url: 'pages/Index',
+              //     params: {
+              //
+              //     }}
+              // );
+            }).bindPopup(this.handlePopup, {
+            message: 'This is a popup with PopupOptions',
+          })
 
 
-            })
         }
         .height(200)
         // .border({width:1,color:'#333840'})
