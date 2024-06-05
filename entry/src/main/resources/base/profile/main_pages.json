@@ -9,6 +9,7 @@
     "pages/editUserInfoCardPage",
     "pages/MyPage",
     "pages/PublishPage",
-    "pages/MessagePage"
+    "pages/MessagePage",
+    "pages/SendMessagePage"
   ]
 }

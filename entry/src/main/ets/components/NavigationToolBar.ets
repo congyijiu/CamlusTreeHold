@@ -84,7 +84,7 @@ export struct NavigationToolBar {
             }
           })
         })
-      }.alignItems(VerticalAlign.Center).width('100%')
+      }.alignItems(VerticalAlign.Center).width('100%').backgroundColor(Color.White)
   }
 
 }

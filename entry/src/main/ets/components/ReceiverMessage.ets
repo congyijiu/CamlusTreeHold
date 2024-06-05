@@ -2,8 +2,8 @@
 @Preview
 @Component
 export struct ReceiverMessage{
-  @State SenderImage:String = null;
-  @State senderMessage:String = ""
+  @State SenderImage:string = '';
+  @State senderMessage:string = "hello"
   build(){
     Row(){
       Image(this.SenderImage.toString())
