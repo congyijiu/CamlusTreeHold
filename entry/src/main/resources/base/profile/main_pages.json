@@ -4,6 +4,7 @@
     "pages/testPage",
     "pages/DynamicDetailPage",
     "pages/PublishPage",
-    "pages/MyPage"
+    "pages/MyPage",
+    "pages/MessagePage"
   ]
 }
