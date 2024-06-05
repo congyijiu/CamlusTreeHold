@@ -1,17 +1,13 @@
 import {NavigationToolBar}  from '../components/NavigationToolBar'
-
+import {PersonPageCard} from '../components/PersonalPageCard'
 @Entry
 @Component
 struct MyPage {
-  @State message: string = 'Hello World'
   currentIndex: number = 2
   build() {
     Row() {
       Column() {
-        Text(this.message)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
-
+        PersonPageCard()
         NavigationToolBar({ currentIndex: this.currentIndex })
       }
       .width('100%')
