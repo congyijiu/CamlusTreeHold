@@ -4,6 +4,11 @@ import {registerCard} from '../components/RegisterCard'
 @Entry
 @Component
 struct testPage{
+
+
+  onPageShow(){
+    router.clear();
+  }
   build(){
     Column(){
       loginCard()

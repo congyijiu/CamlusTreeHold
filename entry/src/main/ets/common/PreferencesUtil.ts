@@ -7,6 +7,7 @@ export class PreferencesUtil{
   static prefMap: Map<string, preferences.Preferences> = new Map()
 
   static token:string = ''
+  static userId :number = 0
 
   static async loadPreference(context, name: string){
     try { // 加载preferences

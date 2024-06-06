@@ -2,7 +2,6 @@ import router from '@ohos.router'
 import { DynamicCard } from '../components/DynamicCard'
 import {DynamicWaterFlow } from '../components/DynamicWaterFlow'
 import { PreferencesUtil } from '../common/PreferencesUtil'
-
 import { WaterFlowDataSource } from '../viewmodel/WaterFlowDataSource'
 import { waterFlowData } from '../viewmodel/TestViewModel';
 import DynamicItem from '../viewmodel/DynamicItem'
@@ -48,6 +47,8 @@ struct Index {
     console.log('---ling' + this.testToken)
     await UserRequest.getUserInfoByToken(this.testToken).then(async (res) => {
       //res转为Json
+      PreferencesUtil.userId = res.id
+      console.log('userId in postUserInfo', PreferencesUtil.userId)
 
       PreferencesUtil.putPreferenceValue('MyPreferences', 'id' , res.id)
       PreferencesUtil.putPreferenceValue('MyPreferences', 'avatarUrl' , res.avatarUrl)

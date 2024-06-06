@@ -40,14 +40,26 @@ export struct PersonPageCard{
     "userId": 1
   }
 
+  //强制刷新页面
+  onShow(){
+    // this.aboutToAppear()
+    router.pushUrl(
+      { url: 'pages/MyPage',
+        params: {
+        }}
+    );
+  }
+
+
   aboutToAppear() {
-    this.token =  PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
+    // this.token =  PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
+    this.token = PreferencesUtil.token
     // console.log('---ling' + this.testToken)
-    UserRequest.getUserInfoByToken(this.testToken).then(async (res) => {
+    UserRequest.getUserInfoByToken(this.testToken).then( async (res) => {
       //res转为Json
 
-      PreferencesUtil.putPreferenceValue('MyPreferences', 'id' , res.id)
-      this.userID = await PreferencesUtil.getPreferenceValue('MyPreferences','id','') as unknown as number
+      // PreferencesUtil.putPreferenceValue('MyPreferences', 'id' , res.id)
+      this.userID = PreferencesUtil.userId
       console.log('---lingjia' + JSON.stringify(this.userID))
       // console.log('---lingjia' + JSON.stringify(res.data.id))
       UserRequest.getUserInfo(this.userID).then((res) => {
@@ -78,8 +90,6 @@ export struct PersonPageCard{
 
       })
     })
-
-
 
   }
 
@@ -132,11 +142,11 @@ export struct PersonPageCard{
              await console.log('---ppp---' + JSON.stringify(PreferencesUtil.getPreferenceValue('MyPreferences','fans','')))
 
 
-             router.pushUrl(
-               { url: 'pages/Login',
-                 params: {
-                 }}
-             );
+              router.pushUrl(
+                { url: 'pages/Login',
+                  params: {
+                  }}
+              );
            })
 
        }

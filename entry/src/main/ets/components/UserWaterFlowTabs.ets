@@ -1,6 +1,7 @@
 import DynamicType from '../viewmodel/DynamicType'
 import { DynamicWaterFlow } from './DynamicWaterFlow'
 import { UserDynamicWaterFlow } from './UserDynamicWaterFlow'
+import { UserPublishDynamicWaterFlow } from './UserPublishWaterFlow'
 
 @Preview
 @Component
@@ -31,12 +32,19 @@ export struct UserWaterFlowTabs {
     Column(){
       Tabs({ barPosition: BarPosition.Start, controller: this.controller })
       {
-        ForEach(this.dynamicTypeList, (item:DynamicType,index:number) => {
+        // ForEach(this.dynamicTypeList, (item:DynamicType,index:number) => {
+
           TabContent(){
             //这里设置瀑布流
-            UserDynamicWaterFlow({type:parseInt(item.id)})
-          }.tabBar(this.TabBuilder(index, item.typeName))
-        })
+            UserPublishDynamicWaterFlow({type:parseInt('0')})
+          }.tabBar(this.TabBuilder(0, '用户动态'))
+
+          TabContent(){
+            //这里设置瀑布流
+            UserDynamicWaterFlow({type:parseInt('1')})
+          }.tabBar(this.TabBuilder(1, '用户收藏'))
+
+        // })
       }
       .vertical(false)
       .height(790)

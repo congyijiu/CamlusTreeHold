@@ -4,6 +4,7 @@ import { WaterFlowDataSource } from '../viewmodel/WaterFlowDataSource'
 import { waterFlowData } from '../viewmodel/TestViewModel';
 import DynamicItem from '../viewmodel/DynamicItem'
 import {DynamicRequest} from '../api/DynamicRequest'
+import { PreferencesUtil } from '../common/PreferencesUtil'
 
 
 @Preview
@@ -32,8 +33,9 @@ export struct UserDynamicWaterFlow {
       //   console.log('keyword in DynamicWaterFlow', keyword)
       //   this.dynamicDto['keyWord'] = keyword
       // }
+
       let token = params['token']
-      this.dynamicDto['userId'] = params['id']
+      this.dynamicDto['userId'] = PreferencesUtil.userId
       if (token) {
         this.token = token
       }

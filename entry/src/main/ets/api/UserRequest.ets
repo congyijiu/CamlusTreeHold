@@ -76,6 +76,9 @@ export class UserRequest{
           await PreferencesUtil.putPreferenceValue('MyPreferences', 'token' , res.data.data.token)
 
           PreferencesUtil.token = res.data.data.token
+          console.log('token in postUserInfo', PreferencesUtil.token)
+          PreferencesUtil.userId = res.data.data.id
+          console.log('userId in postUserInfo', PreferencesUtil.userId)
           router.pushUrl(
             { url: 'pages/Index',
               params: {

@@ -4,6 +4,11 @@ import {PersonPageCard} from '../components/PersonalPageCard'
 @Component
 struct MyPage {
   currentIndex: number = 2
+
+  // onPageShow() {
+  //   this.build()
+  // }
+
   build() {
     Row() {
       Column() {
