@@ -23,6 +23,7 @@ export struct SendMessageInput{
           this.myText = value
           console.log('12312234',this.myText)
         })
+        .backgroundColor(Color.White)
       Button('发送')
         .onClick(() => {
           //将myText的值添加到senderMessage数组中
@@ -31,7 +32,7 @@ export struct SendMessageInput{
           }
           this.myText = ''
         })
-    }.width('100%').height(100).backgroundColor(Color.White)
+    }.width('100%').height(100).backgroundColor(0xDCDCDC)
 
 
   }
