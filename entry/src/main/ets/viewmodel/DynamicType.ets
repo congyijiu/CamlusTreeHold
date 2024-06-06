@@ -27,7 +27,7 @@ export interface IDynamicType {
 
   sortOrder: number;
 
-  creationDate: number;
+  creationDate: string;
 
 }
 
@@ -48,7 +48,7 @@ export default class DynamicType implements IDynamicType {
 
   sortOrder: number;
 
-  creationDate: number;
+  creationDate: string;
 
   constructor(props: DynamicType) {
     this.id = props.id;

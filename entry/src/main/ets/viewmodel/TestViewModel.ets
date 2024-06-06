@@ -3,6 +3,7 @@ import  DynamicDetailComment  from './DynamicDetailComment';
 import  User  from './User';
 import DynamicDetailCommentPageVo from './DynamicDetailCommentPageVo';
 import LoginItem from './LoginItem';
+import DynamicType from './DynamicType';
 
 
 const waterFlowData: IDynamicItem[] = [
@@ -491,6 +492,37 @@ const dynamicDetailCommentPageData : DynamicDetailCommentPageVo = {
   "size": 10,
   "current": 1,
 }
+
+const dynamicTypeList:DynamicType[] = [
+  {
+    "id": '1',
+    "typeName": "默认",
+    "description": "默认",
+    "isDefault": '1',
+    "status": '1',
+    "sortOrder": 0,
+    "creationDate": "2023-11-22 17:08:10"
+  },
+  {
+    "id": '2',
+    "typeName": "校园",
+    "description": "校园",
+    "isDefault": '0',
+    "status": '1',
+    "sortOrder": 0,
+    "creationDate": "2023-11-28 10:24:44"
+  },
+  {
+    "id": '3',
+    "typeName": "美食",
+    "description": "美食",
+    "isDefault": '0',
+    "status": '1',
+    "sortOrder": 0,
+    "creationDate": "2023-11-28 10:24:55"
+  }
+]
+
 const loginItem : LoginItem = {
   username:'123',
   password:'123'
@@ -500,4 +532,5 @@ const loginItem : LoginItem = {
 
 
 
-export {waterFlowData,dynamicDetailData,dynamicDetailCommentData,dynamicDetailCommentPageData};
+export {waterFlowData,dynamicDetailData,dynamicDetailCommentData,
+  dynamicDetailCommentPageData,dynamicTypeList};

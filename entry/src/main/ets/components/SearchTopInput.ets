@@ -5,6 +5,18 @@ import { backimage } from '../common/common';
 @Component
 export struct SearchTopInput {
 
+  search(){
+    console.log('search in SearchTopInput',this.keyword)
+    router.pushUrl(
+      { url: 'pages/SearchPage',
+        params: {
+          keyword: this.keyword
+        }}
+    )
+  }
+
+  @State keyword: string = ''
+
   build(){
     Row(){
       Image(backimage)
@@ -16,12 +28,19 @@ export struct SearchTopInput {
         .width('80%')
         .height(40)
         .margin({left: 10})
+        .onChange((value)=>{
+          this.keyword = value
+          console.log(value)
+        })
       Blank()
       Text('搜索')
         .fontColor('#75787A')
+        .onClick(()=>{
+          this.search()
+        })
     }
     .width('90%')
     .justifyContent(FlexAlign.Start)
-    .margin({top: 10,bottom: 10})
+    .margin({top: 5,bottom: 5})
   }
 }

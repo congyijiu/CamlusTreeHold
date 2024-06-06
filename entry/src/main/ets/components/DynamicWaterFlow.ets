@@ -21,6 +21,15 @@ export struct DynamicWaterFlow {
   }
 
   aboutToAppear() {
+    let params = router.getParams()
+    if (params) {
+      console.log('params in DynamicWaterFlow', JSON.stringify(params))
+      let keyword = params['keyword']
+      if (keyword) {
+        console.log('keyword in DynamicWaterFlow', keyword)
+        this.dynamicDto['keyWord'] = keyword
+      }
+    }
     let dynamicIiems:DynamicItem[] = []
     this.dynamicDto['type'] = this.type
     DynamicRequest.getDynamicItem(this.dynamicDto).then((value) => {

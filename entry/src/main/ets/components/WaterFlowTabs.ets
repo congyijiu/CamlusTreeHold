@@ -37,17 +37,17 @@ export struct WaterFlowTabs {
           }.tabBar(this.TabBuilder(index, item.typeName))
         })
       }
-        .vertical(false)
-        .height(790)
-        .barMode(BarMode.Fixed)
-        .barWidth(300)
-        .barHeight(40)
-        .border({ color: '#E5E5E5', width: 1 })
-        .scrollable(true)
-        .animationDuration(300)
-        .onChange((index: number) => {
-          this.currentIndex = index
-        })
+      .vertical(false)
+      .height(790)
+      .barMode(BarMode.Fixed)
+      .barWidth(300)
+      .barHeight(40)
+      .border({ color: '#E5E5E5', width: 1 })
+      .scrollable(true)
+      .animationDuration(300)
+      .onChange((index: number) => {
+        this.currentIndex = index
+      })
     }
   }
 
