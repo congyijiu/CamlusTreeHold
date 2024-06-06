@@ -172,6 +172,13 @@ export class DynamicRequest {
 
 
   static async addDynamicComment(dynamicCommentsAddDto: any): Promise<any> {
+    let dynamicItem:DynamicItem[] = []
+    let token:string = ''
+
+    await PreferencesUtil.getUserToken().then((value) => {
+      token = value
+      console.log('getUserToken', JSON.stringify(token))
+    })
     let comment:any
     await axios.post(
       `${baseUrl}/dynamic-comments/add`,
@@ -185,7 +192,7 @@ export class DynamicRequest {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'token': testtoken
+          'token': token
         }
       }
 
@@ -204,6 +211,13 @@ export class DynamicRequest {
   }
 
   static async getAllDynamicType(): Promise<DynamicType[]> {
+    let dynamicItem:DynamicItem[] = []
+    let token:string = ''
+
+    await PreferencesUtil.getUserToken().then((value) => {
+      token = value
+      console.log('getUserToken', JSON.stringify(token))
+    })
     let dynamicTypeList:DynamicType[] = []
     await axios.post(
       `${baseUrl}/dynamicType/list`,
@@ -212,7 +226,7 @@ export class DynamicRequest {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'token': testtoken
+          'token': token
         }
       }
     ).then((res: AxiosResponse) => {
