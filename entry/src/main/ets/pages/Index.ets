@@ -8,11 +8,12 @@ import { waterFlowData } from '../viewmodel/TestViewModel';
 import DynamicItem from '../viewmodel/DynamicItem'
 import {DynamicRequest} from '../api/DynamicRequest'
 import { NavigationToolBar } from '../components/NavigationToolBar'
-import {tabs} from '../components/Tabs';
+import {tabs} from '../components/WaterFlowTabs';
 import { UserRequest } from '../api/UserRequest'
 import { formToJSON } from '@ohos/axios'
 import DynamicType from '../viewmodel/DynamicType'
 import { searchimage } from '../common/common'
+import { IndexSearchImage } from '../components/IndexSearchImage'
 @Entry
 @Component
 struct Index {
@@ -63,15 +64,14 @@ struct Index {
 
   build() {
     Column(){
-      Image(searchimage)
-        .width(22)
-        .position({x: '90%', y: 7})
       tabs({dynamicTypeList:$dynamicTypeList})
         .width('100%')
         .height(50)
       // DynamicWaterFlow()
       NavigationToolBar()
         .position({x: 0, y: '96%'})
+      IndexSearchImage()
+        .position({x: '90%', y: 7})
     }
 
   }

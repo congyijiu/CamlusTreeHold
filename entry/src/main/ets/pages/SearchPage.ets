@@ -1,14 +1,14 @@
+import { SearchTopInput } from '../components/SearchTopInput'
+
+
 @Entry
 @Component
 struct SearchPage {
-  @State message: string = 'Hello World'
-
   build() {
     Row() {
       Column() {
-        Text(this.message)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
+        SearchTopInput()
+        Tabs()
       }
       .width('100%')
     }

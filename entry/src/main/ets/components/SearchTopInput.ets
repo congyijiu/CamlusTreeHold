@@ -9,6 +9,9 @@ export struct SearchTopInput {
     Row(){
       Image(backimage)
         .width(25)
+        .onClick(()=>{
+          router.back()
+        })
       TextInput({placeholder: '请输入搜索内容'})
         .width('80%')
         .height(40)
