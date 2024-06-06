@@ -8,7 +8,7 @@
     "pages/Register",
     "pages/MyPage",
     "pages/DynamicDetailPage",
-    "pages/editUserInfoCardPage"
+    "pages/editUserInfoCardPage",
     "pages/PublishPage",
     "pages/MessagePage"
   ]

@@ -16,6 +16,7 @@ export struct PersonPageCard{
   @State private bgcImg: string = 'https://img.zcool.cn/community/01b2945b0663dda801218cf4617993.jpg@3000w_1l_0o_100sh.jpg'
   @State private testToken : string = '12'
   @State private userID : number = 0
+  @State private testId : number = 0
 
   async aboutToAppear() {
     this.testToken = await PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
@@ -27,17 +28,18 @@ export struct PersonPageCard{
       this.userID = await PreferencesUtil.getPreferenceValue('MyPreferences','id','') as unknown as number
       console.log('---lingjia' + JSON.stringify(this.userID))
 
-      UserRequest.getUserInfo(this.userID).then((res) => {
-        this.userImg = res.data.avatar
-        this.userName = res.data.username
-        this.signature = res.data.signature
-        this.follow = res.data.follow
-        this.fans = res.data.fans
-        console.log('---lingjia' + JSON.stringify(res.data))
-      })
-
       // console.log('---lingjia' + JSON.stringify(res.data.id))
     })
+
+    await UserRequest.getUserInfo(this.userID).then((res) => {
+      this.userImg = res.avatarUrl
+      this.userName = res.username
+      this.signature = res.hobbies
+      this.follow = res.follows
+      this.fans = res.fans
+      console.log('---lingjiaUserRequest' + JSON.stringify(res.avatarUrl))
+    })
+
 
   }
 
@@ -53,14 +55,56 @@ export struct PersonPageCard{
        Row(){
          // Image($r('app.media.ic_camera_master_ai_leaf'))
          Image($r('app.media.quit')).width(26).height(26)
-           .onClick(()=>{
+           .onClick(async (res)=>{
              //处理点击事件
-             //1.token清''
-             PreferencesUtil.putPreferenceValue('MyPreferences', 'token' , '')
 
-             //测试一下token请0
+             // PreferencesUtil.putPreferenceValue('MyPreferences', 'id' , res.id)
+             // PreferencesUtil.putPreferenceValue('MyPreferences', 'avatarUrl' , res.avatarUrl)
+             // PreferencesUtil.putPreferenceValue('MyPreferences', 'hobbies' , res.hobbies)
+             // PreferencesUtil.putPreferenceValue('MyPreferences', 'gender' , res.gender)
+             // PreferencesUtil.putPreferenceValue('MyPreferences', 'signature' , res.signature)
+             // PreferencesUtil.putPreferenceValue('MyPreferences', 'phoneNumber' , res.phoneNumber)
+             // PreferencesUtil.putPreferenceValue('MyPreferences', 'registrationDate' , res.registrationDate)
+             // PreferencesUtil.putPreferenceValue('MyPreferences', 'email' , res.email)
+             // PreferencesUtil.putPreferenceValue('MyPreferences', 'username' , res.username)
+             // PreferencesUtil.putPreferenceValue('MyPreferences', 'follows' , res.follows)
+             // PreferencesUtil.putPreferenceValue('MyPreferences', 'fans' , res.fans)
+
+             //1.token清''
+             await PreferencesUtil.putPreferenceValue('MyPreferences', 'token' , '')
+             await PreferencesUtil.putPreferenceValue('MyPreferences', 'id' , '')
+             await PreferencesUtil.putPreferenceValue('MyPreferences', 'avatarUrl' , '')
+             await PreferencesUtil.putPreferenceValue('MyPreferences', 'hobbies' , '')
+             await PreferencesUtil.putPreferenceValue('MyPreferences', 'gender' , '')
+             await PreferencesUtil.putPreferenceValue('MyPreferences', 'signature' , '')
+             await PreferencesUtil.putPreferenceValue('MyPreferences', 'phoneNumber' , '')
+             await PreferencesUtil.putPreferenceValue('MyPreferences', 'registrationDate' , '')
+             await PreferencesUtil.putPreferenceValue('MyPreferences', 'username' , '')
+             await PreferencesUtil.putPreferenceValue('MyPreferences', 'follows' , '')
+             await PreferencesUtil.putPreferenceValue('MyPreferences', 'fans' , '')
+
+
+
+             //测试一下token清零
              this.testToken =  PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
-             console.log('---' + this.testToken)
+             this.testId = PreferencesUtil.getPreferenceValue('MyPreferences','id','') as unknown as number
+
+
+             // await console.log('---ppp---' + this.testToken)
+             // await console.log('---ppp---testId' + this.testId)
+             // console.log('---ppp---' +   JSON.stringify(PreferencesUtil.getPreferenceValue('MyPreferences','id','')))
+             await console.log('---ppp---avatarUrl' + JSON.stringify(PreferencesUtil.getPreferenceValue('MyPreferences','avatarUrl','')))
+             await console.log('---ppp---' + JSON.stringify(PreferencesUtil.getPreferenceValue('MyPreferences','hobbies','')))
+             await console.log('---ppp---' + JSON.stringify(PreferencesUtil.getPreferenceValue('MyPreferences','gender','')))
+             await console.log('---ppp---' + JSON.stringify(PreferencesUtil.getPreferenceValue('MyPreferences','signature','')))
+             await console.log('---ppp---' + JSON.stringify(PreferencesUtil.getPreferenceValue('MyPreferences','phoneNumber','')))
+             await console.log('---ppp---' + JSON.stringify(PreferencesUtil.getPreferenceValue('MyPreferences','registrationDate','')))
+             await console.log('---ppp---' + JSON.stringify(PreferencesUtil.getPreferenceValue('MyPreferences','email','')))
+             await console.log('---ppp---' + JSON.stringify(PreferencesUtil.getPreferenceValue('MyPreferences','username','')))
+             // console.log('---ppp---' + PreferencesUtil.getPreferenceValue('MyPreferences','username',''))
+             await console.log('---ppp---' + JSON.stringify(PreferencesUtil.getPreferenceValue('MyPreferences','follows','')))
+             await console.log('---ppp---' + JSON.stringify(PreferencesUtil.getPreferenceValue('MyPreferences','fans','')))
+
 
              router.pushUrl(
                { url: 'pages/Login',
@@ -99,6 +143,8 @@ export struct PersonPageCard{
               router.pushUrl(
                 { url: 'pages/editUserInfoCardPage',
                   params: {
+                    userID: this.userID
+
                   }}
               );
             })

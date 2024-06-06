@@ -1,6 +1,8 @@
 
 import router from '@ohos.router';
 import { UserRequest } from '../api/UserRequest';
+import promptAction from '@ohos.promptAction';
+
 @Preview
 @Component
 export struct registerCard{
@@ -41,6 +43,7 @@ export struct registerCard{
         Text('注册').fontSize(20)
           .onClick(()=>{
             //处理点击事件
+
             router.pushUrl(
               { url: 'pages/Register',
                 params: {
@@ -81,9 +84,18 @@ export struct registerCard{
             this.passwordAgain = value
             console.log(this.passwordAgain)
           })
-          Button('登录').width('90%').backgroundColor('#02A7F0').height(44)
+          Button('注册').width('90%').backgroundColor('#02A7F0').height(44)
             .onClick(()=>{
               //处理点击事件
+              if (this.password != this.passwordAgain) {
+                promptAction.showToast({
+                  message: '两次密码不一致',
+                  duration: 2000,
+                  bottom: 50
+                });
+                return
+              }
+
               UserRequest.register(this.username,this.password,this.passwordAgain)
               console.log('1')
               router.pushUrl(

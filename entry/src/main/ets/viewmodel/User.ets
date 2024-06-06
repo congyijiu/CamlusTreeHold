@@ -16,17 +16,11 @@
 export interface IUser {
 
   id: string;
-
   username: string
-
   age: number
-
   email: string
-
   avatarUrl: string
-
   phoneNumber: string
-  
 }
 
 /**
