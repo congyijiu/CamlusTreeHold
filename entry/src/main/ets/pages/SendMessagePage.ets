@@ -6,7 +6,8 @@ import {ChatTap} from '../components/ChatTap'
 @Entry
 @Component
 struct SendMessagePage {
-  @State senderMessage:string[] =[];
+
+  @State senderMessage:string[] = []
   build() {
       Column() {
         Column(){

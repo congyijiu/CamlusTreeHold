@@ -2,6 +2,7 @@
 import router from '@ohos.router';
 import DynamicItem from '../viewmodel/DynamicItem';
 import {waterFlowData} from '../viewmodel/TestViewModel';
+import {likeimage,like1image} from '../common/common';
 
 
 
@@ -12,6 +13,14 @@ export struct DynamicCard {
 
   @State dynamicItem: DynamicItem = waterFlowData[0];
 
+  @State isLiked: number = 0;
+
+
+  aboutToAppear(){
+    console.log('DynamicCard aboutToAppear');
+    this.isLiked = this.dynamicItem.isLike;
+    console.log('DynamicCard aboutToAppear', this.isLiked);
+  }
 
   onPageShow(){
     console.log('DynamicCard onPageShow');
@@ -46,8 +55,32 @@ export struct DynamicCard {
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           // .border({ width: 1, color: '#000000' })
-          .width('70%')
+          .width('65%')
         Blank()
+        Row(){
+          if (this.dynamicItem.isLike == 0 || this.dynamicItem.isLike == null){
+            Image(likeimage)
+              .width(18)
+              .onClick(() => {
+                this.dynamicItem.isLike = 1;
+                this.dynamicItem.likeCount += 1;
+              })
+          }else{
+            Image(like1image)
+              .width(18)
+              .onClick(() => {
+                this.dynamicItem.isLike = 0;
+                this.dynamicItem.likeCount -= 1;
+              })
+          }
+          Text(`${this.dynamicItem.likeCount}`)
+            .fontSize(12)
+            .fontColor('#3C3F41')
+            .margin({left: 5})
+            .maxLines(1)
+            .textOverflow({ overflow: TextOverflow.Ellipsis })
+            // .border({ width: 1, color: '#000000' })
+        }
       }
       .width('90%')
       // .border({ width: 1, color: '#000000' })

@@ -4,7 +4,7 @@ import {DynamicDetailCart} from '../components/DynamicDetailCart'
 import {DynamicDetailCommentCart} from '../components/DynamicDetailCommentCart'
 import DynamicDetail from '../viewmodel/DynamicDetail'
 import {dynamicDetailData} from '../viewmodel/TestViewModel'
-import { baseUrl , testtoken , likeimage} from '../common/common'
+import { baseUrl , testtoken , likeimage,like1image} from '../common/common'
 import { Driver, ON } from '@ohos.UiTest';
 
 
@@ -15,7 +15,6 @@ import { Driver, ON } from '@ohos.UiTest';
 export struct DynamicDetailReplyButtom {
 
   build(){
-
     Row(){
       Row(){
         Row(){
@@ -43,17 +42,11 @@ export struct DynamicDetailReplyButtom {
             .fontSize(16)
         }
         .margin({right:10})
-        Row(){
-          Image(likeimage)
-            .width(30)
-          Text('60')
-            .fontSize(16)
-        }
-        .margin({right:10})
       }
       .margin({top:5})
-      .width('100%')
+      .width('90%')
     }
+    .justifyContent(FlexAlign.Center)
     .backgroundColor('#FFFFFF')
     .width('100%')
     .margin({top:10,bottom:10})

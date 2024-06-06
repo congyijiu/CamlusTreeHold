@@ -18,6 +18,8 @@ struct Index {
   @State maxSize: number = 100
   @State testToken : string = ''
   @State str : string = ''
+
+
   @State testId: number = 0
   @State datasource: WaterFlowDataSource = new WaterFlowDataSource()
 
@@ -45,7 +47,6 @@ struct Index {
       console.log('---lingjia' + JSON.stringify(this.testId))
       // console.log('---lingjia' + JSON.stringify(res.data.id))
     })
-
   }
 
   build() {

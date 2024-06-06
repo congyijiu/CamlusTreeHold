@@ -4,7 +4,6 @@
  export struct SenderMessage{
   @State SenderImage:string = 'null';
   @State senderMessage:string = 'null';
-  @State Textwidth:number = 0;
   build(){
     Row(){
       Flex({ direction: FlexDirection.RowReverse }){

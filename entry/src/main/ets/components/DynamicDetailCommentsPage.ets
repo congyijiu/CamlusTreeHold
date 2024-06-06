@@ -17,9 +17,13 @@ import router from '@ohos.router'
 export struct DynamicDetailCommentsPage {
 
   @State dynamicId: string = '148';
+
+  @Link teststring: string;
+
   @State dynamicDetailCommentPageVo: DynamicDetailCommentPageVo = dynamicDetailCommentPageData;
-
-
+  clear:()=> void = () => {
+    this.dynamicDetailCommentPageVo = dynamicDetailCommentPageData;
+  }
   aboutToAppear(){
     this.dynamicId = router.getParams()['id'];
 
@@ -43,7 +47,7 @@ export struct DynamicDetailCommentsPage {
         .fontSize(12)
         .width('100%')
       ForEach(this.dynamicDetailCommentPageVo.records, (item: DynamicDetailComment, index) => {
-        DynamicDetailCommentCart({DynamicDetailComponentData: item,dynamicId: this.dynamicId})
+        DynamicDetailCommentCart({DynamicDetailComponentData: item,dynamicId: this.dynamicId,teststring:$teststring})
       })
     }
     .width('90%')
