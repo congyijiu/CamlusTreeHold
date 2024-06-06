@@ -2,15 +2,27 @@ import axios, { AxiosError, AxiosResponse } from '@ohos/axios'
 import LoginItem from '../viewmodel/LoginItem'
 import { baseUrl ,testtoken} from '../common/common'
 import router from '@ohos.router'
-import PreferencesUtil from '../common/PreferencesUtil'
+import { PreferencesUtil } from '../common/PreferencesUtil'
 import promptAction from '@ohos.promptAction';
+import EditUser from '../viewmodel/editUser'
+
 
 
 export class UserRequest{
 
 
+  // static token:string = PreferencesUtil.getUserToken()
+
+
   //根据Id获取用户信息
   static async getUserInfo(id: number): Promise<any> {
+    let token:string = ''
+
+    await PreferencesUtil.getUserToken().then((value) => {
+      token = value
+      console.log('getUserToken', JSON.stringify(token))
+    })
+
     let user:any = {}
     await axios.get(
       `${baseUrl}/user/info/${id}`,
@@ -18,7 +30,7 @@ export class UserRequest{
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'token': testtoken
+          'token': token
         }
       }
     ).then((res: AxiosResponse) => {
@@ -49,20 +61,20 @@ export class UserRequest{
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'token': testtoken
+          // 'token': testtoken
         }
       }
-    ).then((res: AxiosResponse) => {
+    ).then(async (res: AxiosResponse) => {
       if (res.status === 200) {
         user = res.data.data
         if (user != null) {
           // console.log("林甲锋" + res.data.data.token)
 
-          PreferencesUtil.putPreferenceValue('MyPreferences', 'token' , JSON.stringify(res.data.data.token))
+          await PreferencesUtil.putPreferenceValue('MyPreferences', 'token' , res.data.data.token)
           router.pushUrl(
             { url: 'pages/Index',
               params: {
-
+                token: res.data.data.token
               }}
           );
         }else {
@@ -86,6 +98,7 @@ export class UserRequest{
 
   //注册方法
   static async register(username1:string , password1:string , passwordAgain1:string): Promise<any> {
+
     let user:any = {}
     await axios.post(
       `${baseUrl}/user/register`,
@@ -99,7 +112,7 @@ export class UserRequest{
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'token': testtoken
+          // 'token': testtoken
         }
       }
     ).then((res: AxiosResponse) => {
@@ -118,20 +131,26 @@ export class UserRequest{
 
   // 根据token获取用户信息
   static async getUserInfoByToken(token: string): Promise<any> {
+
+    let token1:string = ''
+
+    await PreferencesUtil.getUserToken().then((value) => {
+      token = value
+      console.log('getUserToken', JSON.stringify(token))
+    })
+    console.log('getUserToken', token)
     let user:any = {}
     await axios.get(
       `${baseUrl}/user/info`,
       {
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'token': testtoken
+          'token': token
         }
       }
     ).then((res: AxiosResponse) => {
       if (res.status === 200) {
         user = res.data.data
-        console.log('getUserInfoByToken', JSON.stringify(user))
+        console.log('getUserInfoByToken', JSON.stringify(res))
       }else {
         console.error('getUserInfoByToken', res.data.errorMessage)
       }
@@ -144,5 +163,48 @@ export class UserRequest{
   }
 
 
+
+  //修改用户信息
+  static async editUserInfo(user1: EditUser): Promise<any> {
+    let user:any = {}
+    let token:string = ''
+
+    await PreferencesUtil.getUserToken().then((value) => {
+      token = value
+      console.log('getUserToken', JSON.stringify(token))
+    })
+
+
+    await axios.put(
+      `${baseUrl}/user/info`,
+      {
+        // id : user1.id,
+        username : user1.username,
+        signature:user1.signature,
+        gender:user1.gender,
+        hobbies : user1.hobbies,
+        phoneNumber : user1.phoneNumber,
+        email : user1.email,
+      },
+
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'token': token
+        }
+      }
+    ).then((res: AxiosResponse) => {
+      if (res.status === 200) {
+        console.log('editUserInfo',JSON.stringify(user1))
+        // return JSON.stringify(user1)
+      }else {
+        console.error('editUserInfo', res.data.errorMessage)
+      }
+    }).catch((err: AxiosError) => {
+      console.log('editUserInfo', err.message)
+    })
+    return user
+  }
 
 }

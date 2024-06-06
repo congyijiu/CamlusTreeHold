@@ -1,6 +1,20 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+//      {
+//        "name": "default",
+//        "type": "HarmonyOS",
+//        "material": {
+//          "certpath": "C:\\Users\\Win10\\.ohos\\config\\auto_debug_CamlusTreeHold_com.congyijiu.myapplication_2850086000492952796.cer",
+//          "storePassword": "0000001B4E460404E6D5B2477C02B7793478D9A6AC3DA44D17107ED7F7173FD6B95E68566FD6EB401BF476",
+//          "keyAlias": "debugKey",
+//          "keyPassword": "0000001B57F9FE7F9A9AEBB163D8149AAAD273FEECB08FB9E25EF47A2412C06507986100C6F568E6C43665",
+//          "profile": "C:\\Users\\Win10\\.ohos\\config\\auto_debug_CamlusTreeHold_com.congyijiu.myapplication_2850086000492952796.p7b",
+//          "signAlg": "SHA256withECDSA",
+//          "storeFile": "C:\\Users\\Win10\\.ohos\\config\\auto_debug_CamlusTreeHold_com.congyijiu.myapplication_2850086000492952796.p12"
+//        }
+//      }
+    ],
     "compileSdkVersion": 9,
     "compatibleSdkVersion": 9,
     "products": [

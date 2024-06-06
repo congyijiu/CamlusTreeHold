@@ -13,32 +13,50 @@
  * limitations under the License.
  */
 
-export interface IUser {
+export interface IDynamicType {
 
   id: string;
-  username: string
-  age: number
-  email: string
-  avatarUrl: string
-  phoneNumber: string
+
+  typeName: string;
+
+  description: string;
+
+  isDefault: string;
+
+  status: string;
+
+  sortOrder: number;
+
+  creationDate: string;
+
 }
 
 /**
  * Water flow item.
  */
-export default class User implements IUser {
+export default class DynamicType implements IDynamicType {
+
   id: string;
-  username: string
-  age: number
-  email: string
-  avatarUrl: string
-  phoneNumber: string
-  constructor(props: User) {
+
+  typeName: string;
+
+  description: string;
+
+  isDefault: string;
+
+  status: string;
+
+  sortOrder: number;
+
+  creationDate: string;
+
+  constructor(props: DynamicType) {
     this.id = props.id;
-    this.username = props.username;
-    this.age = props.age;
-    this.email = props.email;
-    this.avatarUrl = props.avatarUrl;
-    this.phoneNumber = props.phoneNumber;
+    this.typeName = props.typeName;
+    this.description = props.description;
+    this.isDefault = props.isDefault;
+    this.status = props.status;
+    this.sortOrder = props.sortOrder;
+    this.creationDate = props.creationDate;
   }
 }

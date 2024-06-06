@@ -1,16 +1,22 @@
 import router from '@ohos.router'
 import { DynamicCard } from '../components/DynamicCard'
 import {DynamicWaterFlow } from '../components/DynamicWaterFlow'
-import PreferencesUtil from '../common/PreferencesUtil'
+import { PreferencesUtil } from '../common/PreferencesUtil'
 
 import { WaterFlowDataSource } from '../viewmodel/WaterFlowDataSource'
 import { waterFlowData } from '../viewmodel/TestViewModel';
 import DynamicItem from '../viewmodel/DynamicItem'
 import {DynamicRequest} from '../api/DynamicRequest'
 import { NavigationToolBar } from '../components/NavigationToolBar'
-import {tabs} from '../components/Tabs';
+import {WaterFlowTabs} from '../components/WaterFlowTabs';
 import { UserRequest } from '../api/UserRequest'
 import { formToJSON } from '@ohos/axios'
+
+
+
+import DynamicType from '../viewmodel/DynamicType'
+import { searchimage } from '../common/common'
+import { IndexSearchImage } from '../components/IndexSearchImage'
 @Entry
 @Component
 struct Index {
@@ -18,13 +24,25 @@ struct Index {
   @State maxSize: number = 100
   @State testToken : string = ''
   @State str : string = ''
-
-
   @State testId: number = 0
   @State datasource: WaterFlowDataSource = new WaterFlowDataSource()
+  @State testEmail: string = ''
+  @State dynamicTypeList:DynamicType[] = []
+  // @State datasource: WaterFlowDataSource = new WaterFlowDataSource()
+
+  // async oninit() {
+  //   await DynamicRequest.getAllDynamicType().then((res) => {
+  //     console.log('getAllDynamicType' + JSON.stringify(res))
+  //     this.dynamicTypeList = res
+  //   })
+  // }
 
   async aboutToAppear() {
-    this.datasource.setDataArray(waterFlowData);
+    await DynamicRequest.getAllDynamicType().then((res) => {
+      console.log('getAllDynamicType' + JSON.stringify(res))
+      this.dynamicTypeList = res
+    })
+    // this.datasource.setDataArray(waterFlowData);
     this.testToken = await PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
     console.log('---ling' + this.testToken)
     await UserRequest.getUserInfoByToken(this.testToken).then(async (res) => {
@@ -42,24 +60,38 @@ struct Index {
       PreferencesUtil.putPreferenceValue('MyPreferences', 'follows' , res.follows)
       PreferencesUtil.putPreferenceValue('MyPreferences', 'fans' , res.fans)
 
-      this.testId = await PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as number
-
-      console.log('---lingjia' + JSON.stringify(this.testId))
+      this.testToken = await PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
+      this.testId = await PreferencesUtil.getPreferenceValue('MyPreferences','id','') as unknown as number
+      this.testEmail = await PreferencesUtil.getPreferenceValue('MyPreferences','email','') as unknown as string
+      console.log('---lingjiaTestID' + JSON.stringify(this.testId))
+      console.log('---lingjiaTestEmail' + JSON.stringify(this.testEmail))
+      console.log('---lingjiaTestToken' + JSON.stringify(this.testToken))
       // console.log('---lingjia' + JSON.stringify(res.data.id))
+
+      // let pageDto = {
+      //   pageIndex: 1,
+      //   pageSize: 10,
+      //   userId: 1
+      // }
+      // await DynamicRequest.getUserFavoriteDynamicItemById(pageDto).then((res) => {
+      //   console.log('---ljf---' + JSON.stringify(res))
+      //   // this.datasource.setDataArray(res)
+      // })
+
+
     })
   }
 
   build() {
     Column(){
-      tabs()
+      WaterFlowTabs({dynamicTypeList:$dynamicTypeList})
         .width('100%')
         .height(50)
-
-      // Blank()
-      //   .width('100%')
-      //   .height(50)
-      DynamicWaterFlow()
+      // DynamicWaterFlow()
       NavigationToolBar()
+        .position({x: 0, y: '95%'})
+      IndexSearchImage()
+        .position({x: '90%', y: 7})
     }
 
   }

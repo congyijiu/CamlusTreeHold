@@ -15,9 +15,7 @@
 
 export interface IUserInfo {
 
-  id: string;
-
-  avatarUrl: string
+  // avatarUrl: string
 
   hobbies: string
 
@@ -27,44 +25,33 @@ export interface IUserInfo {
 
   phoneNumber: string
 
-  registrationDate : string
 
   username : string
 
   email: string
 
-  follows : number
-
-  fans : number
 }
 
 /**
  * Water flow item.
  */
-export default class UserInfo implements IUserInfo {fans: number;
-    follows: number;
+export default class UserInfo implements IUserInfo {
     email: string;
     username: string;
-    registrationDate: string;
     phoneNumber: string;
     signature: string;
     gender: number;
     hobbies: string;
-    avatarUrl: string;
-    id: string;
 
   constructor(props: UserInfo) {
-    this.id = props.id;
-    this.avatarUrl = props.avatarUrl;
-    this.hobbies = props.hobbies;
-    this.fans = props.fans;
-    this.follows = props.follows;
     this.email = props.email;
     this.username = props.username;
-    this.registrationDate = props.registrationDate;
     this.phoneNumber = props.phoneNumber;
     this.signature = props.signature;
+    this.gender = props.gender;
+    this.hobbies = props.hobbies
   }
+
 
 
 

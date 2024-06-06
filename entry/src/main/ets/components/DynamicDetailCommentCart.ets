@@ -1,7 +1,7 @@
 import audio from '@ohos.multimedia.audio';
 import { DynamicRequest } from '../api/DynamicRequest';
 import { like1image, likeimage } from '../common/common';
-import PreferencesUtil from '../common/PreferencesUtil';
+import { PreferencesUtil } from '../common/PreferencesUtil';
 import {DynamicDetailCart} from '../components/DynamicDetailCart'
 import DynamicDetailComment from '../viewmodel/DynamicDetailComment'
 import {dynamicDetailCommentData} from '../viewmodel/TestViewModel'

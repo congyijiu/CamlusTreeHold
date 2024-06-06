@@ -1,5 +1,6 @@
 {
   "src": [
+
     "pages/Login",
     "pages/PersonalPageCard",
     "pages/Index",
@@ -8,8 +9,11 @@
     "pages/Register",
     "pages/editUserInfoCardPage",
     "pages/MyPage",
+    "pages/DynamicDetailPage",
     "pages/PublishPage",
     "pages/MessagePage",
-    "pages/SendMessagePage"
+    "pages/SendMessagePage",
+    "pages/SearchInitPage",
+    "pages/SearchPage"
   ]
 }
