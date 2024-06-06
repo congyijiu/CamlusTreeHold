@@ -6,7 +6,7 @@ import  DynamicDetail  from '../viewmodel/DynamicDetail'
 import  DynamicDetailCommentPageVo  from '../viewmodel/DynamicDetailCommentPageVo'
 import DynamicType from '../viewmodel/DynamicType'
 
-import PreferencesUtil from '../common/PreferencesUtil'
+import { PreferencesUtil } from '../common/PreferencesUtil'
 
 
 export class DynamicRequest {

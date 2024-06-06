@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from '@ohos/axios'
 import { baseUrl ,testtoken} from '../common/common'
 import router from '@ohos.router'
-import PreferencesUtil from '../common/PreferencesUtil'
+import { PreferencesUtil } from '../common/PreferencesUtil'
 import promptAction from '@ohos.promptAction';
 import ArrayList from '@ohos.util.ArrayList'
 

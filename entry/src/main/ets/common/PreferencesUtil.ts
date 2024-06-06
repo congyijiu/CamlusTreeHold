@@ -1,12 +1,12 @@
 import preferences from '@ohos.data.preferences';
 
 
-class PreferencesUtil{
+export class PreferencesUtil{
 
 
-  prefMap: Map<string, preferences.Preferences> = new Map()
+  static prefMap: Map<string, preferences.Preferences> = new Map()
 
-  async loadPreference(context, name: string){
+  static async loadPreference(context, name: string){
     try { // 加载preferences
       let pref = await preferences.getPreferences(context, name)
       this.prefMap.set(name, pref)
@@ -18,7 +18,7 @@ class PreferencesUtil{
 
 
 
-  async putPreferenceValue(name: string, key: string, value: preferences.ValueType){
+  static async putPreferenceValue(name: string, key: string, value: preferences.ValueType){
     if (!this.prefMap.has(name)) {
       console.log('testTag', `Preferences[${name}]尚未初始化！`)
       return
@@ -35,7 +35,7 @@ class PreferencesUtil{
     }
   }
 
-  async getPreferenceValue(name: string, key: string, defaultValue: preferences.ValueType){
+  static async getPreferenceValue(name: string, key: string, defaultValue: preferences.ValueType){
     if (!this.prefMap.has(name)) {
       console.log('testTag', `Preferences[${name}]尚未初始化！`)
       return
@@ -51,7 +51,7 @@ class PreferencesUtil{
     }
   }
 
-  async deletePreferenceValue(name: string, key: string){
+  static async deletePreferenceValue(name: string, key: string){
     if (!this.prefMap.has(name)) {
       console.log('testTag', `Preferences[${name}]尚未初始化！`)
       return
@@ -75,8 +75,8 @@ class PreferencesUtil{
 
 
   //获取用户token
-  async getUserToken(): Promise<string>{
-    return await preferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
+  static async getUserToken(): Promise<string>{
+    return await PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
   }
 
 

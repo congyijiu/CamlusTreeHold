@@ -1,7 +1,7 @@
 import router from '@ohos.router'
 import { DynamicCard } from '../components/DynamicCard'
 import {DynamicWaterFlow } from '../components/DynamicWaterFlow'
-import PreferencesUtil from '../common/PreferencesUtil'
+import { PreferencesUtil } from '../common/PreferencesUtil'
 
 import { WaterFlowDataSource } from '../viewmodel/WaterFlowDataSource'
 import { waterFlowData } from '../viewmodel/TestViewModel';
@@ -89,7 +89,7 @@ struct Index {
         .height(50)
       // DynamicWaterFlow()
       NavigationToolBar()
-        .position({x: 0, y: '96%'})
+        .position({x: 0, y: '95%'})
       IndexSearchImage()
         .position({x: '90%', y: 7})
     }

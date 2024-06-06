@@ -46,7 +46,6 @@ export struct DynamicWaterFlow {
           DynamicCard({ dynamicItem: item })
         }
       }, (item: DynamicItem) => JSON.stringify(item))
-
     }
     .onReachEnd(() => {
       console.info('onReachEnd1')

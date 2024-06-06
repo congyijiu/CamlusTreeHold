@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from '@ohos/axios'
 import LoginItem from '../viewmodel/LoginItem'
 import { baseUrl ,testtoken} from '../common/common'
 import router from '@ohos.router'
-import PreferencesUtil from '../common/PreferencesUtil'
+import { PreferencesUtil } from '../common/PreferencesUtil'
 import promptAction from '@ohos.promptAction';
 import EditUser from '../viewmodel/editUser'
 
@@ -64,17 +64,17 @@ export class UserRequest{
           // 'token': testtoken
         }
       }
-    ).then((res: AxiosResponse) => {
+    ).then(async (res: AxiosResponse) => {
       if (res.status === 200) {
         user = res.data.data
         if (user != null) {
           // console.log("林甲锋" + res.data.data.token)
 
-          PreferencesUtil.putPreferenceValue('MyPreferences', 'token' , res.data.data.token)
+          await PreferencesUtil.putPreferenceValue('MyPreferences', 'token' , res.data.data.token)
           router.pushUrl(
             { url: 'pages/Index',
               params: {
-
+                token: res.data.data.token
               }}
           );
         }else {

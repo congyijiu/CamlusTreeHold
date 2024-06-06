@@ -2,7 +2,7 @@
 import router from '@ohos.router';
 import DynamicWaterFlower from '../viewmodel/DynamicItem'
 import { DynamicWaterFlow } from '../components/DynamicWaterFlow'
-import PreferencesUtil from '../common/PreferencesUtil'
+import { PreferencesUtil } from '../common/PreferencesUtil'
 import { UserRequest } from '../api/UserRequest';
 import { formToJSON } from '@ohos/axios';
 @Preview

@@ -13,7 +13,7 @@ import { Driver, ON } from '@ohos.UiTest'
 import { DynamicDetailCommentInput } from '../components/DynamicDetailCommentInput'
 import { DynamicRequest } from '../api/DynamicRequest'
 import { baseUrl , testtoken , likeimage, favoriteimage, like1image, favorite1image} from '../common/common'
-import PreferencesUtil from '../common/PreferencesUtil'
+import { PreferencesUtil } from '../common/PreferencesUtil'
 
 
 
