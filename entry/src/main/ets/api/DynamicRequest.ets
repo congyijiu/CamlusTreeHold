@@ -12,14 +12,18 @@ import { PreferencesUtil } from '../common/PreferencesUtil'
 export class DynamicRequest {
 
   //获取动态列表
-  static async getDynamicItem(dynamicdto: any): Promise<DynamicItem[]> {
+  static async getDynamicItem(dynamicdto: any,token1:string): Promise<DynamicItem[]> {
     let dynamicItem:DynamicItem[] = []
     let token:string = ''
 
-    await PreferencesUtil.getUserToken().then((value) => {
-      token = value
-      console.log('getUserToken', JSON.stringify(token))
-    })
+    if(token1 == ''){
+      await PreferencesUtil.getUserToken().then((value) => {
+        token = value
+        console.log('getUserToken', JSON.stringify(token))
+      })
+    }else {
+      token = token1
+    }
 
     await axios.post(
       `${baseUrl}/dynamic/page`,

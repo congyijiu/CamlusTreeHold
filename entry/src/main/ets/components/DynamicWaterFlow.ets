@@ -12,6 +12,9 @@ export struct DynamicWaterFlow {
   @State datasource: WaterFlowDataSource = new WaterFlowDataSource()
   scroller: Scroller = new Scroller()
   @State type: number = 0
+
+  token:string = ''
+
   dynamicDto:any = {
     "pageIndex": 1,
     "pageSize": 10,
@@ -29,10 +32,14 @@ export struct DynamicWaterFlow {
         console.log('keyword in DynamicWaterFlow', keyword)
         this.dynamicDto['keyWord'] = keyword
       }
+      let token = params['token']
+      if (token) {
+        this.token = token
+      }
     }
     let dynamicIiems:DynamicItem[] = []
     this.dynamicDto['type'] = this.type
-    DynamicRequest.getDynamicItem(this.dynamicDto).then((value) => {
+    DynamicRequest.getDynamicItem(this.dynamicDto,this.token).then((value) => {
       dynamicIiems = value
       console.log(JSON.stringify(value));
       this.datasource.setDataArray(dynamicIiems);
@@ -52,7 +59,7 @@ export struct DynamicWaterFlow {
       this.dynamicDto['pageIndex'] += 1
       console.log('pageIndex',this.dynamicDto['pageIndex']);
 
-      DynamicRequest.getDynamicItem(this.dynamicDto).then((value) => {
+      DynamicRequest.getDynamicItem(this.dynamicDto,this.token).then((value) => {
         let dynamicIiems:DynamicItem[]  = value
         console.log(JSON.stringify(value));
         this.datasource.addDataArray(dynamicIiems)
