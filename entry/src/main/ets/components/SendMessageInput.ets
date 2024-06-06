@@ -1,10 +1,16 @@
-
+import {webSocketConnect} from '../utils/webSocketConnect'
+import {webSocketUtil} from '../common/webSocketUtil'
 
 @Preview
 @Component
 export struct SendMessageInput{
   @State myText: string = '';
   @Link senderMessage:string[];
+
+  aboutToAppear(){
+    //连接websocket
+    webSocketConnect()
+  }
   build(){
     Row(){
       TextArea({placeholder:'请输入',text:this.myText})
@@ -21,7 +27,6 @@ export struct SendMessageInput{
         })
         .onChange((value: string) => {
           this.myText = value
-          console.log('12312234',this.myText)
         })
         .backgroundColor(Color.White)
       Button('发送')
@@ -30,11 +35,28 @@ export struct SendMessageInput{
           if (this.myText!=='') {
             this.senderMessage.push(this.myText)
           }
+          this.sendMessage()
           this.myText = ''
         })
     }.width('100%').height(100).backgroundColor(0xDCDCDC)
 
-
   }
-
+  sendMessage(){
+    let ws = webSocketUtil.ws
+    console.log("Send message:" + this.myText)
+    let data = {
+      acceptUserId: 1,
+      type: 'text',
+      content: this.myText
+    }
+    let myMessage = JSON.stringify(data)
+    console.log("Send message:" + myMessage)
+    ws.send(myMessage,(err, value)=>{
+      if (!err) {
+        console.log("Send message successfully",+value);
+      } else {
+        console.log("Send message failed. Err:" + JSON.stringify(err));
+      }
+    })
+  }
 }

@@ -91,6 +91,7 @@ export struct loginCard{
               //
               //     }}
               // );
+
             }).bindPopup(this.handlePopup, {
             message: 'This is a popup with PopupOptions',
           })

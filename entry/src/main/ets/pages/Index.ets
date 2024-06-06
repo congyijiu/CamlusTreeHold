@@ -10,7 +10,7 @@ import { NavigationToolBar } from '../components/NavigationToolBar'
 import {WaterFlowTabs} from '../components/WaterFlowTabs';
 import { UserRequest } from '../api/UserRequest'
 import { formToJSON } from '@ohos/axios'
-
+import {webSocketUtil} from '../common/webSocketUtil'
 
 
 import DynamicType from '../viewmodel/DynamicType'
@@ -50,6 +50,7 @@ struct Index {
       PreferencesUtil.userId = res.id
       console.log('userId in postUserInfo', PreferencesUtil.userId)
 
+      webSocketUtil.connect(res.id)
       PreferencesUtil.putPreferenceValue('MyPreferences', 'id' , res.id)
       PreferencesUtil.putPreferenceValue('MyPreferences', 'avatarUrl' , res.avatarUrl)
       PreferencesUtil.putPreferenceValue('MyPreferences', 'hobbies' , res.hobbies)
