@@ -7,7 +7,7 @@ export struct SendMessageInput{
   @Link senderMessage:string[];
   build(){
     Row(){
-      TextInput({placeholder:'请输入'})
+      TextArea({placeholder:'请输入',text:this.myText})
         .placeholderColor(Color.Grey)
         .placeholderFont({ size: 14, weight: 400 })
         .caretColor(Color.Blue)
@@ -25,12 +25,13 @@ export struct SendMessageInput{
         })
       Button('发送')
         .onClick(() => {
-          console.log('12312234')
           //将myText的值添加到senderMessage数组中
-          this.senderMessage.push(this.myText)
+          if (this.myText!=='') {
+            this.senderMessage.push(this.myText)
+          }
           this.myText = ''
         })
-    }.width('100%').height(100)
+    }.width('100%').height(100).backgroundColor(Color.White)
 
 
   }
