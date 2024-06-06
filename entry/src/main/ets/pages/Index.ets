@@ -41,6 +41,7 @@ struct Index {
     await DynamicRequest.getAllDynamicType().then((res) => {
       console.log('getAllDynamicType' + JSON.stringify(res))
       this.dynamicTypeList = res
+      console.log('getAllDynamicType' + this.dynamicTypeList)
     })
     // this.datasource.setDataArray(waterFlowData);
     this.testToken = await PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string

@@ -8,7 +8,7 @@ import {DynamicRequest} from '../api/DynamicRequest'
 
 @Preview
 @Component
-export struct DynamicWaterFlow {
+export struct UserDynamicWaterFlow {
   @State datasource: WaterFlowDataSource = new WaterFlowDataSource()
   scroller: Scroller = new Scroller()
   @State type: number = 0
@@ -33,13 +33,14 @@ export struct DynamicWaterFlow {
       //   this.dynamicDto['keyWord'] = keyword
       // }
       let token = params['token']
+      this.dynamicDto['userId'] = params['id']
       if (token) {
         this.token = token
       }
     }
     let dynamicIiems:DynamicItem[] = []
     // this.dynamicDto['type'] = this.type
-    DynamicRequest.getDynamicItem(this.dynamicDto,this.token).then((value) => {
+    DynamicRequest.getUserFavoriteDynamicItemById(this.dynamicDto).then((value) => {
       dynamicIiems = value
       console.log(JSON.stringify(value));
       this.datasource.setDataArray(dynamicIiems);
@@ -59,7 +60,7 @@ export struct DynamicWaterFlow {
       this.dynamicDto['pageIndex'] += 1
       console.log('pageIndex',this.dynamicDto['pageIndex']);
 
-      DynamicRequest.getDynamicItem(this.dynamicDto,this.token).then((value) => {
+      DynamicRequest.getUserFavoriteDynamicItemById(this.dynamicDto).then((value) => {
         let dynamicIiems:DynamicItem[]  = value
         console.log(JSON.stringify(value));
         this.datasource.addDataArray(dynamicIiems)
