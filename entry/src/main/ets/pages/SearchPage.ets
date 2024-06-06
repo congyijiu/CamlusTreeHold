@@ -1,4 +1,5 @@
 import { SearchTopInput } from '../components/SearchTopInput'
+import { WaterFlowTabs } from '../components/WaterFlowTabs'
 
 
 @Entry
@@ -8,7 +9,6 @@ struct SearchPage {
     Row() {
       Column() {
         SearchTopInput()
-        Tabs()
       }
       .width('100%')
     }

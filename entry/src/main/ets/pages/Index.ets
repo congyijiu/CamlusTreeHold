@@ -8,7 +8,7 @@ import { waterFlowData } from '../viewmodel/TestViewModel';
 import DynamicItem from '../viewmodel/DynamicItem'
 import {DynamicRequest} from '../api/DynamicRequest'
 import { NavigationToolBar } from '../components/NavigationToolBar'
-import {tabs} from '../components/WaterFlowTabs';
+import {WaterFlowTabs} from '../components/WaterFlowTabs';
 import { UserRequest } from '../api/UserRequest'
 import { formToJSON } from '@ohos/axios'
 import DynamicType from '../viewmodel/DynamicType'
@@ -64,7 +64,7 @@ struct Index {
 
   build() {
     Column(){
-      tabs({dynamicTypeList:$dynamicTypeList})
+      WaterFlowTabs({dynamicTypeList:$dynamicTypeList})
         .width('100%')
         .height(50)
       // DynamicWaterFlow()

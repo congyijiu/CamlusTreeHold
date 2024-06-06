@@ -3,7 +3,7 @@ import DynamicType from '../viewmodel/DynamicType'
 import { DynamicWaterFlow } from './DynamicWaterFlow'
 @Preview
 @Component
-export struct tabs {
+export struct WaterFlowTabs {
   @State fontColor: string = '#182431'
   @State selectedFontColor: string = '#007DFF'
   @State currentIndex: number = 0
