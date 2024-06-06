@@ -115,7 +115,8 @@ const dynamicDetailData = {
   "typeId": "67890",
   "isLike": 1,
   "isFavorite": 0,
-  "isFollow": 1
+  "isFollow": 1,
+  "userId": '0',
 }
 
 const dynamicDetailCommentData : DynamicDetailComment = {

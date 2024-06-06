@@ -26,7 +26,23 @@ export struct DynamicDetailCommentCart {
   
   
   @State commentcontent: string = '';
-  
+
+  @State theCartColor: string = '#ffffff';
+
+
+  commentAnimal(){
+    animateTo({
+      duration: 150,
+      curve: Curve.EaseOut,
+      iterations: 1,
+      playMode: PlayMode.Normal,
+      onFinish: () => {
+        this.theCartColor = '#ffffff'
+      }
+    }, () => {
+      this.theCartColor = '#F0F0F0'
+    })
+  }
 
   cartreply(){
     this.replysuser = '回复:' +this.DynamicDetailComponentData.username
@@ -192,9 +208,11 @@ export struct DynamicDetailCommentCart {
           }
           .onClick(()=>{
             console.info('点击了回复按钮',this.teststring);
+            this.commentAnimal()
             this.cartreply()
           })
           .width('93%')
+          .backgroundColor(this.theCartColor)
           // .border({color: 'red', width: 1})
           Column(){
             if (this.DynamicDetailComponentData.isLike == 1) {
@@ -205,6 +223,13 @@ export struct DynamicDetailCommentCart {
                   console.info('点击了取消点赞按钮');
                   this.DynamicDetailComponentData.isLike = 0
                   this.DynamicDetailComponentData.likeCount -= 1
+                  let dynamicCommentsActionDto = {
+                    "commentId": this.DynamicDetailComponentData.commentId,
+                    "isLike": 0
+                  }
+                  DynamicRequest.dynamicCommentsLike(dynamicCommentsActionDto).then((res) => {
+                    console.info('取消点赞成功',JSON.stringify(res))
+                  })
                 })
             }
             else {
@@ -215,6 +240,13 @@ export struct DynamicDetailCommentCart {
                   console.info('点击了点赞按钮');
                   this.DynamicDetailComponentData.isLike = 1
                   this.DynamicDetailComponentData.likeCount += 1
+                  let dynamicCommentsActionDto = {
+                    "commentId": this.DynamicDetailComponentData.commentId,
+                    "isLike": 1
+                  }
+                  DynamicRequest.dynamicCommentsLike(dynamicCommentsActionDto).then((res) => {
+                    console.info('取消点赞成功',JSON.stringify(res))
+                  })
                 })
             }
             Text(this.DynamicDetailComponentData.likeCount.toString())

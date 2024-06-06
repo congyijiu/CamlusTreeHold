@@ -39,6 +39,10 @@ struct DynamicDetailPage {
     this.dynamicId = router.getParams()['id'];
     console.info('dynamicId:', this.dynamicId);
 
+    DynamicRequest.getDynamicDetail(this.dynamicId).then((res) => {
+      this.dynamicDtail = res
+    })
+
     let dynamicCommentsDto:any = {
       "pageIndex": 1,
       "pageSize": 10,
@@ -165,6 +169,12 @@ struct DynamicDetailPage {
                   .onClick(()=>{
                     this.dynamicDtail.isLike = 0
                     this.dynamicDtail.likeCount = this.dynamicDtail.likeCount - 1
+                    let dynamicActionDto ={
+                      dynamicId: this.dynamicId,
+                      islike: 1,
+                      isfavorite: null
+                    }
+                    DynamicRequest.userDynamicActions(dynamicActionDto)
                   })
               }else{
                 Image(likeimage)
@@ -172,6 +182,12 @@ struct DynamicDetailPage {
                   .onClick(()=>{
                     this.dynamicDtail.isLike = 1
                     this.dynamicDtail.likeCount = this.dynamicDtail.likeCount + 1
+                    let dynamicActionDto ={
+                      dynamicId: this.dynamicId,
+                      islike: 1,
+                      isfavorite: null
+                    }
+                    DynamicRequest.userDynamicActions(dynamicActionDto)
                   })
               }
               Text(this.dynamicDtail.likeCount.toString())
@@ -185,6 +201,12 @@ struct DynamicDetailPage {
                   .onClick(() => {
                     this.dynamicDtail.isFavorite = 0
                     this.dynamicDtail.favoriteCount = this.dynamicDtail.favoriteCount - 1
+                    let dynamicActionDto ={
+                      dynamicId: this.dynamicId,
+                      islike: null,
+                      isfavorite: 0
+                    }
+                    DynamicRequest.userDynamicActions(dynamicActionDto)
                   })
               }else {
                 Image(favoriteimage)
@@ -192,6 +214,14 @@ struct DynamicDetailPage {
                   .onClick(() => {
                     this.dynamicDtail.isFavorite = 1
                     this.dynamicDtail.favoriteCount = this.dynamicDtail.favoriteCount + 1
+                    this.dynamicDtail.isFavorite = 0
+                    this.dynamicDtail.favoriteCount = this.dynamicDtail.favoriteCount - 1
+                    let dynamicActionDto ={
+                      dynamicId: this.dynamicId,
+                      islike: null,
+                      isfavorite: 1
+                    }
+                    DynamicRequest.userDynamicActions(dynamicActionDto)
                   })
               }
               Text(this.dynamicDtail.favoriteCount.toString())

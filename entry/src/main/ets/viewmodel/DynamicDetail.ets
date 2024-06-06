@@ -42,6 +42,7 @@ export interface IDynamicDetail {
   isFavorite: number;
 
   isFollow: number;
+  userId:string;
 }
 
 /**
@@ -53,6 +54,7 @@ export default class DynamicDetail implements IDynamicDetail {
   imageUrlList: Array<string>;
   title: string;
   author: string;
+  userId:string;
   avatar: string;
   content: string;
   postDate: string;
@@ -79,5 +81,6 @@ export default class DynamicDetail implements IDynamicDetail {
     this.isLike = props.isLike;
     this.isFavorite = props.isFavorite;
     this.isFollow = props.isFollow;
+    this.userId = props.userId;
   }
 }
