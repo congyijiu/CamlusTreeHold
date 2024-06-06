@@ -11,6 +11,9 @@ import { NavigationToolBar } from '../components/NavigationToolBar'
 import {WaterFlowTabs} from '../components/WaterFlowTabs';
 import { UserRequest } from '../api/UserRequest'
 import { formToJSON } from '@ohos/axios'
+
+
+
 import DynamicType from '../viewmodel/DynamicType'
 import { searchimage } from '../common/common'
 import { IndexSearchImage } from '../components/IndexSearchImage'
@@ -22,6 +25,8 @@ struct Index {
   @State testToken : string = ''
   @State str : string = ''
   @State testId: number = 0
+  @State datasource: WaterFlowDataSource = new WaterFlowDataSource()
+  @State testEmail: string = ''
   @State dynamicTypeList:DynamicType[] = []
   // @State datasource: WaterFlowDataSource = new WaterFlowDataSource()
 
@@ -55,10 +60,25 @@ struct Index {
       PreferencesUtil.putPreferenceValue('MyPreferences', 'follows' , res.follows)
       PreferencesUtil.putPreferenceValue('MyPreferences', 'fans' , res.fans)
 
-      this.testId = await PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as number
-
-      console.log('---lingjia' + JSON.stringify(this.testId))
+      this.testToken = await PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
+      this.testId = await PreferencesUtil.getPreferenceValue('MyPreferences','id','') as unknown as number
+      this.testEmail = await PreferencesUtil.getPreferenceValue('MyPreferences','email','') as unknown as string
+      console.log('---lingjiaTestID' + JSON.stringify(this.testId))
+      console.log('---lingjiaTestEmail' + JSON.stringify(this.testEmail))
+      console.log('---lingjiaTestToken' + JSON.stringify(this.testToken))
       // console.log('---lingjia' + JSON.stringify(res.data.id))
+
+      // let pageDto = {
+      //   pageIndex: 1,
+      //   pageSize: 10,
+      //   userId: 1
+      // }
+      // await DynamicRequest.getUserFavoriteDynamicItemById(pageDto).then((res) => {
+      //   console.log('---ljf---' + JSON.stringify(res))
+      //   // this.datasource.setDataArray(res)
+      // })
+
+
     })
   }
 

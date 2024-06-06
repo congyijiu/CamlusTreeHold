@@ -8,7 +8,6 @@ import {editTabCard} from '../components/editTabCard'
 struct testPage{
   build(){
     Column(){
-      editTabCard()
       editUserInfoCard()
     }
   }
