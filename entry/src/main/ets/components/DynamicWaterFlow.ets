@@ -69,6 +69,7 @@ export struct DynamicWaterFlow {
     .layoutWeight(1)
     .layoutDirection(FlexDirection.Column)
     .columnsTemplate('1fr 1fr')
+    .backgroundColor('#F0F0F0')
   }
 
   pageTransition() {

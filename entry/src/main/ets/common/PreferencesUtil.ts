@@ -6,6 +6,8 @@ export class PreferencesUtil{
 
   static prefMap: Map<string, preferences.Preferences> = new Map()
 
+  static token:string = ''
+
   static async loadPreference(context, name: string){
     try { // 加载preferences
       let pref = await preferences.getPreferences(context, name)
@@ -48,6 +50,7 @@ export class PreferencesUtil{
       return value
     } catch (e) {
       console.log('testTag', `读取Preferences[${name}.${key} ]失败`, JSON.stringify(e))
+      return defaultValue
     }
   }
 

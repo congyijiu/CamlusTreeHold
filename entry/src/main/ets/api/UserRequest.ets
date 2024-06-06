@@ -18,11 +18,14 @@ export class UserRequest{
   static async getUserInfo(id: number): Promise<any> {
     let token:string = ''
 
-    await PreferencesUtil.getUserToken().then((value) => {
-      token = value
-      console.log('getUserToken', JSON.stringify(token))
-    })
-
+    token = PreferencesUtil.token
+    if (token == '') {
+      await PreferencesUtil.getUserToken().then((value) => {
+        token = value
+        console.log('getUserToken', JSON.stringify(token))
+      })
+    }
+    console.log('getDynamicItem token', token)
     let user:any = {}
     await axios.get(
       `${baseUrl}/user/info/${id}`,
@@ -71,6 +74,8 @@ export class UserRequest{
           // console.log("林甲锋" + res.data.data.token)
 
           await PreferencesUtil.putPreferenceValue('MyPreferences', 'token' , res.data.data.token)
+
+          PreferencesUtil.token = res.data.data.token
           router.pushUrl(
             { url: 'pages/Index',
               params: {
@@ -134,10 +139,16 @@ export class UserRequest{
 
     let token1:string = ''
 
-    await PreferencesUtil.getUserToken().then((value) => {
-      token = value
-      console.log('getUserToken', JSON.stringify(token))
-    })
+    token = PreferencesUtil.token
+    if (token == '') {
+      await PreferencesUtil.getUserToken().then((value) => {
+        token = value
+        console.log('getUserToken', JSON.stringify(token))
+      })
+    }
+    console.log('getDynamicItem token', token)
+
+
     console.log('getUserToken', token)
     let user:any = {}
     await axios.get(
@@ -169,10 +180,14 @@ export class UserRequest{
     let user:any = {}
     let token:string = ''
 
-    await PreferencesUtil.getUserToken().then((value) => {
-      token = value
-      console.log('getUserToken', JSON.stringify(token))
-    })
+    token = PreferencesUtil.token
+    if (token == '') {
+      await PreferencesUtil.getUserToken().then((value) => {
+        token = value
+        console.log('getUserToken', JSON.stringify(token))
+      })
+    }
+    console.log('getDynamicItem token', token)
 
 
     await axios.put(
@@ -205,6 +220,41 @@ export class UserRequest{
       console.log('editUserInfo', err.message)
     })
     return user
+  }
+
+  //关注用户/取消关注
+  static async userFollow(userId: Number|string): Promise<any> {
+    let theRes:any = {}
+    let token:string = ''
+    token = PreferencesUtil.token
+    if (token == '') {
+      await PreferencesUtil.getUserToken().then((value) => {
+        token = value
+        console.log('getUserToken', JSON.stringify(token))
+      })
+    }
+    console.log('getDynamicItem token', token)
+    await axios.post(
+      `${baseUrl}/user/follow/${userId}`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'token': token
+        }
+      }
+    ).then((res: AxiosResponse) => {
+      if (res.status === 200) {
+        console.log('editUserInfo',JSON.stringify(res.data))
+        // return JSON.stringify(user1)
+      }else {
+        console.error('editUserInfo', res.data.errorMessage)
+      }
+    }).catch((err: AxiosError) => {
+      console.log('editUserInfo', err.message)
+    })
+    return theRes
   }
 
 }

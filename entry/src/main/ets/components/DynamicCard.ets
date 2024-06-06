@@ -3,6 +3,7 @@ import router from '@ohos.router';
 import DynamicItem from '../viewmodel/DynamicItem';
 import {waterFlowData} from '../viewmodel/TestViewModel';
 import {likeimage,like1image} from '../common/common';
+import { DynamicRequest } from '../api/DynamicRequest';
 
 
 
@@ -64,6 +65,12 @@ export struct DynamicCard {
               .onClick(() => {
                 this.dynamicItem.isLike = 1;
                 this.dynamicItem.likeCount += 1;
+                let dynamicActionDto ={
+                  dynamicId: this.dynamicItem.id,
+                  islike: 1,
+                  isfavorite: null
+                }
+                DynamicRequest.userDynamicActions(dynamicActionDto)
               })
           }else{
             Image(like1image)
@@ -71,6 +78,12 @@ export struct DynamicCard {
               .onClick(() => {
                 this.dynamicItem.isLike = 0;
                 this.dynamicItem.likeCount -= 1;
+                let dynamicActionDto ={
+                  dynamicId: this.dynamicItem.id,
+                  islike: 0,
+                  isfavorite: null
+                }
+                DynamicRequest.userDynamicActions(dynamicActionDto)
               })
           }
           Text(`${this.dynamicItem.likeCount}`)
@@ -85,9 +98,10 @@ export struct DynamicCard {
       .width('90%')
       // .border({ width: 1, color: '#000000' })
     }
-    .width(190)
+    .width(197)
     .justifyContent(FlexAlign.Center)
-    .margin({ top: 5, bottom: 5})
+    .margin({ top: 3, bottom: 3})
+    .backgroundColor('#FFFFFF')
     .onClick(() => {
       console.log('DynamicCard onClick', this.dynamicItem.id);
       router.pushUrl(

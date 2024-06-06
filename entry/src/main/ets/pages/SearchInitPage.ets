@@ -1,3 +1,4 @@
+import { PreferencesUtil } from '../common/PreferencesUtil'
 import { CampusHot } from '../components/CampusHot'
 import { SearchHistary } from '../components/SearchHistary'
 import { SearchTopInput } from '../components/SearchTopInput'
@@ -5,12 +6,22 @@ import { SearchTopInput } from '../components/SearchTopInput'
 @Component
 struct SearchInitPage {
   @State message: string = 'Hello World'
+  @State searchHistary:Array<string> = [];
+
+  onPageShow() {
+    console.log('SearchInitPage onPageShow')
+    PreferencesUtil.getPreferenceValue('MyPreferences','searchHistary','').then((value)=>{
+      if(value != ''){
+        this.searchHistary = JSON.parse(value as unknown as string)
+      }
+    })
+  }
 
   build() {
     Row() {
       Column() {
         SearchTopInput()
-        SearchHistary()
+        SearchHistary({searchHistary:$searchHistary})
         CampusHot()
       }
       .width('100%')

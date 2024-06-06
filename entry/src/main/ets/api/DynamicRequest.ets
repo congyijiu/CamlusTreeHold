@@ -17,10 +17,15 @@ export class DynamicRequest {
     let token:string = ''
 
     if(token1 == ''){
-      await PreferencesUtil.getUserToken().then((value) => {
-        token = value
-        console.log('getUserToken', JSON.stringify(token))
-      })
+
+      token = PreferencesUtil.token
+      if (token == '') {
+        await PreferencesUtil.getUserToken().then((value) => {
+          token = value
+          console.log('getUserToken', JSON.stringify(token))
+        })
+      }
+      console.log('getDynamicItem token', token)
     }else {
       token = token1
     }
@@ -61,10 +66,14 @@ export class DynamicRequest {
     let dynamicDetail:DynamicDetail
     let token:string = ''
 
-    await PreferencesUtil.getUserToken().then((value) => {
-      token = value
-      console.log('getUserToken', JSON.stringify(token))
-    })
+    token = PreferencesUtil.token
+    if (token == '') {
+      await PreferencesUtil.getUserToken().then((value) => {
+        token = value
+        console.log('getUserToken', JSON.stringify(token))
+      })
+    }
+    console.log('getDynamicItem token', token)
 
     await axios.post(
       `${baseUrl}/dynamic/detail/${dynamicId}`,
@@ -97,10 +106,14 @@ export class DynamicRequest {
   static async getDynamicDetailComments(dynamicCommentsDto: any): Promise<DynamicDetailCommentPageVo> {
     let token:string = ''
 
-    await PreferencesUtil.getUserToken().then((value) => {
-      token = value
-      console.log('getUserToken', JSON.stringify(token))
-    })
+    token = PreferencesUtil.token
+    if (token == '') {
+      await PreferencesUtil.getUserToken().then((value) => {
+        token = value
+        console.log('getUserToken', JSON.stringify(token))
+      })
+    }
+    console.log('getDynamicItem token', token)
 
     let dynamicCommentPage:DynamicDetailCommentPageVo
     await axios.post(
@@ -140,10 +153,14 @@ export class DynamicRequest {
     let dynamicItem:DynamicItem[] = []
     let token:string = ''
 
-    await PreferencesUtil.getUserToken().then((value) => {
-      token = value
-      console.log('getUserToken', JSON.stringify(token))
-    })
+    token = PreferencesUtil.token
+    if (token == '') {
+      await PreferencesUtil.getUserToken().then((value) => {
+        token = value
+        console.log('getUserToken', JSON.stringify(token))
+      })
+    }
+    console.log('getDynamicItem token', token)
 
     await axios.post(
       `${baseUrl}/dynamic/favorite/page`,
@@ -179,10 +196,15 @@ export class DynamicRequest {
     let dynamicItem:DynamicItem[] = []
     let token:string = ''
 
-    await PreferencesUtil.getUserToken().then((value) => {
-      token = value
-      console.log('getUserToken', JSON.stringify(token))
-    })
+    token = PreferencesUtil.token
+    if (token == '') {
+      await PreferencesUtil.getUserToken().then((value) => {
+        token = value
+        console.log('getUserToken', JSON.stringify(token))
+      })
+    }
+    console.log('getDynamicItem token', token)
+
     let comment:any
     await axios.post(
       `${baseUrl}/dynamic-comments/add`,
@@ -218,10 +240,16 @@ export class DynamicRequest {
     let dynamicItem:DynamicItem[] = []
     let token:string = ''
 
-    await PreferencesUtil.getUserToken().then((value) => {
-      token = value
-      console.log('getUserToken', JSON.stringify(token))
-    })
+    token = PreferencesUtil.token
+    if (token == '') {
+      await PreferencesUtil.getUserToken().then((value) => {
+        token = value
+        console.log('getUserToken', JSON.stringify(token))
+      })
+    }
+    console.log('getDynamicItem token', token)
+
+
     let dynamicTypeList:DynamicType[] = []
     await axios.post(
       `${baseUrl}/dynamicType/list`,
@@ -246,4 +274,125 @@ export class DynamicRequest {
 
     return dynamicTypeList
   }
+
+  static async getDynamicTop10(): Promise<DynamicItem[]> {
+    let dynamicItem:DynamicItem[] = []
+    let token:string = ''
+
+    token = PreferencesUtil.token
+    if (token == '') {
+      await PreferencesUtil.getUserToken().then((value) => {
+        token = value
+        console.log('getUserToken', JSON.stringify(token))
+      })
+    }
+    console.log('getDynamicItem token', token)
+
+    await axios.get(
+      `${baseUrl}/dynamic/top10`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'token': token
+        }
+      }
+    ).then((res: AxiosResponse) => {
+      if (res.status === 200) {
+        dynamicItem = res.data.data
+        console.log('getAllDynamicType', JSON.stringify(dynamicItem))
+      }else {
+        console.log('getAllDynamicType', res.data.errorMessage)
+      }
+    }).catch((err: AxiosError) => {
+      console.log('getAllDynamicType', err.message)
+    })
+
+    return dynamicItem
+  }
+
+  static async userDynamicActions(dynamicActionDto:any): Promise<any> {
+    let theres:any
+    let token:string = ''
+
+    token = PreferencesUtil.token
+    if (token == '') {
+      await PreferencesUtil.getUserToken().then((value) => {
+        token = value
+        console.log('getUserToken', JSON.stringify(token))
+      })
+    }
+    console.log('getDynamicItem token', token)
+
+    await axios.post(
+      `${baseUrl}/user-dynamic-actions/Actions`,
+      {
+        "dynamicId": dynamicActionDto.dynamicId,
+        "islike": dynamicActionDto.islike,
+        "isfavorite": dynamicActionDto.isfavorite
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'token': token
+        }
+      }
+    ).then((res: AxiosResponse) => {
+      if (res.status === 200) {
+        theres = res.data.data
+        console.log('getAllDynamicType', JSON.stringify(theres))
+      }else {
+        console.log('getAllDynamicType', res.data.errorMessage)
+      }
+    }).catch((err: AxiosError) => {
+      console.log('getAllDynamicType', err.message)
+    })
+
+    return theres
+  }
+
+  static async dynamicCommentsLike(dynamicCommentsActionDto:any): Promise<any> {
+    let theres:any
+    let token:string = ''
+
+    token = PreferencesUtil.token
+    if (token == '') {
+      await PreferencesUtil.getUserToken().then((value) => {
+        token = value
+        console.log('getUserToken', JSON.stringify(token))
+      })
+    }
+    console.log('getDynamicItem token', token)
+
+    await axios.post(
+      `${baseUrl}/dynamic-comments/like`,
+      {
+        "commentId": dynamicCommentsActionDto.commentId,
+        "isLike": dynamicCommentsActionDto.isLike
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'token': token
+        }
+      }
+    ).then((res: AxiosResponse) => {
+      if (res.status === 200) {
+        theres = res.data.data
+        console.log('getAllDynamicType', JSON.stringify(theres))
+      }else {
+        console.log('getAllDynamicType', res.data.errorMessage)
+      }
+    }).catch((err: AxiosError) => {
+      console.log('getAllDynamicType', err.message)
+    })
+
+    return theres
+  }
+
+
+
+
 }
