@@ -6,22 +6,32 @@ import {ChatTap} from '../components/ChatTap'
 @Entry
 @Component
 struct SendMessagePage {
-
+  scroller: Scroller = new Scroller()
   @State senderMessage:string[] = []
   build() {
       Column() {
         Column(){
           ChatTap()
-          Scroll(){
-            Column(){
+          List(){
+            ListItem(){
               ReceiverMessage()
-              ForEach(this.senderMessage,(message:string)=>{
-                SenderMessage({senderMessage:message})
-              })
-            }.width('100%')
-            .border({width:1,color:Color.Black})
-            .height('80%')
-          }
+            }
+            ForEach(this.senderMessage,(message:string)=> {
+              ListItem() {
+                Column() {
+                  SenderMessage({ senderMessage: message })
+                }
+                .width('100%')
+              }
+              .width('100%')
+
+            })
+          }.height('80%')
+          .width('100%')
+          .backgroundColor(0xDCDCDC)
+          .onReachEnd(()=>{
+            console.log('3242')
+          })
         }
         Column(){
           SendMessageInput({senderMessage:$senderMessage})
