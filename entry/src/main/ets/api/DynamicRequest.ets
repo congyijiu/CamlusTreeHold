@@ -4,6 +4,7 @@ import { baseUrl,testtoken } from '../common/common'
 import  DynamicItem  from '../viewmodel/DynamicItem'
 import  DynamicDetail  from '../viewmodel/DynamicDetail'
 import  DynamicDetailCommentPageVo  from '../viewmodel/DynamicDetailCommentPageVo'
+import DynamicType from '../viewmodel/DynamicType'
 
 
 
@@ -132,5 +133,31 @@ export class DynamicRequest {
     })
 
     return comment
+  }
+
+  static async getAllDynamicType(): Promise<DynamicType[]> {
+    let dynamicTypeList:DynamicType[] = []
+    await axios.post(
+      `${baseUrl}/dynamicType/list`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'token': testtoken
+        }
+      }
+    ).then((res: AxiosResponse) => {
+      if (res.status === 200) {
+        dynamicTypeList = res.data.data
+        console.log('getAllDynamicType', JSON.stringify(dynamicTypeList))
+      }else {
+        console.log('getAllDynamicType', res.data.errorMessage)
+      }
+    }).catch((err: AxiosError) => {
+      console.log('getAllDynamicType', err.message)
+    })
+
+    return dynamicTypeList
   }
 }

@@ -10,6 +10,8 @@
     "pages/MyPage",
     "pages/PublishPage",
     "pages/MessagePage",
-    "pages/SendMessagePage"
+    "pages/SendMessagePage",
+    "pages/SearchInitPage",
+    "pages/SearchPage"
   ]
 }

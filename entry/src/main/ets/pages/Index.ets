@@ -11,6 +11,8 @@ import { NavigationToolBar } from '../components/NavigationToolBar'
 import {tabs} from '../components/Tabs';
 import { UserRequest } from '../api/UserRequest'
 import { formToJSON } from '@ohos/axios'
+import DynamicType from '../viewmodel/DynamicType'
+import { searchimage } from '../common/common'
 @Entry
 @Component
 struct Index {
@@ -18,13 +20,23 @@ struct Index {
   @State maxSize: number = 100
   @State testToken : string = ''
   @State str : string = ''
-
-
   @State testId: number = 0
-  @State datasource: WaterFlowDataSource = new WaterFlowDataSource()
+  @State dynamicTypeList:DynamicType[] = []
+  // @State datasource: WaterFlowDataSource = new WaterFlowDataSource()
+
+  // async oninit() {
+  //   await DynamicRequest.getAllDynamicType().then((res) => {
+  //     console.log('getAllDynamicType' + JSON.stringify(res))
+  //     this.dynamicTypeList = res
+  //   })
+  // }
 
   async aboutToAppear() {
-    this.datasource.setDataArray(waterFlowData);
+    await DynamicRequest.getAllDynamicType().then((res) => {
+      console.log('getAllDynamicType' + JSON.stringify(res))
+      this.dynamicTypeList = res
+    })
+    // this.datasource.setDataArray(waterFlowData);
     this.testToken = await PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
     console.log('---ling' + this.testToken)
     await UserRequest.getUserInfoByToken(this.testToken).then(async (res) => {
@@ -51,15 +63,15 @@ struct Index {
 
   build() {
     Column(){
-      tabs()
+      Image(searchimage)
+        .width(22)
+        .position({x: '90%', y: 7})
+      tabs({dynamicTypeList:$dynamicTypeList})
         .width('100%')
         .height(50)
-
-      // Blank()
-      //   .width('100%')
-      //   .height(50)
-      DynamicWaterFlow()
+      // DynamicWaterFlow()
       NavigationToolBar()
+        .position({x: 0, y: '96%'})
     }
 
   }

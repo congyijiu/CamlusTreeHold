@@ -7,7 +7,13 @@ const likeimage = $r('app.media.like')
 const like1image = $r('app.media.like1')
 const favoriteimage = $r('app.media.favorite')
 const favorite1image = $r('app.media.favorite1')
+const searchimage = $r('app.media.search')
+const hotimage = $r('app.media.hot')
+const backimage = $r('app.media.back')
 
 
 
-export { baseUrl , testtoken,likeimage,favoriteimage,like1image,favorite1image}
+export { baseUrl , testtoken,likeimage,favoriteimage,
+  like1image,favorite1image,searchimage,hotimage,
+  backimage
+}

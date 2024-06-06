@@ -12,6 +12,7 @@ struct MessagePage {
       .width('100%')
       .height('95%').border({width: 1, color:Color.Red})
       NavigationToolBar({ currentIndex: this.currentIndex })
+
     }
   }
   pageTransition() {
