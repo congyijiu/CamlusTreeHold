@@ -14,4 +14,8 @@ struct MyPage {
     }
     .height('100%')
   }
+  pageTransition() {
+    PageTransitionEnter({ type: RouteType.None, duration: 0 })
+    PageTransitionExit({ type: RouteType.None, duration: 0 })
+  }
 }

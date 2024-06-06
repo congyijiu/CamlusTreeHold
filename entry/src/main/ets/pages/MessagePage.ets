@@ -5,14 +5,18 @@ import {NavigationToolBar} from '../components/NavigationToolBar'
 struct MessagePage {
   currentIndex = 3
   build() {
-    Row() {
+    Column(){
       Column() {
         messageList()
-
-        NavigationToolBar({ currentIndex: this.currentIndex })
       }
       .width('100%')
+      .height('95%').border({width: 1, color:Color.Red})
+      NavigationToolBar({ currentIndex: this.currentIndex })
+
     }
-    .height('100%')
+  }
+  pageTransition() {
+    PageTransitionEnter({ type: RouteType.None, duration: 0 })
+    PageTransitionExit({ type: RouteType.None, duration: 0 })
   }
 }

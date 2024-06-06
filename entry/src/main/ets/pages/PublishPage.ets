@@ -14,6 +14,7 @@ struct PublishPage {
            PageTitle()
           photopicker()
           NavigationToolBar({ currentIndex: this.currentIndex })
+
         }
         .alignItems(HorizontalAlign.Start)
 

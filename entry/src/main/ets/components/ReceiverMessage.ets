@@ -2,15 +2,16 @@
 @Preview
 @Component
 export struct ReceiverMessage{
-  @State SenderImage:String = null;
-  @State senderMessage:String = ""
+  @State SenderImage:string = '';
+  @State senderMessage:string = "hello"
   build(){
     Row(){
       Image(this.SenderImage.toString())
-        .width(30)
-        .height(30)
-        .borderRadius(15)
+        .width(40)
+        .height(40)
+        .borderRadius(20)
         .backgroundColor(Color.Black)
+        .margin({left: 7,right: 7})
       Text(this.senderMessage.toString())
         .backgroundColor("#ADD8E6")
         .padding(6)

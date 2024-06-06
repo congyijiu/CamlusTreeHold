@@ -75,7 +75,7 @@ export struct loginCard{
           TextInput({placeholder:'请输入密码'}).width('90%').backgroundColor('#F2F2F2').textAlign(TextAlign.Center).height(44).onChange((value:string)=>{
             this.password = value
             // console.log(this.password)
-          })
+          }).type(InputType.Password)
           //登录按钮
           Button('登录').width('90%').backgroundColor('#02A7F0').height(44)
             .onClick(()=>{

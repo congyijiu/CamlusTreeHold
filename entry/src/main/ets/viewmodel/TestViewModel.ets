@@ -13,7 +13,7 @@ const waterFlowData: IDynamicItem[] = [
     "username": "John Doe",
     "avatarUrl": "https://sns-img-hw.xhscdn.com/1040g00830rdc32381e0048jp4ulje2aiubnri20?imageView2/2/w/1080/format/webp",
     "likeCount": 0,
-    "isLiked": 0
+    "isLike": 0
   },
   {
     "id": '2',
@@ -22,7 +22,7 @@ const waterFlowData: IDynamicItem[] = [
     "username": "John Doe",
     "avatarUrl": "https://sns-img-hw.xhscdn.com/1040g2sg30rmcij992e0048jp4ulje2aiq2a941g?imageView2/2/w/1080/format/webp",
     "likeCount": 0,
-    "isLiked": 0
+    "isLike": 0
   },
   {
     "id": '3',
@@ -31,7 +31,7 @@ const waterFlowData: IDynamicItem[] = [
     "username": "John Doe",
     "avatarUrl": "https://sns-img-hw.xhscdn.com/1040g2sg30rl5ko5vik0048jp4ulje2airahe8fo?imageView2/2/w/1080/format/webp",
     "likeCount": 0,
-    "isLiked": 0
+    "isLike": 0
   },
   {
     "id": '4',
@@ -40,7 +40,7 @@ const waterFlowData: IDynamicItem[] = [
     "username": "John Doe",
     "avatarUrl": "https://sns-img-hw.xhscdn.com/1040g00830rigsop91u0048jp4ulje2aiuh7ap4g?imageView2/2/w/1080/format/webp",
     "likeCount": 0,
-    "isLiked": 0
+    "isLike": 0
   },
   {
     "id": '5',
@@ -49,7 +49,7 @@ const waterFlowData: IDynamicItem[] = [
     "username": "John Doe",
     "avatarUrl": "https://sns-img-hw.xhscdn.com/1040g2sg30rmnv3r22g005ndbrh5097b4hqfklao?imageView2/2/w/1080/format/webp",
     "likeCount": 0,
-    "isLiked": 0
+    "isLike": 0
   },
   {
     "id": '6',
@@ -58,7 +58,7 @@ const waterFlowData: IDynamicItem[] = [
     "username": "John Doe",
     "avatarUrl": "https://sns-img-hw.xhscdn.com/1040g2sg30rhh568ui2005ndbrh5097b42gp5sr0?imageView2/2/w/1080/format/webp",
     "likeCount": 0,
-    "isLiked": 0
+    "isLike": 0
   },
   {
     "id": '7',
@@ -67,7 +67,7 @@ const waterFlowData: IDynamicItem[] = [
     "username": "John Doe",
     "avatarUrl": "https://sns-img-hw.xhscdn.com/1040g00830rk9ebvtig005ndbrh5097b4pk92rp0?imageView2/2/w/1080/format/webp",
     "likeCount": 0,
-    "isLiked": 0
+    "isLike": 0
   },
   {
     "id": '8',
@@ -76,7 +76,7 @@ const waterFlowData: IDynamicItem[] = [
     "username": "John Doe",
     "avatarUrl": "https://sns-img-hw.xhscdn.com/1040g2sg30rmnv3r22g005ndbrh5097b4hqfklao?imageView2/2/w/1080/format/webp",
     "likeCount": 0,
-    "isLiked": 0
+    "isLike": 0
   },
   {
     "id": '9',
@@ -85,7 +85,7 @@ const waterFlowData: IDynamicItem[] = [
     "username": "John Doe",
     "avatarUrl": "https://sns-img-hw.xhscdn.com/1040g2sg30rlesntqie005ndbrh5097b4b92nu20?imageView2/2/w/1080/format/webp",
     "likeCount": 0,
-    "isLiked": 0
+    "isLike": 0
   },
   {
     "id": '10',
@@ -94,7 +94,7 @@ const waterFlowData: IDynamicItem[] = [
     "username": "John Doe",
     "avatarUrl": "https://sns-img-hw.xhscdn.com/1040g00830rk9ebvtig005ndbrh5097b4pk92rp0?imageView2/2/w/1080/format/webp",
     "likeCount": 0,
-    "isLiked": 0
+    "isLike": 0
   }
 ];
 

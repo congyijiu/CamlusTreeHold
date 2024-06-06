@@ -46,7 +46,7 @@ export struct PersonPageCard{
 
 
   build(){
-    Column(){
+    Column({space:0}){
 
       //上半部分
       Column(){
@@ -172,14 +172,16 @@ export struct PersonPageCard{
 
         DynamicWaterFlow()
 
-      }.width('100%').height('100%')
+      }.width('100%')
 
 
 
 
     }
     .width('100%')
-    .height('100%')
+    .height('97%')
     .border({width:1 , color:'red'})
+    .alignItems(HorizontalAlign.Start)
+    .margin({top:-15})
   }
 }

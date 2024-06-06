@@ -1,13 +1,14 @@
 import {messagetips} from '../components/MessageTips'
+import router from '@ohos.router'
 @Preview
 @Component
 export struct messageList{
-  url = null
+  @State url:string = '';
   build(){
     Row(){
-      Image(this.url)
-        .width(90)
-        .height(90)
+      Image(this.url.toString())
+        .width(70)
+        .height(70)
         .borderRadius(50).backgroundColor(Color.Black)
       Column({space:20}){
         Text('Title')
@@ -23,8 +24,12 @@ export struct messageList{
           .fontColor(Color.Gray)
         messagetips()
       }.padding(10)
-      .width('40%')
+      .width('50%')
       .alignItems(HorizontalAlign.End)
-    }.width('100%')
+    }.width('100%').onClick(()=>{
+          router.pushUrl({
+            url:'pages/SendMessagePage'
+          })
+    })
   }
 }

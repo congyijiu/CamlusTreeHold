@@ -13,44 +13,50 @@
  * limitations under the License.
  */
 
-export interface IDynamicItem {
+export interface IDynamicType {
 
   id: string;
 
-  imageUrl: string;
+  typeName: string;
 
-  title: string;
+  description: string;
 
-  username: string;
+  isDefault: string;
 
-  avatarUrl: string;
+  status: string;
 
-  likeCount: number;
+  sortOrder: number;
 
-  isLike: number;
+  creationDate: number;
 
 }
 
 /**
  * Water flow item.
  */
-export default class DynamicItem implements IDynamicItem {
+export default class DynamicType implements IDynamicType {
 
   id: string;
-  imageUrl: string;
-  title: string;
-  username: string;
-  avatarUrl: string;
-  likeCount: number;
-  isLike: number;
 
-  constructor(props: DynamicItem) {
+  typeName: string;
+
+  description: string;
+
+  isDefault: string;
+
+  status: string;
+
+  sortOrder: number;
+
+  creationDate: number;
+
+  constructor(props: DynamicType) {
     this.id = props.id;
-    this.imageUrl = props.imageUrl;
-    this.title = props.title;
-    this.username = props.username;
-    this.avatarUrl = props.avatarUrl;
-    this.likeCount = props.likeCount;
-    this.isLike = props.isLike;
+    this.typeName = props.typeName;
+    this.description = props.description;
+    this.isDefault = props.isDefault;
+    this.status = props.status;
+    this.sortOrder = props.sortOrder;
+    this.creationDate = props.creationDate;
   }
 }

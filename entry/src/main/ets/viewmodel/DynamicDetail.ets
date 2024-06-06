@@ -61,10 +61,9 @@ export default class DynamicDetail implements IDynamicDetail {
   favoriteCount: number;
   typeId: string;
   isLike: number;
-
   isFavorite: number;
-
   isFollow: number;
+
   constructor(props: DynamicDetail) {
     this.id = props.id;
     this.imageUrlList = props.imageUrlList;

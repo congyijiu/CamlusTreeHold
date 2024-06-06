@@ -8,12 +8,15 @@ import { waterFlowData } from '../viewmodel/TestViewModel';
 import DynamicItem from '../viewmodel/DynamicItem'
 import {DynamicRequest} from '../api/DynamicRequest'
 import { NavigationToolBar } from '../components/NavigationToolBar'
-import {tabs} from '../components/Tabs';
+import {WaterFlowTabs} from '../components/WaterFlowTabs';
 import { UserRequest } from '../api/UserRequest'
 import { formToJSON } from '@ohos/axios'
 
 
 
+import DynamicType from '../viewmodel/DynamicType'
+import { searchimage } from '../common/common'
+import { IndexSearchImage } from '../components/IndexSearchImage'
 @Entry
 @Component
 struct Index {
@@ -24,9 +27,22 @@ struct Index {
   @State testId: number = 0
   @State datasource: WaterFlowDataSource = new WaterFlowDataSource()
   @State testEmail: string = ''
+  @State dynamicTypeList:DynamicType[] = []
+  // @State datasource: WaterFlowDataSource = new WaterFlowDataSource()
+
+  // async oninit() {
+  //   await DynamicRequest.getAllDynamicType().then((res) => {
+  //     console.log('getAllDynamicType' + JSON.stringify(res))
+  //     this.dynamicTypeList = res
+  //   })
+  // }
 
   async aboutToAppear() {
-    this.datasource.setDataArray(waterFlowData);
+    await DynamicRequest.getAllDynamicType().then((res) => {
+      console.log('getAllDynamicType' + JSON.stringify(res))
+      this.dynamicTypeList = res
+    })
+    // this.datasource.setDataArray(waterFlowData);
     this.testToken = await PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
     console.log('---ling' + this.testToken)
     await UserRequest.getUserInfoByToken(this.testToken).then(async (res) => {
@@ -64,20 +80,18 @@ struct Index {
 
 
     })
-
   }
 
   build() {
     Column(){
-      tabs()
+      WaterFlowTabs({dynamicTypeList:$dynamicTypeList})
         .width('100%')
         .height(50)
-
-      // Blank()
-      //   .width('100%')
-      //   .height(50)
-      DynamicWaterFlow()
+      // DynamicWaterFlow()
       NavigationToolBar()
+        .position({x: 0, y: '96%'})
+      IndexSearchImage()
+        .position({x: '90%', y: 7})
     }
 
   }

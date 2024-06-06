@@ -6,10 +6,13 @@
     "pages/testPage",
     "pages/DynamicDetailPage",
     "pages/Register",
+    "pages/editUserInfoCardPage",
     "pages/MyPage",
     "pages/DynamicDetailPage",
-    "pages/editUserInfoCardPage",
     "pages/PublishPage",
-    "pages/MessagePage"
+    "pages/MessagePage",
+    "pages/SendMessagePage",
+    "pages/SearchInitPage",
+    "pages/SearchPage"
   ]
 }

@@ -11,24 +11,23 @@ import {DynamicRequest} from '../api/DynamicRequest'
 export struct DynamicWaterFlow {
   @State datasource: WaterFlowDataSource = new WaterFlowDataSource()
   scroller: Scroller = new Scroller()
+  @State type: number = 0
   dynamicDto:any = {
     "pageIndex": 1,
     "pageSize": 10,
-    "type": 0,
+    "type": 1,
     "keyWord": "",
     "userId": null
   }
 
   aboutToAppear() {
     let dynamicIiems:DynamicItem[] = []
-
+    this.dynamicDto['type'] = this.type
     DynamicRequest.getDynamicItem(this.dynamicDto).then((value) => {
       dynamicIiems = value
       console.log(JSON.stringify(value));
       this.datasource.setDataArray(dynamicIiems);
     })
-
-
   }
 
   build() {
