@@ -3,7 +3,6 @@ import router from '@ohos.router'
 @Preview
 @Component
 export struct messageList{
-
    userItem:any;
   build(){
     Row(){
@@ -23,7 +22,7 @@ export struct messageList{
           .fontSize(10)
           .fontColor(Color.Gray)
           .position({x:340,y:10})
-        messagetips()
+        messagetips({messageCount:this.userItem.noreadNum})
           .position({x:370,y:50})
     }.width('100%').onClick(()=>{
           router.pushUrl({
