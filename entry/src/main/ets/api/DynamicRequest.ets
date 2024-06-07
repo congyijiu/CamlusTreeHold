@@ -5,7 +5,6 @@ import  DynamicItem  from '../viewmodel/DynamicItem'
 import  DynamicDetail  from '../viewmodel/DynamicDetail'
 import  DynamicDetailCommentPageVo  from '../viewmodel/DynamicDetailCommentPageVo'
 import DynamicType from '../viewmodel/DynamicType'
-
 import { PreferencesUtil } from '../common/PreferencesUtil'
 
 
@@ -149,7 +148,7 @@ export class DynamicRequest {
 
 
   //根据ID查询用户收藏的动态
-  static async getUserFavoriteDynamicItemById(dynamicdto: any): Promise<DynamicItem[]> {
+  static async getUserFavoriteDynamicItemById(dynamicDto: any): Promise<DynamicItem[]> {
     let dynamicItem:DynamicItem[] = []
     let token:string = ''
 
@@ -165,9 +164,9 @@ export class DynamicRequest {
     await axios.post(
       `${baseUrl}/dynamic/favorite/page`,
       {
-        pageIndex: dynamicdto.pageIndex,
-        pageSize: dynamicdto.pageSize,
-        userId: dynamicdto.userId,
+        pageIndex: dynamicDto.pageIndex,
+        pageSize: dynamicDto.pageSize,
+        userId: dynamicDto.userId,
       },
       {
         headers: {
@@ -180,12 +179,12 @@ export class DynamicRequest {
     ).then((res: AxiosResponse) => {
       if (res.status === 200) {
         dynamicItem = res.data.data.records
-        console.log('getUserFavoriteDynamicItemById', JSON.stringify(dynamicItem))
+        console.log('getUserFavoriteDynamicItemById---', JSON.stringify(res.data.data.records))
       }else {
-        console.log('getUserFavoriteDynamicItemById', res.data.errorMessage)
+        console.log('getUserFavoriteDynamicItemById---', res.data.errorMessage)
       }
     }).catch((err: AxiosError) => {
-      console.log('getUserFavoriteDynamicItemById', err.message)
+      console.log('getUserFavoriteDynamicItemById---', err.message)
     })
     return dynamicItem
   }

@@ -2,7 +2,6 @@ import router from '@ohos.router'
 import { DynamicCard } from '../components/DynamicCard'
 import {DynamicWaterFlow } from '../components/DynamicWaterFlow'
 import { PreferencesUtil } from '../common/PreferencesUtil'
-
 import { WaterFlowDataSource } from '../viewmodel/WaterFlowDataSource'
 import { waterFlowData } from '../viewmodel/TestViewModel';
 import DynamicItem from '../viewmodel/DynamicItem'
@@ -41,12 +40,16 @@ struct Index {
     await DynamicRequest.getAllDynamicType().then((res) => {
       console.log('getAllDynamicType' + JSON.stringify(res))
       this.dynamicTypeList = res
+      console.log('getAllDynamicType' + this.dynamicTypeList)
     })
     // this.datasource.setDataArray(waterFlowData);
     this.testToken = await PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
     console.log('---ling' + this.testToken)
     await UserRequest.getUserInfoByToken(this.testToken).then(async (res) => {
       //res转为Json
+      PreferencesUtil.userId = res.id
+      console.log('userId in postUserInfo', PreferencesUtil.userId)
+
       webSocketUtil.connect(res.id)
       PreferencesUtil.putPreferenceValue('MyPreferences', 'id' , res.id)
       PreferencesUtil.putPreferenceValue('MyPreferences', 'avatarUrl' , res.avatarUrl)
@@ -66,6 +69,13 @@ struct Index {
       console.log('---lingjiaTestID' + JSON.stringify(this.testId))
       console.log('---lingjiaTestEmail' + JSON.stringify(this.testEmail))
       console.log('---lingjiaTestToken' + JSON.stringify(this.testToken))
+
+
+      //测试UserRequest.getOtherInfoById（）方法
+      // await UserRequest.getOtherInfoById(this.testId).then((res) => {
+      //   console.log('---lingjia getOtherInfoById' + JSON.stringify(JSON.stringify(res)))
+      // })
+
       // console.log('---lingjia' + JSON.stringify(res.data.id))
 
       // let pageDto = {

@@ -5,6 +5,16 @@ import { DynamicWaterFlow } from '../components/DynamicWaterFlow'
 import { PreferencesUtil } from '../common/PreferencesUtil'
 import { UserRequest } from '../api/UserRequest';
 import { formToJSON } from '@ohos/axios';
+import DynamicType from '../viewmodel/DynamicType'
+import { DynamicRequest } from '../api/DynamicRequest';
+import { WaterFlowTabs } from './WaterFlowTabs';
+import DynamicPage from '../viewmodel/DynamicPage'
+import DynamicItem from '../viewmodel/DynamicItem'
+import DynamicDetail from '../viewmodel/DynamicDetail';
+import { WaterFlowDataSource } from '../viewmodel/WaterFlowDataSource';
+import { UserWaterFlowTabs } from './UserWaterFlowTabs';
+
+
 @Preview
 @Component
 export struct PersonPageCard{
@@ -15,34 +25,73 @@ export struct PersonPageCard{
   @State private fans: number = 1
   @State private bgcImg: string = 'https://img.zcool.cn/community/01b2945b0663dda801218cf4617993.jpg@3000w_1l_0o_100sh.jpg'
   @State private testToken : string = '12'
-  @State private userID : number = 0
+  @State private userID : number = 2
   @State private testId : number = 0
+  @State dynamicTypeList:DynamicType[] = [{"id":'1',"typeName":"用户作品","description":"默认","isDefault":'1',"status":'1',"sortOrder":0,"creationDate":"2023-11-22 17:08:10"},{"id":'2',"typeName":"用户收藏","description":"校园","isDefault":'0',"status":'1',"sortOrder":0,"creationDate":"2023-11-28 10:24:44"}]
+  @State likeDatasource: WaterFlowDataSource = new WaterFlowDataSource()
+  @State publicDatasource: WaterFlowDataSource = new WaterFlowDataSource()
+  @State token : string = ''
 
-  async aboutToAppear() {
-    this.testToken = await PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
-    console.log('---ling' + this.testToken)
-    await UserRequest.getUserInfoByToken(this.testToken).then(async (res) => {
-      //res转为Json
-
-      PreferencesUtil.putPreferenceValue('MyPreferences', 'id' , res.id)
-      this.userID = await PreferencesUtil.getPreferenceValue('MyPreferences','id','') as unknown as number
-      console.log('---lingjia' + JSON.stringify(this.userID))
-
-      // console.log('---lingjia' + JSON.stringify(res.data.id))
-    })
-
-    await UserRequest.getUserInfo(this.userID).then((res) => {
-      this.userImg = res.avatarUrl
-      this.userName = res.username
-      this.signature = res.hobbies
-      this.follow = res.follows
-      this.fans = res.fans
-      console.log('---lingjiaUserRequest' + JSON.stringify(res.avatarUrl))
-    })
-
-
+  dynamicDto:any = {
+    "pageIndex": 1,
+    "pageSize": 10,
+    // "type": 1,
+    // "keyWord": "",
+    "userId": 1
   }
 
+  //强制刷新页面
+  onShow(){
+    // this.aboutToAppear()
+    router.pushUrl(
+      { url: 'pages/MyPage',
+        params: {
+        }}
+    );
+  }
+
+
+  aboutToAppear() {
+    // this.token =  PreferencesUtil.getPreferenceValue('MyPreferences','token','') as unknown as string
+    this.token = PreferencesUtil.token
+    // console.log('---ling' + this.testToken)
+    UserRequest.getUserInfoByToken(this.testToken).then( async (res) => {
+      //res转为Json
+
+      // PreferencesUtil.putPreferenceValue('MyPreferences', 'id' , res.id)
+      this.userID = PreferencesUtil.userId
+      console.log('---lingjia' + JSON.stringify(this.userID))
+      // console.log('---lingjia' + JSON.stringify(res.data.id))
+      UserRequest.getUserInfo(this.userID).then((res) => {
+        this.userImg = res.avatarUrl
+        this.userName = res.username
+        this.signature = res.hobbies
+        this.follow = res.follows
+        this.fans = res.fans
+        this.dynamicDto['userId'] = this.userID
+        console.log('---lingjiaUserRequest' + JSON.stringify(res.avatarUrl))
+        DynamicRequest.getUserFavoriteDynamicItemById(this.dynamicDto).then((res) => {
+          let dynamicIiems:DynamicItem[] = []
+          dynamicIiems = res
+          this.likeDatasource.setDataArray(dynamicIiems);
+          console.log('getUserFavoriteDynamicItemById' + JSON.stringify(dynamicIiems))
+          console.log('getUserFavoriteDynamicItemById+++' + JSON.stringify(this.likeDatasource))
+        })
+
+
+        DynamicRequest.getDynamicItem(this.dynamicDto,this.token).then((value) => {
+          let dynamicIiems:DynamicItem[] = []
+          // this.dynamicDto['type'] = this.type
+          dynamicIiems = value
+          console.log(JSON.stringify(value));
+          this.publicDatasource.setDataArray(dynamicIiems);
+        })
+
+
+      })
+    })
+
+  }
 
 
   build(){
@@ -57,19 +106,6 @@ export struct PersonPageCard{
          Image($r('app.media.quit')).width(26).height(26)
            .onClick(async (res)=>{
              //处理点击事件
-
-             // PreferencesUtil.putPreferenceValue('MyPreferences', 'id' , res.id)
-             // PreferencesUtil.putPreferenceValue('MyPreferences', 'avatarUrl' , res.avatarUrl)
-             // PreferencesUtil.putPreferenceValue('MyPreferences', 'hobbies' , res.hobbies)
-             // PreferencesUtil.putPreferenceValue('MyPreferences', 'gender' , res.gender)
-             // PreferencesUtil.putPreferenceValue('MyPreferences', 'signature' , res.signature)
-             // PreferencesUtil.putPreferenceValue('MyPreferences', 'phoneNumber' , res.phoneNumber)
-             // PreferencesUtil.putPreferenceValue('MyPreferences', 'registrationDate' , res.registrationDate)
-             // PreferencesUtil.putPreferenceValue('MyPreferences', 'email' , res.email)
-             // PreferencesUtil.putPreferenceValue('MyPreferences', 'username' , res.username)
-             // PreferencesUtil.putPreferenceValue('MyPreferences', 'follows' , res.follows)
-             // PreferencesUtil.putPreferenceValue('MyPreferences', 'fans' , res.fans)
-
              //1.token清''
              await PreferencesUtil.putPreferenceValue('MyPreferences', 'token' , '')
              await PreferencesUtil.putPreferenceValue('MyPreferences', 'id' , '')
@@ -106,11 +142,11 @@ export struct PersonPageCard{
              await console.log('---ppp---' + JSON.stringify(PreferencesUtil.getPreferenceValue('MyPreferences','fans','')))
 
 
-             router.pushUrl(
-               { url: 'pages/Login',
-                 params: {
-                 }}
-             );
+              router.pushUrl(
+                { url: 'pages/Login',
+                  params: {
+                  }}
+              );
            })
 
        }
@@ -164,14 +200,11 @@ export struct PersonPageCard{
 
 
 
+      //下半部分 用户作品与收藏
       Column(){
-        Row(){
-          Text('作品').fontSize(20)
-          Text('收藏').fontSize(20)
-        }.width('100%').height(40).backgroundColor('white').justifyContent(FlexAlign.SpaceEvenly)
-
-        DynamicWaterFlow()
-
+        UserWaterFlowTabs({dynamicTypeList:$dynamicTypeList})
+          .width('100%')
+          .height(50)
       }.width('100%')
 
 
@@ -180,7 +213,7 @@ export struct PersonPageCard{
     }
     .width('100%')
     .height('97%')
-    .border({width:1 , color:'red'})
+    // .border({width:1 , color:'red'})
     .alignItems(HorizontalAlign.Start)
     .margin({top:-15})
   }

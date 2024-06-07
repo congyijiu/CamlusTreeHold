@@ -17,6 +17,7 @@ export struct DynamicDetailTop {
 
   @State username: string = '';
   @State avatarUrl: string = '';
+  @State otherUserId: number = 0;
 
   aboutToAppear() {
     console.info('DynamicDetailTop aboutToAppear')
@@ -28,6 +29,7 @@ export struct DynamicDetailTop {
     DynamicRequest.getDynamicDetail(dynamicId).then((res) => {
       console.info('DynamicDetailTop getDynamicDetail', res)
       this.dynamicDtail = res;
+      this.otherUserId = res.userId as unknown as number;
     })
   }
 
@@ -44,6 +46,19 @@ export struct DynamicDetailTop {
         .height(35)
         .borderRadius(50)
         .border({width:1,color:'#F0F0F0'})
+        .onClick(() => {
+          router.pushUrl(
+            { url: 'pages/OtherUserPage',
+              params: {
+                otherUserId: this.otherUserId,
+              }}
+          );
+
+
+        })
+
+
+
       Text(this.username)
         .margin({left:10})
         // .border({color:'red',width:1})

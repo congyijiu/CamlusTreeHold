@@ -61,7 +61,7 @@ export struct editUserInfoCard{
           Text('< 返回').onClick(()=>{
             //处理点击事件
             router.pushUrl(
-              { url: 'pages/PersonalPageCard',
+              { url: 'pages/MyPage',
                 params: {
                 }}
             );
@@ -95,7 +95,7 @@ export struct editUserInfoCard{
 
               //处理点击事件
               router.pushUrl(
-                { url: 'pages/PersonalPageCard',
+                { url: 'pages/MyPage',
                   params: {
                   }}
               );
