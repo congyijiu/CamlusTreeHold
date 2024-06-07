@@ -53,8 +53,6 @@ export struct DynamicDetailTop {
                 otherUserId: this.otherUserId,
               }}
           );
-
-
         })
 
 

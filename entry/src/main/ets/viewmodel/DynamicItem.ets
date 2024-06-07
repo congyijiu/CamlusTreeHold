@@ -17,6 +17,8 @@ export interface IDynamicItem {
 
   id: string;
 
+  userId: string;
+
   imageUrl: string;
 
   title: string;
@@ -37,7 +39,9 @@ export interface IDynamicItem {
 export default class DynamicItem implements IDynamicItem {
 
   id: string;
+  userId: string;
   imageUrl: string;
+
   title: string;
   username: string;
   avatarUrl: string;
@@ -52,5 +56,6 @@ export default class DynamicItem implements IDynamicItem {
     this.avatarUrl = props.avatarUrl;
     this.likeCount = props.likeCount;
     this.isLike = props.isLike;
+    this.userId = props.userId;
   }
 }
