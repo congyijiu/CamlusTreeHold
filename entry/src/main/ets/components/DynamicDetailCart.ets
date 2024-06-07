@@ -19,12 +19,16 @@ export struct DynamicDetailCart {
   @State title: string = '';
   @State dynamicDtail: DynamicDetail = dynamicDetailData;
 
+
+  @Link likeCount: number;
+
   aboutToAppear() {
     this.Id = router.getParams()['id'];
     this.imageUrl = router.getParams()['imageUrl'];
     this.title = router.getParams()['title'];
     DynamicRequest.getDynamicDetail(this.Id).then((res) => {
       this.dynamicDtail = res;
+      this.likeCount = res.likeCount;
       console.info('getDynamicDetail', res);
     })
   }

@@ -9,11 +9,11 @@
     "pages/Register",
     "pages/editUserInfoCardPage",
     "pages/MyPage",
-    "pages/DynamicDetailPage",
     "pages/PublishPage",
     "pages/MessagePage",
     "pages/SendMessagePage",
     "pages/SearchInitPage",
-    "pages/SearchPage"
+    "pages/SearchPage",
+    "pages/gptSendMessagePage"
   ]
 }

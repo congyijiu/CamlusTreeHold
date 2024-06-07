@@ -9,7 +9,6 @@ export struct SendMessageInput{
 
   aboutToAppear(){
     //连接websocket
-    webSocketConnect()
   }
   build(){
     Row(){

@@ -19,6 +19,7 @@ export struct DynamicDetailCommentCart {
   @Link teststring: string;
 
   @Link onReplyComment:DynamicDetailComment[];
+  @Link likeCount: number;
 
   @State replys: DynamicDetailComment[] = [];
   @State replysuser: string = '';
@@ -164,7 +165,8 @@ export struct DynamicDetailCommentCart {
       placeholder:$replysuser,
       onReplyComment:$onReplyComment,
       toComment:this.DynamicDetailComponentData,
-      topCommentId:this.DynamicDetailComponentData.topCommentId
+      topCommentId:this.DynamicDetailComponentData.topCommentId,
+      likeCount:$likeCount
     }),
     cancel: this.exitreply,
     autoCancel: true,
@@ -260,7 +262,7 @@ export struct DynamicDetailCommentCart {
         .alignItems(VerticalAlign.Top)
         if (this.isReply) {
           ForEach(this.replys, (item: DynamicDetailComment, index) => {
-            DynamicDetailCommentCart({DynamicDetailComponentData: item,dynamicId:this.dynamicId,teststring:$teststring,onReplyComment:$replys})
+            DynamicDetailCommentCart({DynamicDetailComponentData: item,dynamicId:this.dynamicId,teststring:$teststring,onReplyComment:$replys,likeCount:$likeCount})
           })
           if (this.replys.length < this.replysTotal) {
             Text('查看更多评论')
