@@ -35,7 +35,7 @@ export struct DynamicCard {
         .borderRadius(5)
         .syncLoad(true)
       Text(this.dynamicItem.title)
-        .sharedTransition(`title${this.dynamicItem.id}`, { duration: 200, curve: Curve.Linear })
+        // .sharedTransition(`title${this.dynamicItem.id}`, { duration: 200, curve: Curve.Linear })
         .fontSize(14)
         .fontWeight('bold')
         .fontColor('#000000')
