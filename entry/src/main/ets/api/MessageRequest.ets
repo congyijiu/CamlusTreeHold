@@ -44,7 +44,7 @@ export class MessageRequest{
 
   }
   //获取消息详情
-  static async getMessageDetail(MessageDetailData: any): Promise<MessageDetail> {
+  static async getMessageDetail(MessageDetailData: any): Promise<any> {
     let token: string = ''
     token = PreferencesUtil.token
     if (token=='') {

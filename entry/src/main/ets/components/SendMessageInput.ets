@@ -1,14 +1,12 @@
 import {webSocketUtil} from '../common/webSocketUtil'
+import MessageDetail from '../viewmodel/MessageDetail';
 @Preview
 @Component
 export struct SendMessageInput{
   @State myText: string = '';
-  @Link senderMessage:string[];
+  @Link senderMessage:MessageDetail[];
   OtheruserId:number
-  aboutToAppear(){
-
-    //连接websocket
-  }
+  myuserId:number
   build(){
     Row(){
       TextArea({placeholder:'请输入',text:this.myText})
@@ -31,7 +29,17 @@ export struct SendMessageInput{
         .onClick(() => {
           //将myText的值添加到senderMessage数组中
           if (this.myText!=='') {
-            this.senderMessage.push(this.myText)
+            let obj = {
+              sendTime: null,
+              readed: null,
+              content: this.myText,
+              type: 'text',
+              acceptUserId: null,
+              sendUserId: this.myuserId,
+              id: null,
+              delete: null,
+            }
+            this.senderMessage.push(obj)
           }
           this.sendMessage()
           this.myText = ''

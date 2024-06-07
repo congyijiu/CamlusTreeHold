@@ -6,13 +6,13 @@ export struct ReceiverMessage{
   @State senderMessage:string = "hello"
   build(){
     Row(){
-      Image(this.SenderImage.toString())
+      Image(this.SenderImage)
         .width(40)
         .height(40)
         .borderRadius(20)
         .backgroundColor(Color.Black)
         .margin({left: 7,right: 7,top:10})
-      Text(this.senderMessage.toString())
+      Text(this.senderMessage)
         .backgroundColor(Color.White)
         .padding(6)
         .borderRadius(10)

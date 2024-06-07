@@ -4,25 +4,54 @@ import {messageList} from '../components/MessageList'
 import {NavigationToolBar} from '../components/NavigationToolBar'
 import {webSocketUtil} from '../common/webSocketUtil'
 import {MessageRequest} from '../api/MessageRequest'
+import { UserRequest } from '../api/UserRequest'
 @Entry
 @Component
 struct MessagePage {
   currentIndex = 3
-  @State userList:any = []
+  @State userList:any[] = []
   aboutToAppear(){
-    //监听消息
-    webSocketUtil.ws.on('message', (err,data) => {
-      console.log('message', JSON.stringify(data))
-    })
-   //获取消息列表
+    //获取消息列表
     var MessageListData ={
       "index": 1,
       "size": 100
     }
+    //获取消息列表
     MessageRequest.getMessageList(MessageListData).then((res) => {
+
       console.log('12312', JSON.stringify(res))
       this.userList = res
       console.log('12312', JSON.stringify( this.userList))
+    })
+    //监听消息
+    webSocketUtil.ws.on('message', (err,data) => {
+      const Sender = JSON.parse(data.data)
+      console.log('Sender', JSON.stringify(Sender))
+      var repeat = false
+      //判断是否重复
+      this.userList.forEach((item) => {
+        if(item.userId == Sender.sendUserId){
+          item.content = Sender.content
+          item.time = Sender.time
+          item.noreadNum += 1
+          repeat = true
+        }
+      })
+      if(!repeat){
+        UserRequest.getOtherInfoById(Sender.sendUserId).then((res) => {
+          console.log('res', JSON.stringify(res))
+          let ob = {
+            userId: Sender.sendUserId,
+            username: res.userName,
+            avatarUrl: res.avatarUrl,
+            type: "text",
+            content: Sender.content,
+            time: null,
+            noreadNum: 1
+          }
+          this.userList.unshift(ob)
+        })
+      }
     })
 
   }
@@ -53,4 +82,6 @@ struct MessagePage {
     PageTransitionEnter({ type: RouteType.None, duration: 0 })
     PageTransitionExit({ type: RouteType.None, duration: 0 })
   }
+}function getOtherInfoById() {
+throw new Error('Function not implemented.')
 }

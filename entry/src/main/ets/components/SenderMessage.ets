@@ -14,7 +14,7 @@
           .textOverflow({ overflow:TextOverflow.None })
           .margin({top: 7})
       }
-      Image(this.SenderImage.toString())
+      Image(this.SenderImage)
         .width(40)
         .height(40)
         .borderRadius(20)

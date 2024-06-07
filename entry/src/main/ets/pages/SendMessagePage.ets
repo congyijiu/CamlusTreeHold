@@ -5,20 +5,44 @@ import {ChatTap} from '../components/ChatTap'
 import router from '@ohos.router';
 import {webSocketUtil} from '../common/webSocketUtil'
 import {MessageRequest} from '../api/MessageRequest'
+import MessageDetail from '../viewmodel/MessageDetail';
+import { PreferencesUtil } from '../common/PreferencesUtil';
 @Entry
 @Component
 struct SendMessagePage {
   scroller: Scroller = new Scroller()
-  @State senderMessage:string[] = []
+  @State senderMessage:MessageDetail[] = []
   OtheruserId:number
   username:string
   avatarUrl:string
-   aboutToAppear(){
+   MessageDetailData ={
+  "acceptUserId":0,
+  "index":1,
+  "size":10
+   }
+  myUserId:number
+  myavatarUrl:string
+   async  aboutToAppear(){
      this.OtheruserId = router.getParams()?.['userId']
      this.username = router.getParams()?.['username']
      this.avatarUrl = router.getParams()?.['avatarUrl']
+     this.myUserId = await PreferencesUtil.getPreferenceValue('MyPreferences','id','') as unknown as number
+      this.myavatarUrl = await PreferencesUtil.getPreferenceValue('MyPreferences','avatarUrl','') as unknown as string
+     this.LoadMessage()
      webSocketUtil.ws.on('message',(err,value)=>{
-
+       console.log('message',value.data)
+       const acceptMessage = JSON.parse(value.data)
+       let obj = {
+         sendTime: acceptMessage.sendTime,
+         readed: null,
+         content: acceptMessage.content,
+         type: 'text',
+         acceptUserId: null,
+         sendUserId: this.OtheruserId,
+         id: null,
+         delete: null,
+       }
+       this.senderMessage.push(obj);
      })
   }
   build() {
@@ -26,17 +50,17 @@ struct SendMessagePage {
         Column(){
           ChatTap({username:this.username})
           List(){
-            ListItem(){
-              ReceiverMessage()
-            }
-            ForEach(this.senderMessage,(message:string)=> {
+            ForEach(this.senderMessage,(item)=> {
               ListItem() {
                 Column() {
-                  if()
+                  if(item.sendUserId==this.OtheruserId)
                   {
-
+                    ReceiverMessage({ senderMessage: item.content,SenderImage:this.avatarUrl})
                   }
-                  SenderMessage({ senderMessage: message })
+                  else {
+                    SenderMessage({ senderMessage: item.content,SenderImage:this.myavatarUrl})
+                  }
+
                 }
                 .width('100%')
               }
@@ -46,14 +70,39 @@ struct SendMessagePage {
           }.height('80%')
           .width('100%')
           .backgroundColor(0xDCDCDC)
-          .onReachEnd(()=>{
-            console.log('3242')
+          .onReachStart(()=>{
+            console.log('到达顶部')
+            this.LoadMoreMessage()
           })
         }
         Column(){
-          SendMessageInput({senderMessage:$senderMessage,OtheruserId:this.OtheruserId})
+          SendMessageInput({senderMessage:$senderMessage,OtheruserId:this.OtheruserId,myuserId:this.myUserId})
         }
       }
       .width('100%')
     }
+
+  LoadMessage()
+  {
+    this.MessageDetailData.acceptUserId = this.OtheruserId
+    MessageRequest.getMessageDetail(this.MessageDetailData).then((res)=>{
+      console.log('MessageDetailData',JSON.stringify(res))
+      //逆序添加
+      res.forEach((item)=>{
+        this.senderMessage.unshift(item)
+      })
+    })
+  }
+  LoadMoreMessage()
+  {
+    this.MessageDetailData.acceptUserId = this.OtheruserId
+    this.MessageDetailData.index++
+    MessageRequest.getMessageDetail(this.MessageDetailData).then((res)=>{
+      console.log('MessageDetailData',JSON.stringify(res))
+      //逆序添加
+      res.forEach((item)=>{
+        this.senderMessage.unshift(item)
+      })
+    })
+  }
 }
