@@ -1,4 +1,5 @@
 import audio from '@ohos.multimedia.audio';
+import router from '@ohos.router';
 import { DynamicRequest } from '../api/DynamicRequest';
 import { like1image, likeimage } from '../common/common';
 import { PreferencesUtil } from '../common/PreferencesUtil';
@@ -183,6 +184,15 @@ export struct DynamicDetailCommentCart {
             .borderRadius(50)
             .width(25)
             .height(25)
+            .onClick(()=>{
+              console.info('点击了评论头像');
+              router.pushUrl(
+                { url: 'pages/OtherUserPage',
+                  params: {
+                    otherUserId: this.DynamicDetailComponentData.userId,
+                  }}
+              );
+            })
             // .border({color:'red',width:1})
       }
       .width('7%')

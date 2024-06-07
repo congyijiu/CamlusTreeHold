@@ -1,4 +1,4 @@
-const baseUrl = 'http://127.0.0.1:8080'
+const baseUrl = 'http://192.168.1.12:8080'
 const gptUrl = 'http://0.0.0.0:0000'
 
 const gpttoken = 'sk-RPsa5iOX6J0NHDyVBbCe0e01F42f44FfA34069BbB17fA326'
