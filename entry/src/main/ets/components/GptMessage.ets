@@ -51,8 +51,9 @@ export struct GptSenderMessage{
             // .margin({top: 14})
           if (this.Message.imageBase64 != '') {
             Image(this.Message.imageBase64)
-              .width(100)
-              .height(100)
+              .width(150)
+              // .height(150)
+              .objectFit(ImageFit.Contain)
               .borderRadius(10)
               .margin({ top: 0 })
           }

@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from '@ohos/axios'
-import { baseUrl, gptUrl, testtoken } from '../common/common'
+import { baseUrl, gpttoken, gptUrl, testtoken } from '../common/common'
 import router from '@ohos.router'
 import { PreferencesUtil } from '../common/PreferencesUtil'
 import promptAction from '@ohos.promptAction';
@@ -8,7 +8,7 @@ import GptMessage from '../viewmodel/GptMessage'
 
 
 export class GptRequest {
-  //获取好友消息列表
+  //聊天
   static async getGptMessage(message: GptMessage): Promise<any> {
     let theres:any = ''
     let messagejson:any = [
@@ -21,7 +21,7 @@ export class GptRequest {
       ]
     }
     await axios.post(
-      `${gptUrl}v1/chat/completions`,
+      `${gptUrl}/v1/chat/completions`,
       {
         "model": "gpt-4o",
         "messages": [
@@ -39,7 +39,7 @@ export class GptRequest {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'user-agent': 'congyijiuscript',
-          'Authorization': 'Bearer sk-RPsa5iOX6J0NHDyVBbCe0e01F42f44FfA34069BbB17fA326'
+          'Authorization': `Bearer ${gpttoken}`
         }
       }
     ).then((res: AxiosResponse) => {

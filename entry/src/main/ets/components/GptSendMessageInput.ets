@@ -88,15 +88,19 @@ export struct GptSendMessageInput{
         Row(){
           if (this.imageUrl != '') {
             Image(this.imageUrl)
-              .height(100)
-              .width(100)
+              .width(150)
+              .height(130)
+              .objectFit(ImageFit.Contain)
               .onClick(() => {
                 console.log('点击图片')
               })
-              .border({ width: 1, color: '#3C3F41' })
-              .position({x: 250, y: -150})
+              // .border({ width: 1, color: '#3C3F41' })
+              .position({x: 250, y: -180})
+              // .border({ width: 1, color: '#3C3F41' })
           }
         }
+        .height(150)
+        // .border({ width: 1, color: '#3C3F41' })
       }
       .width('90%')
       .alignItems(HorizontalAlign.Start)
