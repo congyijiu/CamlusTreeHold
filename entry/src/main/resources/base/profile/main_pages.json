@@ -9,10 +9,12 @@
     "pages/Register",
     "pages/editUserInfoCardPage",
     "pages/MyPage",
+    "pages/OtherUserPage",
     "pages/PublishPage",
     "pages/MessagePage",
     "pages/SendMessagePage",
     "pages/SearchInitPage",
-    "pages/SearchPage"
+    "pages/SearchPage",
+    "pages/gptSendMessagePage"
   ]
 }

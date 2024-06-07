@@ -33,7 +33,7 @@ export class UserRequest{
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'token': token
+          'token': testtoken
         }
       }
     ).then((res: AxiosResponse) => {
@@ -259,6 +259,39 @@ export class UserRequest{
       console.log('editUserInfo', err.message)
     })
     return theRes
+  }
+
+
+  // 根据id获取用户信息
+  static async getOtherInfoById(userId:number): Promise<any> {
+
+    let token:string = ''
+
+    token = PreferencesUtil.token
+
+
+    console.log('getUserToken', token)
+    let user:any = {}
+    await axios.get(
+      `${baseUrl}/user/info/${userId}`,
+      {
+        headers: {
+          'token': token
+        }
+      }
+    ).then((res: AxiosResponse) => {
+      if (res.status === 200) {
+        user = res.data.data
+        console.log('getOtherInfoById', JSON.stringify(res))
+      }else {
+        console.error('getOtherInfoById', res.data.errorMessage)
+      }
+    }).catch((err: AxiosError) => {
+      console.log('getOtherInfoById', err.message)
+    })
+
+    console.log('getOtherInfoById user', JSON.stringify(user))
+    return user
   }
 
 }

@@ -7,6 +7,7 @@ export struct SendMessageInput{
   OtheruserId:number
   aboutToAppear(){
 
+    //连接websocket
   }
   build(){
     Row(){

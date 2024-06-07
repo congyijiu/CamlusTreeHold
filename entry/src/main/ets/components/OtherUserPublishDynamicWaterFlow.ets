@@ -9,7 +9,7 @@ import { PreferencesUtil } from '../common/PreferencesUtil'
 
 @Preview
 @Component
-export struct UserPublishDynamicWaterFlow {
+export struct OtherUserPublishDynamicWaterFlow {
   @State datasource: WaterFlowDataSource = new WaterFlowDataSource()
   scroller: Scroller = new Scroller()
   @State type: number = 0
@@ -27,9 +27,10 @@ export struct UserPublishDynamicWaterFlow {
     let params = router.getParams()
     if (params) {
       console.log('params in DynamicWaterFlow', JSON.stringify(params))
-
       let token = PreferencesUtil.token
-      this.dynamicDto['userId'] = PreferencesUtil.userId
+      this.dynamicDto['userId'] = params['otherUserId']
+
+
 
       if (token) {
         this.token = token

@@ -69,6 +69,13 @@ struct Index {
       console.log('---lingjiaTestID' + JSON.stringify(this.testId))
       console.log('---lingjiaTestEmail' + JSON.stringify(this.testEmail))
       console.log('---lingjiaTestToken' + JSON.stringify(this.testToken))
+
+
+      //测试UserRequest.getOtherInfoById（）方法
+      // await UserRequest.getOtherInfoById(this.testId).then((res) => {
+      //   console.log('---lingjia getOtherInfoById' + JSON.stringify(JSON.stringify(res)))
+      // })
+
       // console.log('---lingjia' + JSON.stringify(res.data.id))
 
       // let pageDto = {

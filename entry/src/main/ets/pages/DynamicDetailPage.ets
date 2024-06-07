@@ -34,6 +34,8 @@ struct DynamicDetailPage {
   @State onReplyComment:DynamicDetailComment[] = null;
   @State thisComment:DynamicDetailComment = null;
 
+  @State likeCount: number = 0;
+
 
   onPageShow() {
     this.dynamicId = router.getParams()['id'];
@@ -107,7 +109,8 @@ struct DynamicDetailPage {
       dynamicId:this.dynamicId,
       placeholder: $replyuser,
       onReplyComment:$onReplyComment,
-      toComment: null
+      toComment: null,
+      likeCount:$likeCount
     }),
     cancel: this.exitreply,
     autoCancel: true,
@@ -123,18 +126,18 @@ struct DynamicDetailPage {
         DynamicDetailTop()
         Scroll(){
           Column(){
-            DynamicDetailCart()
+            DynamicDetailCart({likeCount:$likeCount})
             Blank()
               .height(1)
               .border({color: '#f0f0f0', width: 1})
               .margin({top: 10, bottom: 10})
             Column(){
-              Text('共23条评论')
+              Text(`共${this.likeCount.toString()}条评论`)
                 .fontColor('#333333')
                 .fontSize(12)
                 .width('100%')
               ForEach(this.dynamicDetailCommentPageVo.records, (item: DynamicDetailComment, index) => {
-                DynamicDetailCommentCart({DynamicDetailComponentData: item,dynamicId: this.dynamicId,teststring:$teststring,onReplyComment:$onReplyComment})
+                DynamicDetailCommentCart({DynamicDetailComponentData: item,dynamicId: this.dynamicId,teststring:$teststring,onReplyComment:$onReplyComment,likeCount:$likeCount})
               })
               Blank()
                 .height(150)

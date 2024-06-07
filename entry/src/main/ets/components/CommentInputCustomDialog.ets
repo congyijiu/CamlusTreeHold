@@ -13,6 +13,7 @@ export struct CommentInputCustomDialog {
   topCommentId:number;
   @Link teststring: string;
   @Link placeholder: string;
+  @Link likeCount: number;
   dynamicId: string = '1';
   cancel: () => void
 
@@ -74,6 +75,9 @@ export struct CommentInputCustomDialog {
     }else{
          console.log('comment content DynamicComment',this.teststring)
         await this.replyDynamicComment()
+    }
+    if (this.likeCount) {
+      this.likeCount = this.likeCount + 1
     }
   }
 
