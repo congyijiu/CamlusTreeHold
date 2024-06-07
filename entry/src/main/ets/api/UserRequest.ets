@@ -33,7 +33,7 @@ export class UserRequest{
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'token': token
+          'token': testtoken
         }
       }
     ).then((res: AxiosResponse) => {

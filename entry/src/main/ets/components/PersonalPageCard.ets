@@ -213,7 +213,7 @@ export struct PersonPageCard{
     }
     .width('100%')
     .height('97%')
-    .border({width:1 , color:'red'})
+    // .border({width:1 , color:'red'})
     .alignItems(HorizontalAlign.Start)
     .margin({top:-15})
   }
