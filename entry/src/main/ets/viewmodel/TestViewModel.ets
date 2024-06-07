@@ -9,6 +9,7 @@ import DynamicType from './DynamicType';
 const waterFlowData: IDynamicItem[] = [
   {
     "id": '1',
+    'userId': '1',
     "imageUrl": "https://sns-img-hw.xhscdn.com/1040g00830rdc32381e0048jp4ulje2aiubnri20?imageView2/2/w/1080/format/webp",
     "title": "title1",
     "username": "John Doe",
@@ -18,6 +19,7 @@ const waterFlowData: IDynamicItem[] = [
   },
   {
     "id": '2',
+    'userId': '1',
     "imageUrl": "https://sns-img-hw.xhscdn.com/1040g2sg30rmcij992e0048jp4ulje2aiq2a941g?imageView2/2/w/1080/format/webp",
     "title": "title2",
     "username": "John Doe",
@@ -27,6 +29,7 @@ const waterFlowData: IDynamicItem[] = [
   },
   {
     "id": '3',
+    'userId': '1',
     "imageUrl": "https://sns-img-hw.xhscdn.com/1040g2sg30rl5ko5vik0048jp4ulje2airahe8fo?imageView2/2/w/1080/format/webp",
     "title": "title3",
     "username": "John Doe",
@@ -36,6 +39,7 @@ const waterFlowData: IDynamicItem[] = [
   },
   {
     "id": '4',
+    'userId': '1',
     "imageUrl": "https://sns-img-hw.xhscdn.com/1040g00830rigsop91u0048jp4ulje2aiuh7ap4g?imageView2/2/w/1080/format/webp",
     "title": "title4",
     "username": "John Doe",
@@ -45,6 +49,7 @@ const waterFlowData: IDynamicItem[] = [
   },
   {
     "id": '5',
+    'userId': '1',
     "imageUrl": "https://sns-img-hw.xhscdn.com/1040g2sg30rmnv3r22g005ndbrh5097b4hqfklao?imageView2/2/w/1080/format/webp",
     "title": "title5",
     "username": "John Doe",
@@ -54,6 +59,7 @@ const waterFlowData: IDynamicItem[] = [
   },
   {
     "id": '6',
+    'userId': '1',
     "imageUrl": "https://sns-img-hw.xhscdn.com/1040g2sg30rhh568ui2005ndbrh5097b42gp5sr0?imageView2/2/w/1080/format/webp",
     "title": "title6",
     "username": "John Doe",
@@ -63,6 +69,7 @@ const waterFlowData: IDynamicItem[] = [
   },
   {
     "id": '7',
+    'userId': '1',
     "imageUrl": "https://sns-img-hw.xhscdn.com/1040g00830rk9ebvtig005ndbrh5097b4pk92rp0?imageView2/2/w/1080/format/webp",
     "title": "title7",
     "username": "John Doe",
@@ -72,6 +79,7 @@ const waterFlowData: IDynamicItem[] = [
   },
   {
     "id": '8',
+    'userId': '1',
     "imageUrl": "https://sns-img-hw.xhscdn.com/1040g2sg30rmnv3r22g005ndbrh5097b4hqfklao?imageView2/2/w/1080/format/webp",
     "title": "title8",
     "username": "John Doe",
@@ -81,6 +89,7 @@ const waterFlowData: IDynamicItem[] = [
   },
   {
     "id": '9',
+    'userId': '1',
     "imageUrl": "https://sns-img-hw.xhscdn.com/1040g2sg30rlesntqie005ndbrh5097b4b92nu20?imageView2/2/w/1080/format/webp",
     "title": "title9",
     "username": "John Doe",
@@ -90,6 +99,7 @@ const waterFlowData: IDynamicItem[] = [
   },
   {
     "id": '10',
+    'userId': '1',
     "imageUrl": "https://sns-img-hw.xhscdn.com/1040g00830rk9ebvtig005ndbrh5097b4pk92rp0?imageView2/2/w/1080/format/webp",
     "title": "title10",
     "username": "John Doe",

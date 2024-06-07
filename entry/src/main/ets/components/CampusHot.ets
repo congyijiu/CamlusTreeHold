@@ -1,6 +1,7 @@
 
 import router from '@ohos.router';
 import { DynamicRequest } from '../api/DynamicRequest';
+import { UserRequest } from '../api/UserRequest';
 import { hotimage } from '../common/common';
 import DynamicItem from '../viewmodel/DynamicItem';
 
@@ -38,18 +39,22 @@ export struct CampusHot {
 
   toDetail(item:DynamicItem){
     console.info('toDetail',JSON.stringify(item))
-    router.pushUrl(
-      { url: 'pages/DynamicDetailPage',
-        params: {
-          id: item.id,
-          title: item.title,
-          imageUrl: item.imageUrl,
-          avatarUrl: item.avatarUrl,
-          username: item.username,
-        }}
-    );
+    UserRequest.getUserInfo(parseInt(item.userId)).then((res) => {
+      console.info('getUserInfo',res)
+      item.avatarUrl = res.avatarUrl
+      item.username = res.username
+      router.pushUrl(
+        { url: 'pages/DynamicDetailPage',
+          params: {
+            id: item.id,
+            title: item.title,
+            imageUrl: item.imageUrl,
+            avatarUrl: item.avatarUrl,
+            username: item.username,
+          }}
+      );
+    })
   }
-
   build(){
     Column(){
       Row(){
