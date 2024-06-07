@@ -32,10 +32,10 @@ struct SendMessagePage {
             ForEach(this.senderMessage,(message:string)=> {
               ListItem() {
                 Column() {
-                  if()
-                  {
-
-                  }
+                  // if()
+                  // {
+                  //
+                  // }
                   SenderMessage({ senderMessage: message })
                 }
                 .width('100%')

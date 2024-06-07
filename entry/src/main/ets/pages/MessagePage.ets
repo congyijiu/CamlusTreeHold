@@ -8,7 +8,7 @@ import {MessageRequest} from '../api/MessageRequest'
 @Component
 struct MessagePage {
   currentIndex = 3
-  @State userList:any = []
+  @State userList:any[] = []
   aboutToAppear(){
     //监听消息
     webSocketUtil.ws.on('message', (err,data) => {
