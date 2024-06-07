@@ -1,5 +1,5 @@
 import webSocket from '@ohos.net.webSocket';
-import { PreferencesUtil } from '../common/PreferencesUtil'
+import {baseUrl} from '../common/common'
 export class webSocketUtil{
    static ws = null;
    static connect(id: number){
@@ -7,7 +7,7 @@ export class webSocketUtil{
      this.ws = webSocket.createWebSocket();
      let userId = id
      console.log('123123324',userId)
-     var defaultIpAddress:string = "ws://192.168.31.196:8080/websocket/" +userId;
+     var defaultIpAddress:string = baseUrl +'/websocket/'+ userId;
      console.log('defaultIpAddress',defaultIpAddress)
      webSocketUtil.ws.connect(defaultIpAddress,(err, value)=>{
        if (!err) {
