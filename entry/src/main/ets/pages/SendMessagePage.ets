@@ -2,53 +2,29 @@ import {SenderMessage} from '../components/SenderMessage';
 import {ReceiverMessage}from '../components/ReceiverMessage'
 import {SendMessageInput} from'../components/SendMessageInput'
 import {ChatTap} from '../components/ChatTap'
-
-import webSocket from '@ohos.net.webSocket';
-import { PreferencesUtil } from '../common/PreferencesUtil'
+import router from '@ohos.router';
+import {webSocketUtil} from '../common/webSocketUtil'
+import {MessageRequest} from '../api/MessageRequest'
 @Entry
 @Component
 struct SendMessagePage {
   scroller: Scroller = new Scroller()
   @State senderMessage:string[] = []
-
-
+  OtheruserId:number
+  username:string
+  avatarUrl:string
    aboutToAppear(){
-     let ws = webSocket.createWebSocket();
-     PreferencesUtil.getPreferenceValue('MyPreferences','id','').then(res=>{
-      let userId = res
-       console.log('123123324',userId)
-       var defaultIpAddress:string = "ws://192.168.31.196:8080/websocket/" +userId;
-       console.log('defaultIpAddress',defaultIpAddress)
-       ws.connect(defaultIpAddress,(err, value)=>{
-         if (!err) {
-           console.log("Connected successfully",+value);
-         } else {
-           console.log("Connection failed. Err:" + JSON.stringify(err));
-         }
-       })
-    })
-     let data = {
-       acceptUserId: 0,
-       type: 'text',
-       content: "我还活着"
-     }
-     let myMessage = JSON.stringify(data)
-     //保持连接
-     setInterval(function() {
-       ws.send(myMessage,(err, value)=>{
-         if (!err) {
-           console.log("Send message successfully",+value);
-         } else {
-           console.log("Send message failed. Err:" + JSON.stringify(err));
-         }
-       })
-        }, 15000);
+     this.OtheruserId = router.getParams()?.['userId']
+     this.username = router.getParams()?.['username']
+     this.avatarUrl = router.getParams()?.['avatarUrl']
+     webSocketUtil.ws.on('message',(err,value)=>{
 
+     })
   }
   build() {
       Column() {
         Column(){
-          ChatTap()
+          ChatTap({username:this.username})
           List(){
             ListItem(){
               ReceiverMessage()
@@ -56,6 +32,10 @@ struct SendMessagePage {
             ForEach(this.senderMessage,(message:string)=> {
               ListItem() {
                 Column() {
+                  if()
+                  {
+
+                  }
                   SenderMessage({ senderMessage: message })
                 }
                 .width('100%')
@@ -71,7 +51,7 @@ struct SendMessagePage {
           })
         }
         Column(){
-          SendMessageInput({senderMessage:$senderMessage})
+          SendMessageInput({senderMessage:$senderMessage,OtheruserId:this.OtheruserId})
         }
       }
       .width('100%')

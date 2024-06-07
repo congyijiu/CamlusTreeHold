@@ -1,4 +1,4 @@
-const baseUrl = 'http://192.168.31.196:8080'
+const baseUrl = 'http://127.0.0.1:8080'
 
 const testtoken = 'eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAA_x2L0QrDIAxF_yXPFeLUmPVvlEZqoSDEwsbYvzfb2z2cez5wzA4rSCWMgavz-Cgukm_uiYldy6nmrTEiCyzQy4TVZ58pJvZxAb2q1frWKefPqxru0s9iVK7NqIxhW17jX1pFkdiu5kL43mg3vxaBAAAA.fUT3IabNO_n2yxTNSC44_uD_5rkIJhJjr8RN8TaTq_h26-iT-X1LX2zNCrdHz_awDfcHdE4E5v9gvakC04k00g'
 

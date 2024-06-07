@@ -1,15 +1,12 @@
-import {webSocketConnect} from '../utils/webSocketConnect'
 import {webSocketUtil} from '../common/webSocketUtil'
-
 @Preview
 @Component
 export struct SendMessageInput{
   @State myText: string = '';
   @Link senderMessage:string[];
-
+  OtheruserId:number
   aboutToAppear(){
-    //连接websocket
-    webSocketConnect()
+
   }
   build(){
     Row(){
@@ -45,7 +42,7 @@ export struct SendMessageInput{
     let ws = webSocketUtil.ws
     console.log("Send message:" + this.myText)
     let data = {
-      acceptUserId: 1,
+      acceptUserId: this.OtheruserId,
       type: 'text',
       content: this.myText
     }

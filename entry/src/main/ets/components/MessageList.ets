@@ -3,32 +3,36 @@ import router from '@ohos.router'
 @Preview
 @Component
 export struct messageList{
-  @State url:string = '';
+
+   userItem:any;
   build(){
     Row(){
-      Image(this.url.toString())
+      Image(this.userItem.avatarUrl)
         .width(70)
         .height(70)
-        .borderRadius(50).backgroundColor(Color.Black)
+        .borderRadius(50)
       Column({space:20}){
-        Text('Title')
+        Text(this.userItem.username)
           .fontSize(20)
-        Text('Description')
+        Text(this.userItem.content)
           .fontSize(15)
           .fontColor(Color.Gray)
       }.padding(10)
       .alignItems(HorizontalAlign.Start)
-      Column({space:27}){
-        Text('Time')
+        Text(this.userItem.sendTime)
           .fontSize(10)
           .fontColor(Color.Gray)
+          .position({x:340,y:10})
         messagetips()
-      }.padding(10)
-      .width('50%')
-      .alignItems(HorizontalAlign.End)
+          .position({x:370,y:50})
     }.width('100%').onClick(()=>{
           router.pushUrl({
-            url:'pages/SendMessagePage'
+            url:'pages/SendMessagePage',
+            params:{
+              userId:this.userItem.userId,
+              username:this.userItem.username,
+              avatarUrl:this.userItem.avatarUrl
+            }
           })
     })
   }

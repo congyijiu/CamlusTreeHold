@@ -80,6 +80,7 @@ export struct loginCard{
           Button('登录').width('90%').backgroundColor('#02A7F0').height(44)
             .onClick(()=>{
               //处理点击事件
+              console.log('login button clicked')
               UserRequest.postUserInfo(this.username , this.password).then((data)=>{
                 this.token = data.data.token
                 console.log("---" + this.token)

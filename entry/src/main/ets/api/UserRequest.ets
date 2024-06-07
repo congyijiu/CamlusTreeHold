@@ -52,6 +52,7 @@ export class UserRequest{
 
   //登录方法
   static async postUserInfo(username1:string , password1:string): Promise<any> {
+    console.log('postUserInfo', username1)
     let user:any = {}
     await axios.post(
       `${baseUrl}/user/login`,
