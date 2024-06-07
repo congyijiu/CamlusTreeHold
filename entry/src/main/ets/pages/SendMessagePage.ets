@@ -30,10 +30,10 @@ struct SendMessagePage {
       this.myavatarUrl = await PreferencesUtil.getPreferenceValue('MyPreferences','avatarUrl','') as unknown as string
      this.LoadMessage()
      webSocketUtil.ws.on('message',(err,value)=>{
-       console.log('message',value.data)
-       const acceptMessage = JSON.parse(value.data)
+       console.log('message',value)
+      const acceptMessage = JSON.parse(value)
        let obj = {
-         sendTime: acceptMessage.sendTime,
+         sendTime: null,
          readed: null,
          content: acceptMessage.content,
          type: 'text',
@@ -43,6 +43,7 @@ struct SendMessagePage {
          delete: null,
        }
        this.senderMessage.push(obj);
+       console.log('senderMessage',this.senderMessage)
      })
   }
   build() {
@@ -55,10 +56,10 @@ struct SendMessagePage {
                 Column() {
                   if(item.sendUserId==this.OtheruserId)
                   {
-                    ReceiverMessage({ senderMessage: item.content,SenderImage:this.avatarUrl})
+                    ReceiverMessage({senderMessage: item.content,SenderImage:this.avatarUrl})
                   }
                   else {
-                    SenderMessage({ senderMessage: item.content,SenderImage:this.myavatarUrl})
+                    SenderMessage({senderMessage: item.content,SenderImage:this.myavatarUrl})
                   }
 
                 }
