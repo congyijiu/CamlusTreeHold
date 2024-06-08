@@ -32,8 +32,11 @@ struct MessagePage {
       this.userList.forEach((item) => {
         if(item.userId == Sender.sendUserId){
           item.content = Sender.content
-          item.time = new Date().getTime()
-          item.noreadNum += 1
+          var temp = item
+          temp.noreadNum++
+          let index = this.userList.indexOf(item)
+          this.userList.splice(index,1)
+          this.userList.unshift(temp)
           repeat = true
         }
       })

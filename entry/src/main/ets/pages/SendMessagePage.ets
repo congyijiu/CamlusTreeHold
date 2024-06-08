@@ -31,7 +31,7 @@ struct SendMessagePage {
      this.LoadMessage()
      webSocketUtil.ws.on('message',(err,value)=>{
        console.log('message',value)
-       const acceptMessage = JSON.parse(value)
+      const acceptMessage = JSON.parse(value)
        let obj = {
          sendTime: null,
          readed: null,
@@ -43,6 +43,7 @@ struct SendMessagePage {
          delete: null,
        }
        this.senderMessage.push(obj);
+       console.log('senderMessage',this.senderMessage)
      })
   }
   build() {
@@ -55,10 +56,10 @@ struct SendMessagePage {
                 Column() {
                   if(item.sendUserId==this.OtheruserId)
                   {
-                    ReceiverMessage({ senderMessage: item.content,SenderImage:this.avatarUrl})
+                    ReceiverMessage({senderMessage: item.content,SenderImage:this.avatarUrl})
                   }
                   else {
-                    SenderMessage({ senderMessage: item.content,SenderImage:this.myavatarUrl})
+                    SenderMessage({senderMessage: item.content,SenderImage:this.myavatarUrl})
                   }
 
                 }
@@ -67,9 +68,9 @@ struct SendMessagePage {
               .width('100%')
 
             })
-          }.height('80%')
+          }.height('87%')
           .width('100%')
-          .backgroundColor(0xDCDCDC)
+          .backgroundColor('#F0F0F0')
           .onReachStart(()=>{
             console.log('到达顶部')
             this.LoadMoreMessage()

@@ -3,7 +3,7 @@ import router from '@ohos.router'
 @Preview
 @Component
 export struct messageList{
-   userItem:any;
+   @State userItem:any = {};
   build(){
     Row(){
       Image(this.userItem.avatarUrl)

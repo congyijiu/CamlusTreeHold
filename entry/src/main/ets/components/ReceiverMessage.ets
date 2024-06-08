@@ -3,7 +3,7 @@
 @Component
 export struct ReceiverMessage{
   @State SenderImage:string = '';
-  @State senderMessage:string = "hello"
+  @State senderMessage:string = ""
   build(){
     Row(){
       Image(this.SenderImage)

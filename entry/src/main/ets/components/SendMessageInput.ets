@@ -18,6 +18,7 @@ export struct SendMessageInput{
         .margin(20)
         .fontSize(14)
         .fontColor(Color.Black)
+        .border({ width: 1, color: '#f0f0f0' })
 
         .onChange((value: string) => {
           this.myText = value
@@ -42,7 +43,10 @@ export struct SendMessageInput{
           this.sendMessage()
           this.myText = ''
         })
-    }.width('100%').height(100).backgroundColor(0xDCDCDC)
+    }
+    .width('100%')
+    .height(50)
+    .backgroundColor('#ffffff')
 
   }
   sendMessage(){

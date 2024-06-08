@@ -13,7 +13,6 @@ export struct GptChatTap{
     Row(){
       Image($r('app.media.back'))
         .width(25)
-        .height(25)
         .margin({left:15})
         .onClick(()=>{
           router.back()
