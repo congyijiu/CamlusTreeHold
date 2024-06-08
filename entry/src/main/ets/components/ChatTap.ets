@@ -2,13 +2,12 @@ import router from '@ohos.router'
 @Preview
 @Component
 export struct ChatTap{
-  @State username:string = ''
+  @State username:string = 'awa'
   build(){
-  Row({space:150}){
+  Row(){
   Image($r('app.media.back'))
     .width(25)
-    .height(25)
-    .margin(10)
+    .margin({left:10})
     .onClick(()=>{
       router.replaceUrl({
         url: 'pages/MessagePage',
@@ -17,9 +16,14 @@ export struct ChatTap{
     Text(this.username)
       .fontSize(20)
       .fontWeight(FontWeight.Bold)
-  }.alignItems(VerticalAlign.Center)
+    Image('')
+      .width(25)
+      .margin({right:10})
+      // .border({width:1,color:'#000000'})
+  }
+    .alignItems(VerticalAlign.Center)
     .width('100%')
     .height(50)
-    .alignItems(VerticalAlign.Center)
+    .justifyContent(FlexAlign.SpaceBetween)
   }
 }

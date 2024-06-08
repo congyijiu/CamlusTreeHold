@@ -43,7 +43,7 @@ struct gptSendMessagePage {
         }
         .height('87%')
         .width('100%')
-        .backgroundColor(0xDCDCDC)
+        .backgroundColor('#f0f0f0')
         .onReachEnd(()=>{
           console.log('3242')
         })

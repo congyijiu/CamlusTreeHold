@@ -1,6 +1,6 @@
 
 import DynamicType from '../viewmodel/DynamicType'
-import { DynamicWaterFlow } from './DynamicWaterFlow'
+import { DynamicWaterFlow }  from './DynamicWaterFlow'
 @Preview
 @Component
 export struct WaterFlowTabs {
