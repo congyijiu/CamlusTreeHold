@@ -84,7 +84,7 @@ export struct OtherUserCard{
         //返回按钮
         Row(){
           // Image($r('app.media.ic_camera_master_ai_leaf'))
-          Image($r('app.media.return')).width(26).height(26)
+          Image($r('app.media.back')).width(25).height(25).margin(2)
             .onClick((res)=>{
               router.back();
             })
@@ -102,17 +102,19 @@ export struct OtherUserCard{
           //姓名和签名
           Column(){
             Column(){
-              Text(this.userName).fontSize(15).width('54%').fontWeight(700).fontColor('#31D6CD')
-              Text(this.signature).fontSize(10).width('54%')
+              Text(this.userName).fontSize(20).width('54%').fontWeight(700).fontColor('#31D6CD')
+              Text(this.signature).fontSize(14).width('54%').fontColor('white').maxLines(3)
+                // TODO：知识点：通过设定maxLines为1与textOverflow为Ellipsis表明最大行数为1行，超出宽度30%的部分为省略号
+                .textOverflow({ overflow: TextOverflow.Ellipsis })
             }
 
 
             //关注与粉丝
             Row(){
-              Text(this.follow + '关注').fontSize(15)
-              Text(this.fans + '粉丝').fontSize(15)
+              Text(this.follow + '关注').fontSize(15).fontColor('white')
+              Text(this.fans + '粉丝').fontSize(15).fontColor('white')
               Button({type:ButtonType.Capsule}){
-                Text('发送消息').fontColor('#F3F4F6').fontSize(10)
+                Text('发送消息').fontColor('#F3F4F6').fontSize(12)
               }.width(60).height(24).onClick(()=>{
                 console.log('关注')
               })
@@ -128,8 +130,8 @@ export struct OtherUserCard{
       .width('100%')
       .height(200)
       // .border({width:1 , color:'black'})
-      .backgroundImage(this.bgcImg)
-
+      .backgroundImage($r("app.media.bgcImg"))
+      .backgroundImageSize({width: '100%', height: '100%'})
 
 
       //下半部分 用户作品与收藏
