@@ -390,7 +390,48 @@ export class DynamicRequest {
 
     return theres
   }
+//发布动态
+  static async dynamicPublish(dynamicPublishData:any): Promise<any> {
+    let theres:any
+    let token:string = ''
 
+    token = PreferencesUtil.token
+    if (token == '') {
+      await PreferencesUtil.getUserToken().then((value) => {
+        token = value
+        console.log('getUserToken', JSON.stringify(token))
+      })
+    }
+    console.log('getDynamicItem token', token)
+
+    await axios.post(
+      `${baseUrl}/dynamic/publish`,
+      {
+        "title": dynamicPublishData.title,
+        "content": dynamicPublishData.content,
+        "imageUrls" : dynamicPublishData.imageUrls,
+        "typeId": dynamicPublishData.typeId
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'token': token
+        }
+      }
+    ).then((res: AxiosResponse) => {
+      if (res.status === 200) {
+          theres = res.data.errorMessage
+        console.log('dynamicPublishData', JSON.stringify(theres))
+      }else {
+        console.log('dynamicPublishData', res.data.errorMessage)
+      }
+    }).catch((err: AxiosError) => {
+      console.log('getAllDynamicType', err.message)
+    })
+
+    return theres
+  }
 
 
 

@@ -115,6 +115,17 @@ export struct OtherUserCard{
                 Text('发送消息').fontColor('#F3F4F6').fontSize(10)
               }.width(60).height(24).onClick(()=>{
                 console.log('关注')
+                UserRequest.getUserInfo(this.otherUserId).then((res) => {
+                  router.pushUrl({
+                    url:'pages/SendMessagePage',
+                    params:{
+                      userId:this.otherUserId,
+                      username:res.username,
+                      avatarUrl:res.avatarUrl
+                    }
+                  })
+                })
+
               })
 
             }.width('54%').justifyContent(FlexAlign.SpaceBetween)

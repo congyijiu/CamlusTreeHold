@@ -42,7 +42,7 @@ export struct PersonPageCard{
 
   //强制刷新页面
   onShow(){
-    // this.aboutToAppear()
+    this.aboutToAppear()
     router.pushUrl(
       { url: 'pages/MyPage',
         params: {
