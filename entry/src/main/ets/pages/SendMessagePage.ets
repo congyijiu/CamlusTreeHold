@@ -68,9 +68,9 @@ struct SendMessagePage {
               .width('100%')
 
             })
-          }.height('80%')
+          }.height('87%')
           .width('100%')
-          .backgroundColor(0xDCDCDC)
+          .backgroundColor('#F0F0F0')
           .onReachStart(()=>{
             console.log('到达顶部')
             this.LoadMoreMessage()
