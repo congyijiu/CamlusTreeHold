@@ -24,15 +24,15 @@ struct MessagePage {
       console.log('12312', JSON.stringify( this.userList))
     })
     //监听消息
-    webSocketUtil.ws.on('message', (err,data) => {
-      const Sender = JSON.parse(data.data)
+    webSocketUtil.ws.on('message',(err,data) => {
+      const Sender = JSON.parse(data)
       console.log('Sender', JSON.stringify(Sender))
       var repeat = false
       //判断是否重复
       this.userList.forEach((item) => {
         if(item.userId == Sender.sendUserId){
           item.content = Sender.content
-          item.time = Sender.time
+          item.time = new Date().getTime()
           item.noreadNum += 1
           repeat = true
         }

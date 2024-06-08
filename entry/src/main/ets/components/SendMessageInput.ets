@@ -18,9 +18,7 @@ export struct SendMessageInput{
         .margin(20)
         .fontSize(14)
         .fontColor(Color.Black)
-        .inputFilter('[a-z]', (e) => {
-          console.log(JSON.stringify(e))
-        })
+
         .onChange((value: string) => {
           this.myText = value
         })
