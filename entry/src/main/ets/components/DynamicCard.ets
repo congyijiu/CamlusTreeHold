@@ -48,7 +48,7 @@ export struct DynamicCard {
           .width(20)
           .height(20)
           .borderRadius(25)
-          .border({ width: 1, color: '#AFB1B3' })
+          .border({color:'#f0f0f0',width:1})
         Text(`${this.dynamicItem.username}`)
           .fontSize(12)
           .fontColor('#3C3F41')

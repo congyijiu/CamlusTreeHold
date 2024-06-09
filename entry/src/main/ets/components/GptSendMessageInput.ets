@@ -132,7 +132,6 @@ export struct GptSendMessageInput{
         imageBase64:''
       }
       this.MessageList.push(gptmessage)
-
     })
   }
 }
