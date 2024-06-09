@@ -44,36 +44,49 @@ struct SendMessagePage {
        }
        this.senderMessage.push(obj);
        console.log('senderMessage',this.senderMessage)
+       this.scroller.scrollEdge(Edge.Bottom)
      })
   }
   build() {
       Column() {
         Column(){
           ChatTap({username:this.username})
-          List(){
-            ForEach(this.senderMessage,(item)=> {
-              ListItem() {
-                Column() {
-                  if(item.sendUserId==this.OtheruserId)
-                  {
-                    ReceiverMessage({senderMessage: item.content,SenderImage:this.avatarUrl})
-                  }
-                  else {
-                    SenderMessage({senderMessage: item.content,SenderImage:this.myavatarUrl})
-                  }
+          Scroll(this.scroller){
+            List({scroller:this.scroller}){
+              ForEach(this.senderMessage,(item)=> {
+                ListItem() {
+                  Column() {
+                    if(item.sendUserId==this.OtheruserId)
+                    {
+                      ReceiverMessage({senderMessage: item.content,SenderImage:this.avatarUrl})
+                    }
+                    else {
+                      SenderMessage({senderMessage: item.content,SenderImage:this.myavatarUrl})
+                    }
 
+                  }
+                  .width('100%')
                 }
                 .width('100%')
-              }
-              .width('100%')
 
+              })
+            }
+            .backgroundColor(0xDCDCDC)
+            .onReachStart(()=>{
+              console.log('到达顶部')
+              this.LoadMoreMessage()
             })
-          }.height('87%')
+            .onAreaChange((oldValue: Area, newValue: Area)=>{
+              console.log('onAreaChange',JSON.stringify(newValue))
+              this.scroller.scrollEdge(Edge.Bottom)
+            })
+          }.height('80%')
           .width('100%')
-          .backgroundColor('#F0F0F0')
-          .onReachStart(()=>{
-            console.log('到达顶部')
-            this.LoadMoreMessage()
+          .align(Alignment.TopStart)
+          .backgroundColor(0xDCDCDC)
+          .onAreaChange((oldValue: Area, newValue: Area)=>{
+            console.log('onAreaChange',JSON.stringify(newValue))
+            this.scroller.scrollEdge(Edge.Bottom)
           })
         }
         Column(){

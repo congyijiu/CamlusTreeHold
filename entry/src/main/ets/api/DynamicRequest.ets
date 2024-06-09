@@ -190,7 +190,7 @@ export class DynamicRequest {
   }
 
 
-
+  //添加动态评论
   static async addDynamicComment(dynamicCommentsAddDto: any): Promise<any> {
     let dynamicItem:DynamicItem[] = []
     let token:string = ''
@@ -235,6 +235,8 @@ export class DynamicRequest {
     return comment
   }
 
+
+  //获取所有动态类型
   static async getAllDynamicType(): Promise<DynamicType[]> {
     let dynamicItem:DynamicItem[] = []
     let token:string = ''
@@ -274,6 +276,8 @@ export class DynamicRequest {
     return dynamicTypeList
   }
 
+
+  //获取动态TOP10
   static async getDynamicTop10(): Promise<DynamicItem[]> {
     let dynamicItem:DynamicItem[] = []
     let token:string = ''
@@ -310,6 +314,8 @@ export class DynamicRequest {
     return dynamicItem
   }
 
+
+  //用户动态行为
   static async userDynamicActions(dynamicActionDto:any): Promise<any> {
     let theres:any
     let token:string = ''
@@ -351,6 +357,8 @@ export class DynamicRequest {
     return theres
   }
 
+
+  //动态点赞行为
   static async dynamicCommentsLike(dynamicCommentsActionDto:any): Promise<any> {
     let theres:any
     let token:string = ''
@@ -390,7 +398,48 @@ export class DynamicRequest {
 
     return theres
   }
+//发布动态
+  static async dynamicPublish(dynamicPublishData:any): Promise<any> {
+    let theres:any
+    let token:string = ''
 
+    token = PreferencesUtil.token
+    if (token == '') {
+      await PreferencesUtil.getUserToken().then((value) => {
+        token = value
+        console.log('getUserToken', JSON.stringify(token))
+      })
+    }
+    console.log('getDynamicItem token', token)
+
+    await axios.post(
+      `${baseUrl}/dynamic/publish`,
+      {
+        "title": dynamicPublishData.title,
+        "content": dynamicPublishData.content,
+        "imageUrls" : dynamicPublishData.imageUrls,
+        "typeId": dynamicPublishData.typeId
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'token': token
+        }
+      }
+    ).then((res: AxiosResponse) => {
+      if (res.status === 200) {
+          theres = res.data.errorMessage
+        console.log('dynamicPublishData', JSON.stringify(theres))
+      }else {
+        console.log('dynamicPublishData', res.data.errorMessage)
+      }
+    }).catch((err: AxiosError) => {
+      console.log('getAllDynamicType', err.message)
+    })
+
+    return theres
+  }
 
 
 

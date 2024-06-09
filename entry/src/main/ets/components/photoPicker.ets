@@ -1,21 +1,22 @@
-// @ts-nocheck
+
 import picker from '@ohos.file.picker';
 import {imageSourceToBase64} from '../utils/imageSourceToBase64';
 import fs from '@ohos.file.fs';
 import image from '@ohos.multimedia.image';
 import {ImageShow} from '../components/ImageShow';
+import {DynamicRequest} from '../api/DynamicRequest';
+import promptAction from '@ohos.promptAction';
+import router from '@ohos.router'
 @Preview
 @Component
 export  struct photopicker {
-   URI:String = null;
-  @State Url:Array<String> = [];
-  @State Base64Array:Array<String> = [];
-  @State title :String = "";
-  @State content :String = "";
+   URI:string = null;
+  @State Url:Array<string> = [];
+    Base64Array:Array<string> = [];
+  @State title :string = "";
+  @State content :string = "";
    photoViewPicker = new picker.PhotoViewPicker();
   photoSelectOptions = new picker.PhotoSelectOptions();
-  controller: TextInputController = new TextInputController()
-  TextAreaController: TextAreaController = new TextAreaController()
   build() {
       Column() {
         Row() {
@@ -49,7 +50,7 @@ export  struct photopicker {
             .textAlign(TextAlign.Center)
             .fontSize(25)
         }.width('100%').height('20%').alignItems(VerticalAlign.Top)
-        TextInput({teext:this.title,placeholder:'请输入标题',controller: this.controller})
+        TextInput({text:this.title,placeholder:'请输入标题'})
           .placeholderColor(Color.Gray)
           .placeholderFont({ size: 14, weight: 400 })
           .width(400)
@@ -58,16 +59,14 @@ export  struct photopicker {
           .fontSize(14)
           .fontColor(Color.Black)
           .backgroundColor(Color.White)
-          .inputFilter('[a-z]', (e) => {
-            console.log(JSON.stringify(e))
-          })
           .onChange((value: string) => {
             console.log('title: ' + value)
+            this.title = value
           })
         Divider()
           .vertical(false)
           .width('90%')
-        TextArea({text:this.content,placeholder:'请输入内容',controller: this.TextAreaController})
+        TextArea({text:this.content,placeholder:'请输入内容'})
           .width('90%')
           .height(200)
           .margin(20)
@@ -78,7 +77,6 @@ export  struct photopicker {
             this.content = value
             console.log('content: ' + value)
           })
-
         Button('上传图片')
           .onClick(() => {
             for (let index = 0; index < this.Url.length; index++) {
@@ -88,20 +86,62 @@ export  struct photopicker {
               let format = 'image/jpeg'
               const imageSource =  image.createImageSource(file.fd)
               imageSourceToBase64(format,imageSource).then((base64) => {
-                this.Base64Array[index] = base64;
+                this.Base64Array.push(base64);
                 console.info('base64: ' + base64);
               }).catch((err) => {
                 console.error(`Invoke imageSourceToBase64 failed, code is ${err.code}, message is ${err.message}`);
               })
               fs.closeSync(file);
             }
+            promptAction.showToast({
+              message: '图片上传成功',
+              duration: 2000,
+              bottom: 50
+            });
           })
           .width(200)
         Button('发布帖子')
           .onClick(() => {
-            console.info('title: ' + this.title);
-            console.info('content: ' + this.content);
-            console.info('Base64Array: ' + this.Base64Array);
+            var dynamicPublishData = {
+              title: this.title,
+              content: this.content,
+              imageUrls: this.Base64Array,
+              typeId: 0
+            }
+            if(this.title == "" || this.content == ""){
+              promptAction.showToast({
+                message: '信息不完整或图片未上传',
+                duration: 2000,
+                bottom: 50
+              });
+              return;
+            }
+            if(this.Base64Array.length == 0){
+              promptAction.showToast({
+                message: '请上传图片',
+                duration: 2000,
+                bottom: 50
+              });
+              return;
+            }
+            else {
+              DynamicRequest.dynamicPublish(dynamicPublishData)
+                .then(() => {
+                  console.info('dynamicPublish succeed');
+                  promptAction.showToast({
+                    message: '发布成功',
+                    duration: 2000,
+                    bottom: 50
+                  });
+                })
+              router.clear();
+              router.pushUrl({
+                url: 'pages/MyPage',
+                params: {
+                  isflush: true
+                }
+              })
+            }
           })
           .width(200)
           .margin({top:20})

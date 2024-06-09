@@ -15,7 +15,7 @@ export struct registerCard{
     Column({space: 15}){
       //图片
       Row(){
-        Image($r('app.media.logo')).width('86%').height(150).borderRadius(20)
+        Image($r('app.media.img_ico')).width('70%').height(150).borderRadius(20)
       }
 
       //文字信息
@@ -23,12 +23,13 @@ export struct registerCard{
         Text('Welcome Back')
           .fontSize(25)
           .fontWeight(500)
-
+          .fontColor('white')
       }
 
       //登录注册文字
       Row(){
         Text('登录').fontSize(20)
+          .fontColor('white')
           .onClick(()=>{
             //处理点击事件
             router.pushUrl(
@@ -41,6 +42,7 @@ export struct registerCard{
 
 
         Text('注册').fontSize(20)
+          .fontColor('white')
           .onClick(()=>{
             //处理点击事件
 
@@ -52,7 +54,7 @@ export struct registerCard{
           })
           .decoration({
           type: TextDecorationType.Underline,
-          color: Color.Blue
+          color: Color.White
         })
 
 
@@ -118,6 +120,8 @@ export struct registerCard{
     .height('100%')
     .borderWidth(1)
     .padding(80)
+    .backgroundImage($r('app.media.bgcImag'))
+    .backgroundImageSize({width: '100%', height: '100%'})
   }
 
 }

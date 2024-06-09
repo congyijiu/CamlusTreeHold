@@ -19,6 +19,7 @@ export struct SendMessageInput{
         .fontSize(14)
         .fontColor(Color.Black)
         .border({ width: 1, color: '#f0f0f0' })
+
         .onChange((value: string) => {
           this.myText = value
         })

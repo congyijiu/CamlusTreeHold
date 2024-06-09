@@ -20,10 +20,10 @@ import { UserWaterFlowTabs } from './UserWaterFlowTabs';
 export struct PersonPageCard{
   @State private userImg : string = 'https://ts1.cn.mm.bing.net/th/id/R-C.57384e4c2dd256a755578f00845e60af?rik=uy9%2bvT4%2b7Rur%2fA&riu=http%3a%2f%2fimg06file.tooopen.com%2fimages%2f20171224%2ftooopen_sy_231021357463.jpg&ehk=whpCWn%2byPBvtGi1%2boY1sEBq%2frEUaP6w2N5bnBQsLWdo%3d&risl=&pid=ImgRaw&r=0'
   @State private userName: string ='林甲锋'
-  @State private signature: string ='我爱免无围现约，我林甲锋是个大使逼1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
+  @State private signature: string ='我爱免无围现约，我林甲锋是个大'
   @State private follow: number = 1
   @State private fans: number = 1
-  @State private bgcImg: string = 'https://img.zcool.cn/community/01b2945b0663dda801218cf4617993.jpg@3000w_1l_0o_100sh.jpg'
+  @State private bgcImg: string = 'https://p4.wallpaperbetter.com/wallpaper/232/503/785/blue-lake-blue-lake-nature-lakes-hd-art-wallpaper-preview.jpg'
   @State private testToken : string = '12'
   @State private userID : number = 2
   @State private testId : number = 0
@@ -42,7 +42,7 @@ export struct PersonPageCard{
 
   //强制刷新页面
   onShow(){
-    // this.aboutToAppear()
+    this.aboutToAppear()
     router.pushUrl(
       { url: 'pages/MyPage',
         params: {
@@ -103,7 +103,7 @@ export struct PersonPageCard{
        //退出按钮
        Row(){
          // Image($r('app.media.ic_camera_master_ai_leaf'))
-         Image($r('app.media.quit')).width(26).height(26)
+         Image($r('app.media.quit1')).width(26).height(26)
            .onClick(async (res)=>{
              //处理点击事件
              //1.token清''
@@ -163,17 +163,19 @@ export struct PersonPageCard{
         //姓名和签名
         Column(){
           Column(){
-            Text(this.userName).fontSize(15).width('54%').fontWeight(700).fontColor('#31D6CD')
-            Text(this.signature).fontSize(10).width('54%')
+            Text(this.userName).fontSize(20).width('54%').fontWeight(700).fontColor('#31D6CD')
+            Text(this.signature).fontSize(14).width('54%').fontColor('white').maxLines(3)
+              // TODO：知识点：通过设定maxLines为1与textOverflow为Ellipsis表明最大行数为1行，超出宽度30%的部分为省略号
+              .textOverflow({ overflow: TextOverflow.Ellipsis })
           }
 
 
           //关注与粉丝
           Row(){
-            Text(this.follow + '关注').fontSize(15)
-            Text(this.fans + '粉丝').fontSize(15)
+            Text(this.follow + '关注').fontSize(15).fontColor('white')
+            Text(this.fans + '粉丝').fontSize(15).fontColor('white')
             Button({type:ButtonType.Capsule}){
-              Text('编辑资料').fontColor('#F3F4F6').fontSize(10)
+              Text('编辑资料').fontColor('#F3F4F6').fontSize(12)
             }.width(60).height(24).onClick(()=>{
               //处理点击事件
               router.pushUrl(
@@ -196,8 +198,8 @@ export struct PersonPageCard{
      .width('100%')
       .height(200)
       // .border({width:1 , color:'black'})
-      .backgroundImage(this.bgcImg)
-
+      .backgroundImage($r("app.media.bgcImg"))
+      .backgroundImageSize({width: '100%', height: '100%'})
 
 
       //下半部分 用户作品与收藏
