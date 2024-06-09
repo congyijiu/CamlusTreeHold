@@ -184,6 +184,7 @@ export struct DynamicDetailCommentCart {
             .borderRadius(50)
             .width(25)
             .height(25)
+            .border({color:'#f0f0f0',width:1})
             .onClick(()=>{
               console.info('点击了评论头像');
               router.pushUrl(
