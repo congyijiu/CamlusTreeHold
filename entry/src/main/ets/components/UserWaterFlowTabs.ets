@@ -2,6 +2,7 @@ import DynamicType from '../viewmodel/DynamicType'
 import { DynamicWaterFlow } from './DynamicWaterFlow'
 import { UserDynamicWaterFlow } from './UserDynamicWaterFlow'
 import { UserPublishDynamicWaterFlow } from './UserPublishWaterFlow'
+import { nodataimage } from '../common/common'
 
 @Preview
 @Component
@@ -35,8 +36,16 @@ export struct UserWaterFlowTabs {
         // ForEach(this.dynamicTypeList, (item:DynamicType,index:number) => {
 
           TabContent(){
+            if(this.dynamicTypeList.length == 0){
+              Image(nodataimage)
+                .width(60)
+                .height(60)
+                .position({ x: 160, y: 380 })
+            }
             //这里设置瀑布流
-            UserPublishDynamicWaterFlow({type:parseInt('0')})
+            else{
+              UserPublishDynamicWaterFlow({type:parseInt('0')})
+            }
           }.tabBar(this.TabBuilder(0, '用户动态'))
 
           TabContent(){

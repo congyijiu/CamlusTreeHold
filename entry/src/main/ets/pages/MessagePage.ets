@@ -1,5 +1,5 @@
 import router from '@ohos.router'
-import { openaiimage } from '../common/common'
+import { openaiimage,nodataimage } from '../common/common'
 import {messageList} from '../components/MessageList'
 import {NavigationToolBar} from '../components/NavigationToolBar'
 import {webSocketUtil} from '../common/webSocketUtil'
@@ -61,10 +61,22 @@ struct MessagePage {
   build() {
     Column(){
       Column() {
-        ForEach(this.userList, (item) => {
-          messageList({userItem: item})
-        })
-
+        if(this.userList.length == 0){
+          Image(nodataimage)
+            .width(60)
+            .height(60)
+            .position({ x: 160, y: 380 })
+          Text('暂无消息')
+            .fontSize(20)
+            .position({ x: 150, y: 450 })
+            .fontColor(Color.Gray)
+            .fontWeight(10)
+        }
+        else {
+          ForEach(this.userList, (item) => {
+            messageList({userItem: item})
+          })
+        }
       }
       .width('100%')
       .height('95%').border({width: 1, color:Color.Red})

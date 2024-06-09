@@ -1,4 +1,4 @@
-const baseUrl = 'http://192.168.1.12:8080'
+const baseUrl = 'http://192.168.31.82:8080'
 const gptUrl = 'http://0.0.0.0:0000'
 
 const gpttoken = 'sk-RPsa5iOX6J0NHDyVBbCe0e01F42f44FfA34069BbB17fA326'
@@ -13,10 +13,11 @@ const hotimage = $r('app.media.hot')
 const backimage = $r('app.media.back')
 const phtoimage = $r('app.media.phto')
 const openaiimage = $r('app.media.openai')
+const nodataimage = $r('app.media.noData')
 
 
 
 export { baseUrl , testtoken,likeimage,favoriteimage,
   like1image,favorite1image,searchimage,hotimage,
-  backimage,phtoimage,gptUrl,openaiimage,gpttoken
+  backimage,phtoimage,gptUrl,openaiimage,gpttoken,nodataimage
 }
