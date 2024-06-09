@@ -9,6 +9,7 @@ export interface IMessageDetail{
   readed: null,
   delete: null,
   sendTime: string
+  imageBase64: string
 }
 
 
@@ -21,6 +22,7 @@ acceptUserId: number;
 sendUserId: number;
 id: number;
 delete: null;
+  imageBase64: string;
 
   constructor(pros: MessageDetail) {
     this.id = pros.id;
@@ -31,6 +33,7 @@ delete: null;
     this.readed = pros.readed;
     this.delete = pros.delete;
     this.sendTime = pros.sendTime;
+    this.imageBase64 = pros.imageBase64;
   }
 
 }

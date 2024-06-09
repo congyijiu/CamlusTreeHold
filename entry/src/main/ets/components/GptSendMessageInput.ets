@@ -63,7 +63,7 @@ export struct GptSendMessageInput{
             .onClick(() => {
               // open the photo picker
               this.photoSelectOptions.MIMEType = picker.PhotoViewMIMETypes.IMAGE_TYPE;
-              this.photoSelectOptions.maxSelectNumber = 5;
+              this.photoSelectOptions.maxSelectNumber = 1;
 
               this.photoViewPicker.select(this.photoSelectOptions).then((photoSelectResult) => {
                 let i = 0;

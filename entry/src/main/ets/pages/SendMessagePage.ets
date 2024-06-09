@@ -41,6 +41,7 @@ struct SendMessagePage {
          sendUserId: this.OtheruserId,
          id: null,
          delete: null,
+         imageBase64: acceptMessage.imageBase64,
        }
        this.senderMessage.push(obj);
        console.log('senderMessage',this.senderMessage)
@@ -58,10 +59,10 @@ struct SendMessagePage {
                   Column() {
                     if(item.sendUserId==this.OtheruserId)
                     {
-                      ReceiverMessage({senderMessage: item.content,SenderImage:this.avatarUrl})
+                      ReceiverMessage({senderMessage: item.content,SenderImage:this.avatarUrl,imageBase64:item.imageBase64})
                     }
                     else {
-                      SenderMessage({senderMessage: item.content,SenderImage:this.myavatarUrl})
+                      SenderMessage({senderMessage: item.content,SenderImage:this.myavatarUrl,imageBase64:item.imageBase64})
                     }
 
                   }
