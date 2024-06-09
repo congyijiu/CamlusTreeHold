@@ -71,7 +71,7 @@ struct SendMessagePage {
 
               })
             }
-            .backgroundColor(0xDCDCDC)
+            .backgroundColor('#f0f0f0')
             .onReachStart(()=>{
               console.log('到达顶部')
               this.LoadMoreMessage()
@@ -80,10 +80,10 @@ struct SendMessagePage {
               console.log('onAreaChange',JSON.stringify(newValue))
               this.scroller.scrollEdge(Edge.Bottom)
             })
-          }.height('80%')
+          }.height('87%')
           .width('100%')
           .align(Alignment.TopStart)
-          .backgroundColor(0xDCDCDC)
+          .backgroundColor('#f0f0f0')
           .onAreaChange((oldValue: Area, newValue: Area)=>{
             console.log('onAreaChange',JSON.stringify(newValue))
             this.scroller.scrollEdge(Edge.Bottom)
