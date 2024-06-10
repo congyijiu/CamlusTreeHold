@@ -20,36 +20,24 @@ struct SendMessagePage {
   "index":1,
   "size":10
    }
+  
+  messageJsonData:string = ''
   myUserId:number
- myavatarUrl:string
+  myavatarUrl:string
    async  aboutToAppear(){
      this.OtheruserId = router.getParams()?.['userId']
      this.username = router.getParams()?.['username']
      this.avatarUrl = router.getParams()?.['avatarUrl']
+
      this.myUserId = PreferencesUtil.userId
       this.myavatarUrl = await PreferencesUtil.getPreferenceValue('MyPreferences','avatarUrl','') as unknown as string
-     webSocketUtil.ws.on('message', (value) => {
-         const acceptMessage = JSON.parse(value);
-         console.log('Parsed message:', value);
-         let obj = {
-           sendTime: null,
-           readed: null,
-           content: acceptMessage.content,
-           type: 'text',
-           acceptUserId: null,
-           sendUserId: this.OtheruserId,
-           id: null,
-           delete: null,
-           imageBase64: acceptMessage.imageBase64,
-         };
-         this.senderMessage.push(obj);
-         console.log('senderMessage', this.senderMessage);
-         this.scroller.scrollEdge(Edge.Bottom);
+     this.LoadMessage()
+     webSocketUtil.ws.on('message', (err,value) => {
+        console.log('aboutToAppear Received message:', value);
+        console.log('aboutToAppear Received message:', err);
+         this.parseData(value)
      });
    }
-  async  onPageShow(){
-   await this.LoadMessage()
-  }
   build() {
       Column() {
         Column(){
@@ -74,10 +62,7 @@ struct SendMessagePage {
 
               })
 
-            } .onAreaChange((oldValue: Area, newValue: Area)=>{
-              console.log('onAreaChange',JSON.stringify(newValue))
-              this.scroller.scrollEdge(Edge.Bottom)
-            })
+            }
             .backgroundColor('#f0f0f0')
           }.height('87%')
           .width('100%')
@@ -97,7 +82,7 @@ struct SendMessagePage {
       .width('100%')
     }
 
-  async  LoadMessage()
+  LoadMessage()
   {
     this.MessageDetailData.acceptUserId = this.OtheruserId
     MessageRequest.getMessageDetail(this.MessageDetailData).then((res)=>{
@@ -120,4 +105,31 @@ struct SendMessagePage {
       })
     })
   }
+  parseData(data: string) {
+    if (data.endsWith('-MessageInEnd')) {
+      data = data.slice(0, -'-MessageInEnd'.length);
+      this.messageJsonData += data;
+      console.log('this.messageJsonData Received message:', this.messageJsonData);
+      const acceptMessage = JSON.parse(this.messageJsonData)
+      console.log('Parsed message:', data);
+      let obj = {
+        sendTime: null,
+        readed: null,
+        content: acceptMessage.content,
+        type: 'text',
+        acceptUserId: null,
+        sendUserId: this.OtheruserId,
+        id: null,
+        delete: null,
+        imageBase64: acceptMessage.imageBase64,
+      };
+      this.senderMessage.push(obj);
+      console.log('senderMessage', this.senderMessage);
+      this.messageJsonData = '';
+    }else {
+      this.messageJsonData += data;
+    }
+
+  }
+
 }
