@@ -13,8 +13,9 @@ export struct ReceiverMessage{
         .borderRadius(20)
         .backgroundColor(Color.Black)
         .margin({left: 7,right: 7,top:10})
-      Column(){
+
         Flex({ direction: FlexDirection.RowReverse }) {
+          Column(){
           Text(this.senderMessage)
             .backgroundColor(Color.White)
             .padding(6)
@@ -28,11 +29,12 @@ export struct ReceiverMessage{
               .borderRadius(10)
               .margin({ top: 0 })
           }
-        }
+        }.borderRadius(10)
+          .margin({top: 10})
+          .backgroundColor("#ADD8E6")
       }
-      .borderRadius(10)
-      .margin({top: 10})
-      .backgroundColor("#ADD8E6")
+      .width("70%")
+
 
     }.width("100%").justifyContent(FlexAlign.Start)
   }

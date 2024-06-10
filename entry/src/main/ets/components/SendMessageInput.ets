@@ -20,65 +20,89 @@ export struct SendMessageInput{
   photoSelectOptions = new picker.PhotoSelectOptions();
   build(){
     Row(){
-      TextArea({placeholder:'请输入',text:this.myText})
-        .placeholderColor(Color.Grey)
-        .placeholderFont({ size: 14, weight: 400 })
-        .caretColor(Color.Blue)
-        .width(250)
-        .height(40)
-        .margin(20)
-        .fontSize(14)
-        .fontColor(Color.Black)
-        .border({ width: 1, color: '#f0f0f0' })
+      Column(){
+        Row(){
+          TextArea({placeholder:'请输入',text:this.myText})
+            .placeholderColor(Color.Grey)
+            .placeholderFont({ size: 14, weight: 400 })
+            .caretColor(Color.Blue)
+            .width(250)
+            .height(40)
+            .margin(20)
+            .fontSize(14)
+            .fontColor(Color.Black)
+            .border({ width: 1, color: '#f0f0f0' })
 
-        .onChange((value: string) => {
-          this.myText = value
-        })
-        .backgroundColor(Color.White)
+            .onChange((value: string) => {
+              this.myText = value
+            })
+            .backgroundColor(Color.White)
 
-      Image(phtoimage)
-        .width(30)
-        .onClick(() => {
-          // open the photo picker
-          this.photoSelectOptions.MIMEType = picker.PhotoViewMIMETypes.IMAGE_TYPE;
-          this.photoSelectOptions.maxSelectNumber = 1;
+          Image(phtoimage)
+            .width(30)
+            .onClick(() => {
+              // open the photo picker
+              this.photoSelectOptions.MIMEType = picker.PhotoViewMIMETypes.IMAGE_TYPE;
+              this.photoSelectOptions.maxSelectNumber = 1;
 
-          this.photoViewPicker.select(this.photoSelectOptions).then((photoSelectResult) => {
-            let i = 0;
-            for (i = 0; i < photoSelectResult.photoUris.length; i++) {
-              this.imageUrl = photoSelectResult.photoUris[i];
-            }
-            this.tobase64()
-            console.log('photoViewPicker.select to file succeed and URI is:' + photoSelectResult);
-            console.info('photoViewPicker.select to file succeed and URI is:' + JSON.stringify(this.imageUrl));
-          }).catch((err) => {
-            console.error(`Invoke photoViewPicker.select failed, code is ${err.code}, message is ${err.message}`);
-          })
-        })
-      Button('发送')
-        .onClick(() => {
-          //将myText的值添加到senderMessage数组中
-          if (this.myText!=='') {
-            let obj = {
-              sendTime: null,
-              readed: null,
-              content: this.myText,
-              type: 'text',
-              acceptUserId: null,
-              sendUserId: this.myuserId,
-              id: null,
-              delete: null,
-              imageBase64:this.imageBase64,
-            }
-            this.senderMessage.push(obj)
+              this.photoViewPicker.select(this.photoSelectOptions).then((photoSelectResult) => {
+                let i = 0;
+                for (i = 0; i < photoSelectResult.photoUris.length; i++) {
+                  this.imageUrl = photoSelectResult.photoUris[i];
+                }
+                this.tobase64()
+                console.log('photoViewPicker.select to file succeed and URI is:' + photoSelectResult);
+                console.info('photoViewPicker.select to file succeed and URI is:' + JSON.stringify(this.imageUrl));
+              }).catch((err) => {
+                console.error(`Invoke photoViewPicker.select failed, code is ${err.code}, message is ${err.message}`);
+              })
+            })
+          Button('发送')
+            .onClick(() => {
+              //将myText的值添加到senderMessage数组中
+              if (this.myText!=='') {
+                let obj = {
+                  sendTime: null,
+                  readed: null,
+                  content: this.myText,
+                  type: 'text',
+                  acceptUserId: null,
+                  sendUserId: this.myuserId,
+                  id: null,
+                  delete: null,
+                  imageBase64:this.imageBase64,
+                }
+                this.senderMessage.push(obj)
+              }
+              this.sendMessage()
+            })
+        }
+        .margin({top:5})
+        .justifyContent(FlexAlign.SpaceBetween)
+        .width('100%')
+        Row(){
+          if (this.imageUrl != '') {
+            Image(this.imageUrl)
+              .width(150)
+              .height(130)
+              .objectFit(ImageFit.Contain)
+              .onClick(() => {
+                console.log('点击图片')
+              })
+                // .border({ width: 1, color: '#3C3F41' })
+              .position({x: 250, y: -300})
+            // .border({ width: 1, color: '#3C3F41' })
           }
-          this.sendMessage()
-          this.myText = ''
-        })
+        }
+        .height(150)
+      }
+      .width('90%')
+      .alignItems(HorizontalAlign.Start)
     }
-    .width('100%')
-    .height(50)
-    .backgroundColor('#ffffff')
+    .justifyContent(FlexAlign.Center)
+    .alignItems(VerticalAlign.Top)
+    .backgroundColor(Color.White)
+    .width('100%').height(50)
 
   }
   sendMessage(){
@@ -87,8 +111,12 @@ export struct SendMessageInput{
     let data = {
       acceptUserId: this.OtheruserId,
       type: 'text',
-      content: this.myText
+      content: this.myText,
+      imageBase64:this.imageBase64
     }
+    this.myText = ''
+    this.imageUrl = ''
+    this.imageBase64 = ''
     let myMessage = JSON.stringify(data)
     console.log("Send message:" + myMessage)
     ws.send(myMessage,(err, value)=>{
