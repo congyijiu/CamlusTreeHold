@@ -28,7 +28,7 @@ struct SendMessagePage {
      this.avatarUrl = router.getParams()?.['avatarUrl']
      this.myUserId = await PreferencesUtil.getPreferenceValue('MyPreferences','id','') as unknown as number
       this.myavatarUrl = await PreferencesUtil.getPreferenceValue('MyPreferences','avatarUrl','') as unknown as string
-     this.LoadMessage()
+
      webSocketUtil.ws.on('message',(err,value)=>{
        console.log('message',value)
       const acceptMessage = JSON.parse(value)
@@ -48,12 +48,15 @@ struct SendMessagePage {
        this.scroller.scrollEdge(Edge.Bottom)
      })
   }
+  async  onPageShow(){
+   await this.LoadMessage()
+  }
   build() {
       Column() {
         Column(){
           ChatTap({username:this.username})
           Scroll(this.scroller){
-            List({scroller:this.scroller}){
+            List(){
               ForEach(this.senderMessage,(item)=> {
                 ListItem() {
                   Column() {
@@ -71,23 +74,21 @@ struct SendMessagePage {
                 .width('100%')
 
               })
-            }
-            .backgroundColor('#f0f0f0')
-            .onReachStart(()=>{
-              console.log('到达顶部')
-              this.LoadMoreMessage()
-            })
-            .onAreaChange((oldValue: Area, newValue: Area)=>{
+
+            } .onAreaChange((oldValue: Area, newValue: Area)=>{
               console.log('onAreaChange',JSON.stringify(newValue))
               this.scroller.scrollEdge(Edge.Bottom)
             })
+            .backgroundColor('#f0f0f0')
           }.height('87%')
           .width('100%')
           .align(Alignment.TopStart)
           .backgroundColor('#f0f0f0')
-          .onAreaChange((oldValue: Area, newValue: Area)=>{
-            console.log('onAreaChange',JSON.stringify(newValue))
-            this.scroller.scrollEdge(Edge.Bottom)
+          .onScrollEdge((edge: Edge)=>{
+            console.log('onScrollEdge',edge)
+            if(edge==0){
+              this.LoadMoreMessage()
+            }
           })
         }
         Column(){
@@ -97,7 +98,7 @@ struct SendMessagePage {
       .width('100%')
     }
 
-  LoadMessage()
+  async  LoadMessage()
   {
     this.MessageDetailData.acceptUserId = this.OtheruserId
     MessageRequest.getMessageDetail(this.MessageDetailData).then((res)=>{

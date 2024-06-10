@@ -7,7 +7,7 @@
   @State imageBase64:string = 'null';
   build(){
     Row(){
-        Flex({ direction: FlexDirection.RowReverse }){
+        Flex({direction: FlexDirection.RowReverse,justifyContent:FlexAlign.Start}){
           Column(){
             Text(this.senderMessage)
               .backgroundColor("#ADD8E6")
@@ -22,19 +22,21 @@
                 .objectFit(ImageFit.Contain)
                 .borderRadius(10)
                 .margin({ top: 0 })
+
             }
-          } .borderRadius(10)
+          }
           .margin({top: 10})
-          .backgroundColor("#ADD8E6")
+          .backgroundColor("#f0f0f0")
+          .alignItems(HorizontalAlign.End)
       }
+        .width('70%')
       Image(this.SenderImage)
         .width(40)
         .height(40)
         .borderRadius(20)
-        .backgroundColor(Color.Black)
         .margin({left: 7,top:3,right: 7})
     }
-    .width(300)
+    .width('100%')
     .justifyContent(FlexAlign.End)
     .alignItems(VerticalAlign.Top)
     .margin({top: 10})

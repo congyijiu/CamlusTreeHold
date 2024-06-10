@@ -11,13 +11,11 @@ export struct ReceiverMessage{
         .width(40)
         .height(40)
         .borderRadius(20)
-        .backgroundColor(Color.Black)
         .margin({left: 7,right: 7,top:10})
-
-        Flex({ direction: FlexDirection.RowReverse }) {
+        Flex({ direction: FlexDirection.RowReverse,justifyContent:FlexAlign.End}) {
           Column(){
           Text(this.senderMessage)
-            .backgroundColor(Color.White)
+            .backgroundColor("#ADD8E6")
             .padding(6)
             .borderRadius(10)
             .margin({ left: 7 })
@@ -29,13 +27,16 @@ export struct ReceiverMessage{
               .borderRadius(10)
               .margin({ top: 0 })
           }
-        }.borderRadius(10)
+        }
           .margin({top: 10})
-          .backgroundColor("#ADD8E6")
+          .backgroundColor("#f0f0f0")
+          .alignItems(HorizontalAlign.Start)
       }
       .width("70%")
 
-
-    }.width("100%").justifyContent(FlexAlign.Start)
+    }.width("100%")
+    .justifyContent(FlexAlign.Start)
+    .alignItems(VerticalAlign.Top)
+    .margin({top: 10})
   }
 }

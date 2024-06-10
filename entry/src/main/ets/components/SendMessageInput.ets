@@ -13,9 +13,7 @@ export struct SendMessageInput{
   OtheruserId:number
   myuserId:number
   @State imageUrl:string = ''
-
   @State imageBase64:string = ''
-
   photoViewPicker = new picker.PhotoViewPicker();
   photoSelectOptions = new picker.PhotoSelectOptions();
   build(){
