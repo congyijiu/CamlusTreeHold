@@ -22,7 +22,7 @@ acceptUserId: number;
 sendUserId: number;
 id: number;
 delete: null;
-  imageBase64: string;
+  imageBase64: string
 
   constructor(pros: MessageDetail) {
     this.id = pros.id;

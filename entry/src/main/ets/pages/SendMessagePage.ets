@@ -21,33 +21,32 @@ struct SendMessagePage {
   "size":10
    }
   myUserId:number
-  myavatarUrl:string
+ myavatarUrl:string
    async  aboutToAppear(){
      this.OtheruserId = router.getParams()?.['userId']
      this.username = router.getParams()?.['username']
      this.avatarUrl = router.getParams()?.['avatarUrl']
-     this.myUserId = await PreferencesUtil.getPreferenceValue('MyPreferences','id','') as unknown as number
+     this.myUserId = PreferencesUtil.userId
       this.myavatarUrl = await PreferencesUtil.getPreferenceValue('MyPreferences','avatarUrl','') as unknown as string
-
-     webSocketUtil.ws.on('message',(err,value)=>{
-       console.log('message',value)
-      const acceptMessage = JSON.parse(value)
-       let obj = {
-         sendTime: null,
-         readed: null,
-         content: acceptMessage.content,
-         type: 'text',
-         acceptUserId: null,
-         sendUserId: this.OtheruserId,
-         id: null,
-         delete: null,
-         imageBase64: acceptMessage.imageBase64,
-       }
-       this.senderMessage.push(obj);
-       console.log('senderMessage',this.senderMessage)
-       this.scroller.scrollEdge(Edge.Bottom)
-     })
-  }
+     webSocketUtil.ws.on('message', (value) => {
+         const acceptMessage = JSON.parse(value);
+         console.log('Parsed message:', value);
+         let obj = {
+           sendTime: null,
+           readed: null,
+           content: acceptMessage.content,
+           type: 'text',
+           acceptUserId: null,
+           sendUserId: this.OtheruserId,
+           id: null,
+           delete: null,
+           imageBase64: acceptMessage.imageBase64,
+         };
+         this.senderMessage.push(obj);
+         console.log('senderMessage', this.senderMessage);
+         this.scroller.scrollEdge(Edge.Bottom);
+     });
+   }
   async  onPageShow(){
    await this.LoadMessage()
   }

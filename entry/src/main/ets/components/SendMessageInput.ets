@@ -10,8 +10,8 @@ import image from '@ohos.multimedia.image';
 export struct SendMessageInput{
   @State myText: string = '';
   @Link senderMessage:MessageDetail[];
-  OtheruserId:number
-  myuserId:number
+  @State OtheruserId:number = 0
+  @State myuserId:number = 0
   @State imageUrl:string = ''
   @State imageBase64:string = ''
   photoViewPicker = new picker.PhotoViewPicker();
@@ -71,8 +71,8 @@ export struct SendMessageInput{
                   imageBase64:this.imageBase64,
                 }
                 this.senderMessage.push(obj)
+                this.sendMessage()
               }
-              this.sendMessage()
             })
         }
         .margin({top:5})
@@ -112,9 +112,6 @@ export struct SendMessageInput{
       content: this.myText,
       imageBase64:this.imageBase64
     }
-    this.myText = ''
-    this.imageUrl = ''
-    this.imageBase64 = ''
     let myMessage = JSON.stringify(data)
     console.log("Send message:" + myMessage)
     ws.send(myMessage,(err, value)=>{
@@ -124,6 +121,9 @@ export struct SendMessageInput{
         console.log("Send message failed. Err:" + JSON.stringify(err));
       }
     })
+    this.myText = ''
+    this.imageUrl = ''
+    this.imageBase64 = ''
   }
 
   tobase64(){
